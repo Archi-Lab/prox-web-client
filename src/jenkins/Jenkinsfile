@@ -1,6 +1,6 @@
 node {
 
-  def changelist = "dev-${env.BUILD_NUMBER}"
+  def changelist = "pp-ss2019-${env.BUILD_NUMBER}"
   def projectName = ""
   def tag = ""
 
@@ -22,7 +22,7 @@ node {
   }
 
   stage('Deploy') {
-    docker.withServer('tcp://10.10.10.42:2376', 'prox-dev-certs') {
+    docker.withServer('tcp://10.10.10.44:2376', 'prox-pp-ss2019-certs') {
       docker.withRegistry('https://docker.nexus.archi-lab.io', 'archilab-nexus-jenkins') {
         sh "env IMAGE=${projectName} TAG=${tag} docker stack deploy --with-registry-auth -c src/docker/docker-compose.yml -c src/docker/docker-compose.prod.yml ${projectName}"
       }
