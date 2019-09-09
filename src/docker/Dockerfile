@@ -26,11 +26,12 @@ RUN npm install -g @angular/cli@7.1.4 --unsafe
 # add app
 COPY . /usr/src/app
 
+ARG APP_ENV=--prod
 # run tests
 #RUN ng test --watch=false
 
 # generate build
-RUN ng build --prod
+RUN ng build ${APP_ENV}
 
 ##################
 ### production ###

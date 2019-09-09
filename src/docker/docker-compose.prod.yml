@@ -1,0 +1,12 @@
+version: "3.6"
+
+services:
+
+  web-client:
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: any
+        delay: 5s
+        max_attempts: 3
+        window: 120s

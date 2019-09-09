@@ -6,21 +6,39 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Installation
 
+To use the services from *.archi-lab.io
+``` bash
+# Execute from the project root folder
+docker build -t docker.nexus.archi-lab.io/archilab/prox-web-client -f ./src/docker/Dockerfile .
 ```
-docker build -t docker.nexus.archi-lab.io/archilab/prox-web-client .
+
+To use the local/dev services from localhost
+``` bash
+# Execute from the project root folder
+docker build --build-arg APP_ENV="" -t docker.nexus.archi-lab.io/archilab/prox-web-client -f ./src/docker/Dockerfile .
 ```
 
 Builds a Docker image based on the source code and the dependencies in the `package.json` and `package-lock.json`.
 
-## Usage
+## Local usage
 
+Powershell
+```posh
+$env:IMAGE='prox-web-client'; `
+$env:TAG='latest'; `
+docker-compose -f ./src/docker/docker-compose.yml up
 ```
-docker-compose -f docker-compose-web-client.yml up
+
+Bash/Shell
+```bash
+export IMAGE="prox-web-client" &&
+export TAG="latest" &&
+docker-compose -f ./src/docker/docker-compose.yml up
 ```
 
 Starts a Docker container based on the compose file and the image. A Docker network named `prox` is required for the communication between services:
 
-```
+``` bash
 docker network create prox
 ```
 
@@ -53,3 +71,4 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 This service is currently developed by members of the ArchiLab staff:
 
 - Julian Lengelsen ([@jlengelsen](https://github.com/jlengelsen))
+- Rudolf Grauberger ([@rudolfgrauberger](https://github.com/rudolfgrauberger))

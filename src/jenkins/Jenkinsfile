@@ -1,0 +1,31 @@
+node {
+
+  def changelist = "dev-${env.BUILD_NUMBER}"
+  def projectName = ""
+  def tag = ""
+
+  stage('Checkout') {
+    checkout scm
+  }
+
+  stage('Build') {
+    docker.withRegistry('https://docker.nexus.archi-lab.io', 'archilab-nexus-jenkins') {
+      def packageJSON = readJSON file: 'package.json'
+      def version = packageJSON.version
+      projectName = packageJSON.name
+      def image = "docker.nexus.archi-lab.io/archilab/${projectName}"
+      tag = "${version}-${changelist}"
+
+      sh "docker build -t ${image}:${tag} -f ./src/docker/Dockerfile ."
+      sh "docker push ${image}:${tag}"
+    }
+  }
+
+  stage('Deploy') {
+    docker.withServer('tcp://10.10.10.42:2376', 'prox-dev-certs') {
+      docker.withRegistry('https://docker.nexus.archi-lab.io', 'archilab-nexus-jenkins') {
+        sh "env IMAGE=${projectName} TAG=${tag} docker stack deploy --with-registry-auth -c src/docker/docker-compose.yml -c src/docker/docker-compose.prod.yml ${projectName}"
+      }
+    }
+  }
+}

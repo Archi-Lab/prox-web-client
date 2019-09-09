@@ -1,9 +1,0 @@
-version: "3.6"
-
-services:
-
-  web-client:
-    image: docker.nexus.archi-lab.io/archilab/prox-web-client
-    ports:
-      - "9090:80"
-    restart: always
