@@ -77,6 +77,20 @@
           </button>
         </mat-card-actions>
       </div>
+
+      <!--Display all proposals for the supervisor-->
+      <div *ngIf="user.hasRole('professor')">
+        <mat-card-title>Exposé Übersicht</mat-card-title>
+        <div *ngFor="let proposal of proposals">
+          <mat-card-title>Exposé von {{ proposal.studentId }}</mat-card-title>
+          <button mat-button routerLink="/proposal/{{ proposal.id }}">
+            Exposé bearbeiten
+          </button>
+          <button mat-button routerLink="/old-proposals/{{ project.id }}">
+            Alte Versionen
+          </button>
+        </div>
+      </div>
     </mat-card>
   </div>
 </div>
