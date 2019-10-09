@@ -21,6 +21,8 @@ export class ProjectDetailsComponent implements OnInit {
   hasPermission = false;
 
   proposals: Proposal[];
+  studentProposals: Proposal[];
+  publishedProposals: Proposal[];
 
   constructor(
     private projectService: ProjectService,
@@ -76,8 +78,18 @@ export class ProjectDetailsComponent implements OnInit {
   getProposals() {
     this.proposalService
       .findByProjectId(this.projectID.toString())
-      // .findByProjectId('774cab50-6d6e-40ed-8dd4-6630fd9b68ff')
-      .subscribe(proposals => (this.proposals = proposals));
+      .subscribe(
+        proposals => (this.proposals = proposals),
+        error1 => {},
+        () => this.filterProposals()
+      );
+  }
+
+  filterProposals() {
+    this.studentProposals = this.proposals.filter(
+      proposal => proposal.studentId === this.user.getID()
+    );
+    this.publishedProposals = this.proposals.filter(proposal => proposal.isPublished());
   }
 
   createProposal() {

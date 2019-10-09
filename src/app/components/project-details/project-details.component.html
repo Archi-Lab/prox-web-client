@@ -44,6 +44,15 @@
           </button>
         </div>
       </mat-card-actions>
+      <!--Displaying completed proposals-->
+      <mat-card-subtitle>Exposé</mat-card-subtitle>
+      <div *ngFor="let prop of publishedProposals">
+        <!--TO DO: Replace studenId with proper name-->
+        <mat-card-title>Von {{ prop.studentId }}</mat-card-title>
+        <mat-card-content>
+          <markdown [data]="prop.content"></markdown>
+        </mat-card-content>
+      </div>
     </mat-card>
   </div>
 </div>
