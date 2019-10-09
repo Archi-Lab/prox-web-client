@@ -58,7 +58,6 @@ import { DataProtectionComponent } from './components/legal-issues/data-protecti
 import { LiabilityNoticeComponent } from './components/legal-issues/liability-notice/liability-notice.component';
 import { ProposalEditorComponent } from './components/proposal-editor/proposal-editor.component';
 import { MarkdownModule } from 'ngx-markdown';
-import { OldProposalsComponentComponent } from './components/old-proposals-component/old-proposals-component.component';
 import { OldProposalsComponent } from './components/old-proposals/old-proposals.component';
 
 @NgModule({
@@ -79,7 +78,6 @@ import { OldProposalsComponent } from './components/old-proposals/old-proposals.
     DataProtectionComponent,
     LiabilityNoticeComponent,
     ProposalEditorComponent,
-    OldProposalsComponentComponent,
     OldProposalsComponent
   ],
   imports: [
