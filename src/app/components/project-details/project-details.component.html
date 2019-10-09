@@ -42,25 +42,8 @@
           >
             <mat-icon>edit</mat-icon>
           </button>
-
-          <button
-            mat-button
-            *ngIf="proposals.length == 0"
-            (click)="createProposal()"
-            class="no-hover"
-          >
-            Exposé anlegen
-          </button>
         </div>
       </mat-card-actions>
-
-      <div>
-        <div *ngFor="let proposal of proposals">
-          <button mat-button routerLink="/proposal/{{ proposal.id }}">
-            Exposé bearbeiten
-          </button>
-        </div>
-      </div>
     </mat-card>
   </div>
 </div>
