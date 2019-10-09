@@ -7,7 +7,6 @@ import { KeyCloakUser } from '../../keycloak/KeyCloakUser';
 import { ProposalService } from '../../core/services/proposal.service';
 import { Proposal } from '../../shared/hal-resources/proposal-resource';
 import { OldProposalContentService } from '../../core/services/old-proposal-content.service';
-// import {OldProposalContentService} from '../../core/services/old-proposal-content.service';
 
 @Component({
   selector: 'app-old-proposals',

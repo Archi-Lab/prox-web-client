@@ -98,6 +98,16 @@ export class ProjectDetailsComponent implements OnInit {
     proposalResource.projectId = this.projectID;
     proposalResource.supervisorId = this.project.creatorID;
     proposalResource.studentId = this.user.getID();
+    proposalResource.version = 1;
+    proposalResource.lastUpdateBy = 'STUD';
+
+    this.proposalService
+      .create(proposalResource)
+      .subscribe(
+        () => this.proposals.push(proposalResource),
+        error => console.log(error),
+        () => this.router.navigateByUrl('/proposal/' + proposalResource.id)
+      );
 
     this.proposalService
       .create(proposalResource)
