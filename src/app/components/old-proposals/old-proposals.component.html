@@ -1,0 +1,32 @@
+<div class="project-list">
+  <mat-card *ngFor="let archived of archivedProposals">
+    <mat-card-header>
+      <mat-card-subtitle>Version</mat-card-subtitle>
+      <mat-card-title>{{ archived.version }}</mat-card-title>
+      <mat-card-subtitle>Datum</mat-card-subtitle>
+      <mat-card-title>{{ archived.modified | date: 'dd.MM.yyyy - HH:mm' }}</mat-card-title>
+
+      <mat-card-subtitle>Geändert von</mat-card-subtitle>
+      <mat-card-title>
+        <div [class.geplant]="archived.lastUpdateBy === 'STUD'" class="status">
+          <span *ngIf="archived.lastUpdateBy == 'STUD'"> Student</span>
+          <span *ngIf="archived.lastUpdateBy == 'PROF'"> Betreuer</span>
+        </div>
+      </mat-card-title>
+
+      <mat-card-subtitle>Vorschau</mat-card-subtitle>
+      <mat-card-title title="{{ archived.content }}">
+        {{ archived.content.substr(0, 150) }}
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-actions>
+      <button
+        mat-button
+        *ngFor="let prop of proposals"
+        (click)="patchProposalContent(prop, archived.content)"
+      >
+        Exposé laden
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>
