@@ -58,6 +58,7 @@ import { DataProtectionComponent } from './components/legal-issues/data-protecti
 import { LiabilityNoticeComponent } from './components/legal-issues/liability-notice/liability-notice.component';
 import { ProposalEditorComponent } from './components/proposal-editor/proposal-editor.component';
 import { MarkdownModule } from 'ngx-markdown';
+import { OldProposalsComponentComponent } from './components/old-proposals-component/old-proposals-component.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,8 @@ import { MarkdownModule } from 'ngx-markdown';
     ImpressumComponent,
     DataProtectionComponent,
     LiabilityNoticeComponent,
-    ProposalEditorComponent
+    ProposalEditorComponent,
+    OldProposalsComponentComponent
   ],
   imports: [
     AppRoutingModule,
