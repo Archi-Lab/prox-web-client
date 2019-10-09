@@ -7,6 +7,7 @@ import { ProjectService } from '../../core/services/project.service';
 import { ProposalService } from '../../core/services/proposal.service';
 import { KeyCloakUser } from '../../keycloak/KeyCloakUser';
 import { FormControl } from '@angular/forms';
+import { OldProposalContentService } from '../../core/services/old-proposal-content.service';
 
 export type ViewMode = 'editor' | 'preview';
 
@@ -27,21 +28,24 @@ export class ProposalEditorComponent implements OnInit {
     private projectService: ProjectService,
     private proposalService: ProposalService,
     private route: ActivatedRoute,
-    private user: KeyCloakUser
+    private user: KeyCloakUser,
+    private contentService: OldProposalContentService
   ) {
     this.route.params.subscribe(params => (this.proposalID = params.id));
   }
 
   ngOnInit() {
-    this.getProposal();
+    this.loadProposal();
     this.proposalFormControl.setValue(this.proposal.content);
   }
 
-  getProposal() {
+  loadProposal() {
     this.proposalService.get(this.proposalID).subscribe(
       proposal => {
         this.proposal = proposal;
         this.proposalFormControl.setValue(proposal.content);
+        // change content to an older version if an archived proposal is loaded
+        this.loadOldContent();
       },
       error1 => {},
       () => this.getProject()
@@ -54,7 +58,40 @@ export class ProposalEditorComponent implements OnInit {
 
   patchProposalContent() {
     this.proposal.content = this.proposalFormControl.value;
+
+    if (this.user.hasRole('professor')) {
+      this.proposal.lastUpdateBy = 'PROF';
+    } else if (this.user.hasRole('student')) {
+      this.proposal.lastUpdateBy = 'STUD';
+    }
     this.proposalService.patch(this.proposal).subscribe();
+  }
+
+  permitPublishing() {
+    if (this.user.hasRole('professor')) {
+      this.proposal.supervisorPermitsPublish = true;
+    } else if (this.user.hasRole('student')) {
+      this.proposal.studentPermitsPublish = true;
+    }
+    this.proposalService.patch(this.proposal).subscribe();
+  }
+
+  disallowPublishing() {
+    if (this.user.hasRole('professor')) {
+      this.proposal.supervisorPermitsPublish = false;
+    } else if (this.user.hasRole('student')) {
+      this.proposal.studentPermitsPublish = false;
+    }
+    this.proposalService.patch(this.proposal).subscribe();
+  }
+
+  loadOldContent() {
+    this.contentService.getDescription().subscribe(oldContent => {
+      if (oldContent !== '') {
+        this.proposalFormControl.setValue(oldContent);
+        this.contentService.changeDescription('');
+      }
+    });
   }
 
   get showEditor() {

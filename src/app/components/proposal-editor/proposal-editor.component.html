@@ -18,6 +18,35 @@
 
     <div>
       <button mat-button (click)="patchProposalContent()">Exposé speichern</button>
+      <span *ngIf="user.hasRole('student')">
+        <button mat-button *ngIf="!proposal.studentPermitsPublish" (click)="permitPublishing()">
+          Veröffentlichung freigeben
+        </button>
+        <button mat-button *ngIf="proposal.studentPermitsPublish" (click)="disallowPublishing()">
+          Freigabe entziehen
+        </button>
+        <button mat-button *ngIf="proposal.supervisorPermitsPublish">
+          Dozent hat die Veröffentlichung freigegeben
+        </button>
+        <button mat-button *ngIf="!proposal.supervisorPermitsPublish">
+          Dozent hat die Veröffentlichung nicht freigegeben
+        </button>
+      </span>
+
+      <span *ngIf="user.hasRole('professor')">
+        <button mat-button *ngIf="!proposal.supervisorPermitsPublish" (click)="permitPublishing()">
+          Veröffentlichung freigeben
+        </button>
+        <button mat-button *ngIf="proposal.supervisorPermitsPublish" (click)="disallowPublishing()">
+          Freigabe entziehen
+        </button>
+        <button mat-button *ngIf="proposal.studentPermitsPublish">
+          Student hat die Veröffentlichung freigegeben
+        </button>
+        <button mat-button *ngIf="!proposal.studentPermitsPublish">
+          Student hat die Veröffentlichung nicht freigegeben
+        </button>
+      </span>
     </div>
   </mat-card>
 </div>

@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { KeyCloakUser } from '../../keycloak/KeyCloakUser';
 import { ProposalService } from '../../core/services/proposal.service';
 import { Proposal } from '../../shared/hal-resources/proposal-resource';
+import { OldProposalContentService } from '../../core/services/old-proposal-content.service';
 // import {OldProposalContentService} from '../../core/services/old-proposal-content.service';
 
 @Component({
@@ -23,8 +24,8 @@ export class OldProposalsComponent implements OnInit {
     private proposalService: ProposalService,
     private route: ActivatedRoute,
     private router: Router,
-    private user: KeyCloakUser /*,
-    private contentService: OldProposalContentService*/
+    private user: KeyCloakUser,
+    private contentService: OldProposalContentService
   ) {
     this.route.params.subscribe(params => (this.projectID = params.id));
   }
@@ -51,7 +52,7 @@ export class OldProposalsComponent implements OnInit {
 
   patchProposalContent(proposal: Proposal, content: string) {
     proposal.content = content;
-    //this.contentService.changeDescription(content);
+    this.contentService.changeDescription(content);
     this.router.navigateByUrl('/proposal/' + proposal.id.toString());
   }
 }
