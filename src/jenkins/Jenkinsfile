@@ -1,30 +1,44 @@
 node {
+  def revision
+  def changelist
 
-  def changelist = "pp-ss2019-${env.BUILD_NUMBER}"
-  def projectName = ""
-  def tag = ""
+  def repository = 'docker.nexus.archi-lab.io/archilab'
+  def image
+  def tag
+
+  def server = 'tcp://10.10.10.41:2376'
+  def certs = 'prox-prod-certs'
+  def tagPrefix = ''
 
   stage('Checkout') {
     checkout scm
+
+    def packageJSON = readJSON file: 'package.json'
+
+    revision = packageJSON.version
+    changelist = tagPrefix + '-' + env.BUILD_NUMBER
+
+    image = packageJSON.name
+    tag = revision + changelist
   }
 
   stage('Build') {
     docker.withRegistry('https://docker.nexus.archi-lab.io', 'archilab-nexus-jenkins') {
-      def packageJSON = readJSON file: 'package.json'
-      def version = packageJSON.version
-      projectName = packageJSON.name
-      def image = "docker.nexus.archi-lab.io/archilab/${projectName}"
-      tag = "${version}-${changelist}"
-
-      sh "docker build -t ${image}:${tag} -f ./src/docker/Dockerfile ."
-      sh "docker push ${image}:${tag}"
+      sh "docker build -t ${repository}/${image} -f src/docker/Dockerfile ."
+      sh "docker tag ${repository}/${image} ${repository}/${image}:${tag}"
+      sh "docker push ${repository}/${image}:${tag}"
     }
   }
 
   stage('Deploy') {
-    docker.withServer('tcp://10.10.10.44:2376', 'prox-pp-ss2019-certs') {
+    docker.withServer(server, certs) {
       docker.withRegistry('https://docker.nexus.archi-lab.io', 'archilab-nexus-jenkins') {
-        sh "env IMAGE=${projectName} TAG=${tag} docker stack deploy --with-registry-auth -c src/docker/docker-compose.yml -c src/docker/docker-compose.prod.yml ${projectName}"
+        sh "env REPOSITORY=${repository} IMAGE=${image} TAG=${tag} \
+                    docker stack deploy \
+                    --with-registry-auth \
+                    -c src/docker/docker-compose.yml \
+                    -c src/docker/docker-compose.prod.yml \
+                    ${image}"
       }
     }
   }
