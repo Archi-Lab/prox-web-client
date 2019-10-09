@@ -123,23 +123,21 @@ li:before {
   text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
 }
 
-.status.abgeschlossen {
+.nichtfreigegeben {
   background-color: #ff9081;
   font-size: 1em;
   padding: 5px 7px 5px 7px;
   margin-top: 5px;
   border-radius: 5px;
-  box-shadow: 0 2px 1px -1px #505050, inset 0 2px 0 rgba(255, 255, 255, 0.25);
   display: inline-block;
 }
 
-.status.geplant {
+.freigegeben {
   background-color: #a5ff90;
   font-size: 1em;
   padding: 5px 7px 5px 7px;
   margin-top: 5px;
   border-radius: 5px;
-  box-shadow: 0 2px 1px -1px #505050, inset 0 2px 0 rgba(255, 255, 255, 0.25);
   display: inline-block;
 }
 

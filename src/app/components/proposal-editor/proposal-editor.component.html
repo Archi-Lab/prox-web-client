@@ -25,12 +25,12 @@
         <button mat-button *ngIf="proposal.studentPermitsPublish" (click)="disallowPublishing()">
           Freigabe entziehen
         </button>
-        <button mat-button *ngIf="proposal.supervisorPermitsPublish">
+        <span class="freigegeben" *ngIf="proposal.supervisorPermitsPublish">
           Dozent hat die Veröffentlichung freigegeben
-        </button>
-        <button mat-button *ngIf="!proposal.supervisorPermitsPublish">
+        </span>
+        <span class="nichtfreigegeben" *ngIf="!proposal.supervisorPermitsPublish">
           Dozent hat die Veröffentlichung nicht freigegeben
-        </button>
+        </span>
       </span>
 
       <span *ngIf="user.hasRole('professor')">
@@ -40,12 +40,12 @@
         <button mat-button *ngIf="proposal.supervisorPermitsPublish" (click)="disallowPublishing()">
           Freigabe entziehen
         </button>
-        <button mat-button *ngIf="proposal.studentPermitsPublish">
+        <span class="freigegeben" *ngIf="proposal.studentPermitsPublish">
           Student hat die Veröffentlichung freigegeben
-        </button>
-        <button mat-button *ngIf="!proposal.studentPermitsPublish">
+        </span>
+        <span class="nichtfreigegeben" *ngIf="!proposal.studentPermitsPublish">
           Student hat die Veröffentlichung nicht freigegeben
-        </button>
+        </span>
       </span>
     </div>
   </mat-card>
