@@ -28,7 +28,7 @@ export class ProposalEditorComponent implements OnInit {
     private projectService: ProjectService,
     private proposalService: ProposalService,
     private route: ActivatedRoute,
-    private user: KeyCloakUser,
+    public user: KeyCloakUser,
     private contentService: OldProposalContentService
   ) {
     this.route.params.subscribe(params => (this.proposalID = params.id));
