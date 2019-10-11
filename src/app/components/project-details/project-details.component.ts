@@ -9,6 +9,7 @@ import { ProjectDialogComponent } from '../project-dialog/project-dialog.compone
 import { MatDialog } from '@angular/material';
 import { Proposal } from '../../shared/hal-resources/proposal-resource';
 import { ProposalService } from '../../core/services/proposal.service';
+import { TemplateResource } from '../../shared/hal-resources/template.resource';
 
 @Component({
   selector: 'app-project-details',
@@ -78,11 +79,7 @@ export class ProjectDetailsComponent implements OnInit {
   getProposals() {
     this.proposalService
       .findByProjectId(this.projectID.toString())
-      .subscribe(
-        proposals => (this.proposals = proposals),
-        error1 => {},
-        () => this.filterProposals()
-      );
+      .subscribe(proposals => (this.proposals = proposals), () => {}, () => this.filterProposals());
   }
 
   filterProposals() {
@@ -93,8 +90,9 @@ export class ProjectDetailsComponent implements OnInit {
   }
 
   createProposal() {
-    let proposalResource: Proposal = new Proposal();
-    proposalResource.content = 'Dies ist Beispieltext für das Exposé';
+    const templateResource = new TemplateResource();
+    const proposalResource: Proposal = new Proposal();
+    proposalResource.content = templateResource.content;
     proposalResource.projectId = this.projectID;
     proposalResource.supervisorId = this.project.creatorID;
     proposalResource.studentId = this.user.getID();
@@ -109,8 +107,8 @@ export class ProjectDetailsComponent implements OnInit {
         () => this.router.navigateByUrl('/proposal/' + proposalResource.id)
       );
 
-    this.proposalService
-      .create(proposalResource)
-      .subscribe(() => console.log('Erfolg'), error1 => console.log(error1));
+    //   this.proposalService
+    //     .create(proposalResource)
+    //     .subscribe(() => console.log('Erfolg'), error1 => console.log(error1));
   }
 }
