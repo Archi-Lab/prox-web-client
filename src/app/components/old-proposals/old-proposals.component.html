@@ -20,11 +20,7 @@
       </mat-card-title>
     </mat-card-header>
     <mat-card-actions>
-      <button
-        mat-button
-        *ngFor="let prop of proposals"
-        (click)="patchProposalContent(prop, archived.content)"
-      >
+      <button mat-button (click)="patchProposalContent(archived.content)">
         Exposé laden
       </button>
     </mat-card-actions>

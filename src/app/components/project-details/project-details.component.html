@@ -61,20 +61,18 @@
           <button mat-button *ngIf="studentProposals.length == 0" (click)="createProposal()">
             Neues Exposé anlegen
           </button>
-          <button
-            mat-button
-            *ngFor="let proposal of studentProposals"
-            routerLink="/proposal/{{ proposal.id }}"
-          >
-            Exposé bearbeiten
-          </button>
-          <button
-            mat-button
-            *ngIf="studentProposals.length != 0"
-            routerLink="/old-proposals/{{ project.id }}"
-          >
-            Alte Versionen
-          </button>
+          <div *ngFor="let proposal of proposals">
+            <button mat-button routerLink="/proposal/{{ proposal.id }}">
+              Exposé bearbeiten
+            </button>
+            <button
+              mat-button
+              *ngIf="studentProposals.length != 0"
+              routerLink="/old-proposals/{{ proposal.id }}"
+            >
+              Alte Versionen
+            </button>
+          </div>
         </mat-card-actions>
       </div>
 
@@ -86,7 +84,7 @@
           <button mat-button routerLink="/proposal/{{ proposal.id }}">
             Exposé bearbeiten
           </button>
-          <button mat-button routerLink="/old-proposals/{{ project.id }}">
+          <button mat-button routerLink="/old-proposals/{{ proposal.id }}">
             Alte Versionen
           </button>
         </div>

@@ -14,9 +14,9 @@ import { OldProposalContentService } from '../../core/services/old-proposal-cont
   styleUrls: ['./old-proposals.component.scss']
 })
 export class OldProposalsComponent implements OnInit {
-  projectID: UUID;
+  proposalID: UUID;
   archivedProposals: ArchivedProposal[];
-  proposals: Proposal[];
+  proposal: Proposal;
 
   constructor(
     private archivedProposalService: ArchivedProposalService,
@@ -26,32 +26,31 @@ export class OldProposalsComponent implements OnInit {
     private user: KeyCloakUser,
     private contentService: OldProposalContentService
   ) {
-    this.route.params.subscribe(params => (this.projectID = params.id));
+    this.route.params.subscribe(params => (this.proposalID = params.id));
   }
 
   ngOnInit() {
-    this.getArchiveProposals();
-    this.getProposals();
+    this.getProposal();
   }
 
-  private getArchiveProposals() {
-    this.archivedProposalService
-      .findByProjectIdAndStudentIdOrderByVersionAsc(
-        this.projectID.toString(),
-        this.user.getID().toString()
-      )
+  getProposal() {
+    this.proposalService
+      .get(this.proposalID)
+      .subscribe(
+        proposal => (this.proposal = proposal),
+        error1 => console.log(error1),
+        () => this.getArchivedProposal()
+      );
+  }
+
+  getArchivedProposal() {
+    this.proposal
+      .getArchivedProposals()
       .subscribe(archivedProposals => (this.archivedProposals = archivedProposals));
   }
 
-  getProposals() {
-    this.proposalService
-      .findByProjectId(this.projectID.toString())
-      .subscribe(proposals => (this.proposals = proposals));
-  }
-
-  patchProposalContent(proposal: Proposal, content: string) {
-    proposal.content = content;
+  patchProposalContent(content: string) {
     this.contentService.changeDescription(content);
-    this.router.navigateByUrl('/proposal/' + proposal.id.toString());
+    this.router.navigateByUrl('/proposal/' + this.proposal.id.toString());
   }
 }

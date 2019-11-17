@@ -1,5 +1,4 @@
 import { UUID } from 'angular2-uuid';
-import { Module } from './module.resource';
 import { Observable } from 'rxjs';
 import { CustomResource } from './custom-resource';
 import { ArchivedProposal } from './archived-proposal.resource';
@@ -16,9 +15,12 @@ export class Proposal extends CustomResource {
   lastUpdateBy: string;
   studentPermitsPublish: boolean;
   supervisorPermitsPublish: boolean;
-  archivedProposal: ArchivedProposal[];
 
   isPublished(): boolean {
     return this.supervisorPermitsPublish && this.studentPermitsPublish;
+  }
+
+  getArchivedProposals(): Observable<ArchivedProposal[]> {
+    return this.getRelationArray(ArchivedProposal, 'archivedProposal');
   }
 }
