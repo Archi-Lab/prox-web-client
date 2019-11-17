@@ -8,7 +8,7 @@
 
       <mat-card-subtitle>Geändert von</mat-card-subtitle>
       <mat-card-title>
-        <div [class.geplant]="archived.lastUpdateBy === 'STUD'" class="status">
+        <div [class.student]="archived.lastUpdateBy === 'STUD'" class="status">
           <span *ngIf="archived.lastUpdateBy == 'STUD'"> Student</span>
           <span *ngIf="archived.lastUpdateBy == 'PROF'"> Betreuer</span>
         </div>
