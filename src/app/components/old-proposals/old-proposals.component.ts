@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UUID } from 'angular2-uuid';
 import { ArchivedProposal } from '../../shared/hal-resources/archived-proposal.resource';
-import { ArchivedProposalService } from '../../core/services/archived-proposal.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { KeyCloakUser } from '../../keycloak/KeyCloakUser';
 import { ProposalService } from '../../core/services/proposal.service';
@@ -19,7 +18,6 @@ export class OldProposalsComponent implements OnInit {
   proposal: Proposal;
 
   constructor(
-    private archivedProposalService: ArchivedProposalService,
     private proposalService: ProposalService,
     private route: ActivatedRoute,
     private router: Router,

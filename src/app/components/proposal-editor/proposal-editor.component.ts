@@ -21,8 +21,8 @@ export class ProposalEditorComponent implements OnInit {
   proposalID: UUID;
   proposal: Proposal;
   project: Project;
-
   proposalFormControl = new FormControl('');
+  archived: any[];
 
   constructor(
     private projectService: ProjectService,
@@ -47,13 +47,17 @@ export class ProposalEditorComponent implements OnInit {
         // change content to an older version if an archived proposal is loaded
         this.loadOldContent();
       },
-      error1 => {},
+      error1 => console.log(error1),
       () => this.getProject()
     );
   }
 
   private getProject() {
-    this.projectService.get(this.proposal.projectId).subscribe(project => (this.project = project));
+    this.projectService.get(this.proposal.projectId).subscribe(project => {
+      this.project = project;
+
+      this.proposal.getArchivedProposals().subscribe(a => (this.archived = a));
+    });
   }
 
   patchProposalContent() {
