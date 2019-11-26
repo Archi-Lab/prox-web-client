@@ -1,39 +1,34 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { KeycloakService } from 'keycloak-angular';
-import { KeycloakLoginOptions } from 'keycloak-js';
 
 @Injectable()
 export class KeyCloakUser {
   onUserChanged = new EventEmitter();
 
-  private _id = '';
-  private _isLoggedIn = false;
-  private _username = '';
-  private _firstName = '';
-  private _lastName = '';
-  private _fullname = '';
-  private _roles: string[] = [];
+  private id = '';
+  private loggedIn = false;
+  private username = '';
+  private fullname = '';
+  private roles: string[] = [];
 
   constructor(protected keycloakAngular: KeycloakService) {
     this.Load();
   }
 
   public async Load() {
-    this._isLoggedIn = await this.keycloakAngular.isLoggedIn();
+    this.loggedIn = await this.keycloakAngular.isLoggedIn();
 
-    if (this._isLoggedIn) {
-      this._roles = await this.keycloakAngular.getUserRoles(true);
+    if (this.loggedIn) {
+      this.roles = await this.keycloakAngular.getUserRoles(true);
 
       const keycloak = await this.keycloakAngular.getKeycloakInstance();
 
       keycloak
         .loadUserInfo()
         .success(userInfo => {
-          this._id = userInfo['sub'];
-          this._username = userInfo['preferred_username'];
-          this._firstName = userInfo['given_name'];
-          this._lastName = userInfo['family_name'];
-          this._fullname = userInfo['name'];
+          this.id = userInfo['sub'];
+          this.username = userInfo['preferred_username'];
+          this.fullname = userInfo['name'];
 
           this.onUserChanged.emit();
         })
@@ -46,36 +41,34 @@ export class KeyCloakUser {
   }
 
   private Reset() {
-    this._id = '';
-    this._username = '';
-    this._firstName = '';
-    this._lastName = '';
-    this._fullname = '';
-    this._roles = [];
+    this.id = '';
+    this.username = '';
+    this.fullname = '';
+    this.roles = [];
 
-    this._isLoggedIn = false;
+    this.loggedIn = false;
 
     this.onUserChanged.emit();
   }
 
   public isLoggedIn(): boolean {
-    return this._isLoggedIn;
+    return this.loggedIn;
   }
   public getUserName(): string {
-    return this._username;
+    return this.username;
   }
 
   public getFullName(): string {
-    return this._fullname;
+    return this.fullname;
   }
 
   public getID(): string {
-    return this._id;
+    return this.id;
   }
 
   public hasRole(role: string): boolean {
-    for (const i in this._roles) {
-      if (this._roles[i].toUpperCase() === role.toUpperCase()) {
+    for (const i in this.roles) {
+      if (this.roles[i].toUpperCase() === role.toUpperCase()) {
         return true;
       }
     }

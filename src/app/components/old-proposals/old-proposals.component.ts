@@ -4,7 +4,7 @@ import { ArchivedProposal } from '../../shared/hal-resources/archived-proposal.r
 import { ActivatedRoute, Router } from '@angular/router';
 import { KeyCloakUser } from '../../keycloak/KeyCloakUser';
 import { ProposalService } from '../../core/services/proposal.service';
-import { Proposal } from '../../shared/hal-resources/proposal-resource';
+import { Proposal } from '../../shared/hal-resources/proposal.resource';
 import { OldProposalContentService } from '../../core/services/old-proposal-content.service';
 
 @Component({
@@ -44,7 +44,9 @@ export class OldProposalsComponent implements OnInit {
   getArchivedProposal() {
     this.proposal
       .getArchivedProposals()
-      .subscribe(archivedProposals => (this.archivedProposals = archivedProposals));
+      .subscribe(
+        archivedProposals => (this.archivedProposals = archivedProposals)
+      );
   }
 
   patchProposalContent(content: string) {

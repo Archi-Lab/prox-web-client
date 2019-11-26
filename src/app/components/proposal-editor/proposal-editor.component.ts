@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UUID } from 'angular2-uuid';
 import { ActivatedRoute } from '@angular/router';
-import { Proposal } from '../../shared/hal-resources/proposal-resource';
+import { Proposal } from '../../shared/hal-resources/proposal.resource';
 import { Project } from '../../shared/hal-resources/project.resource';
 import { ProjectService } from '../../core/services/project.service';
 import { ProposalService } from '../../core/services/proposal.service';

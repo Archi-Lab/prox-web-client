@@ -6,7 +6,9 @@ describe('ProjectStudyCourseService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: ProjectStudyCourseService = TestBed.get(ProjectStudyCourseService);
+    const service: ProjectStudyCourseService = TestBed.get(
+      ProjectStudyCourseService
+    );
     expect(service).toBeTruthy();
   });
 });

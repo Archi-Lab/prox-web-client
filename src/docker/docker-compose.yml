@@ -1,8 +1,7 @@
-version: "3.7"
+version: '3.7'
 
 services:
-
   web-client:
     image: ${REPOSITORY}/${IMAGE}:${TAG}
     ports:
-      - "9090:80"
+      - '9090:80'

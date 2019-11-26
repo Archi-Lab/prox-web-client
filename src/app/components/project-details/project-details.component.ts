@@ -6,8 +6,8 @@ import { UUID } from 'angular2-uuid';
 import { KeyCloakUser } from '../../keycloak/KeyCloakUser';
 import { MatConfirmDialogComponent } from '../../shared/mat-confirm-dialog/mat-confirm-dialog.component';
 import { ProjectDialogComponent } from '../project-dialog/project-dialog.component';
-import { MatDialog } from '@angular/material';
-import { Proposal } from '../../shared/hal-resources/proposal-resource';
+import { MatDialog } from '@angular/material/dialog';
+import { Proposal } from '../../shared/hal-resources/proposal.resource';
 import { ProposalService } from '../../core/services/proposal.service';
 import { TemplateResource } from '../../shared/hal-resources/template.resource';
 
@@ -73,20 +73,28 @@ export class ProjectDetailsComponent implements OnInit {
   }
 
   private getProject() {
-    this.projectService.get(this.projectID).subscribe(project => (this.project = project));
+    this.projectService
+      .get(this.projectID)
+      .subscribe(project => (this.project = project));
   }
 
   getProposals() {
     this.proposalService
       .findByProjectId(this.projectID.toString())
-      .subscribe(proposals => (this.proposals = proposals), () => {}, () => this.filterProposals());
+      .subscribe(
+        proposals => (this.proposals = proposals),
+        () => {},
+        () => this.filterProposals()
+      );
   }
 
   filterProposals() {
     this.studentProposals = this.proposals.filter(
       proposal => proposal.studentId === this.user.getID()
     );
-    this.publishedProposals = this.proposals.filter(proposal => proposal.isPublished());
+    this.publishedProposals = this.proposals.filter(proposal =>
+      proposal.isPublished()
+    );
   }
 
   createProposal() {

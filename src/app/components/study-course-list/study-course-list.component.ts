@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { StudyCourse } from '../../shared/hal-resources/study-course.resource';
 import { StudyCourseService } from '../../core/services/study-course.service';
 import { HalOptions } from 'angular4-hal';
-import { MatSelectChange } from '@angular/material';
+import { MatSelectChange } from '@angular/material/select';
 
 @Component({
   selector: 'app-module-list',
@@ -86,7 +86,9 @@ export class StudyCourseListComponent implements OnInit {
   }
 
   private fillAcademicDegrees(studyCourses: StudyCourse[]) {
-    studyCourses.forEach(studyCourse => this.academicDegrees.push(studyCourse.academicDegree));
+    studyCourses.forEach(studyCourse =>
+      this.academicDegrees.push(studyCourse.academicDegree)
+    );
     this.academicDegrees = this.academicDegrees.filter(
       (value, index, self) => self.indexOf(value) === index
     );

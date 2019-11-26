@@ -1,14 +1,10 @@
-import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProjectService } from '../../core/services/project.service';
 import { Project } from '../../shared/hal-resources/project.resource';
 import { Module } from '../../shared/hal-resources/module.resource';
-import { ModuleService } from '../../core/services/module.service';
-import { HalOptions, Resource } from 'angular4-hal';
-import { UUID } from 'angular2-uuid';
-import { isPrimitive } from 'util';
-import { el } from '@angular/platform-browser/testing/src/browser_util';
 import { StudyCourse } from '../../shared/hal-resources/study-course.resource';
 import { KeyCloakUser } from '../../keycloak/KeyCloakUser';
 import { ProjectStudyCourseService } from '../../core/services/project-study-course.service';
@@ -22,7 +18,7 @@ export class ProjectDialogComponent implements OnInit {
   projectFormControl: FormGroup;
   studyCourses: StudyCourse[] = [];
   selectedModules: Module[] = [];
-  hasSubmitted: boolean = false;
+  hasSubmitted = false;
 
   constructor(
     public projectDialogRef: MatDialogRef<ProjectDialogComponent>,
@@ -42,7 +38,7 @@ export class ProjectDialogComponent implements OnInit {
       status: ['', [Validators.required]]
     });
 
-    this.getStudyCourses().then(modules => {
+    this.getStudyCourses().then(() => {
       this.fillInProjectValuesIfProjectExists();
     });
   }
@@ -54,8 +50,12 @@ export class ProjectDialogComponent implements OnInit {
   fillInProjectValuesIfProjectExists() {
     if (this.project) {
       this.projectFormControl.controls.name.setValue(this.project.name);
-      this.projectFormControl.controls.description.setValue(this.project.description);
-      this.projectFormControl.controls.supervisorName.setValue(this.project.supervisorName);
+      this.projectFormControl.controls.description.setValue(
+        this.project.description
+      );
+      this.projectFormControl.controls.supervisorName.setValue(
+        this.project.supervisorName
+      );
       this.projectFormControl.controls.status.setValue(this.project.status);
 
       this.project.getModules().subscribe(modules => {
@@ -66,8 +66,10 @@ export class ProjectDialogComponent implements OnInit {
 
   setSelectedModules(modules: Module[]) {
     this.selectedModules = [];
-    for (let module of modules) {
-      let tmpModule: Module = this.getModuleBySelfLink(module._links.self.href);
+    for (const module of modules) {
+      const tmpModule: Module = this.getModuleBySelfLink(
+        module._links.self.href
+      );
       if (tmpModule) {
         this.selectedModules.push(tmpModule);
       }
@@ -75,9 +77,11 @@ export class ProjectDialogComponent implements OnInit {
   }
 
   getModuleBySelfLink(selfLink: string): Module {
-    for (let studyCourse of this.studyCourses) {
-      for (let tmpModule of studyCourse.modules) {
-        if (tmpModule._links.self.href === selfLink) return tmpModule;
+    for (const studyCourse of this.studyCourses) {
+      for (const tmpModule of studyCourse.modules) {
+        if (tmpModule._links.self.href === selfLink) {
+          return tmpModule;
+        }
       }
     }
     return null;
@@ -100,9 +104,9 @@ export class ProjectDialogComponent implements OnInit {
         tmpStudyCourses => (this.studyCourses = tmpStudyCourses),
         error => reject(error),
         () => {
-          let modulePromises: Promise<Module[]>[] = [];
+          const modulePromises: Promise<Module[]>[] = [];
 
-          for (let studyCourse of this.studyCourses) {
+          for (const studyCourse of this.studyCourses) {
             modulePromises.push(studyCourse.getAndSetModuleArray());
           }
 
@@ -126,7 +130,7 @@ export class ProjectDialogComponent implements OnInit {
     projectResource.name = project.name;
     projectResource.status = project.status;
 
-    if (project.supervisorName.length == 0) {
+    if (project.supervisorName.length === 0) {
       projectResource.supervisorName = projectResource.creatorName;
     } else {
       projectResource.supervisorName = project.supervisorName;
@@ -142,7 +146,7 @@ export class ProjectDialogComponent implements OnInit {
   }
 
   createProject(project: Project) {
-    let newProject = this.createProjectResource(project);
+    const newProject = this.createProjectResource(project);
 
     // Create Project
     this.projectService.create(newProject).subscribe(

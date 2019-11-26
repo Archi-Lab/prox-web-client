@@ -13,7 +13,10 @@ export class StudyCourseDetailsComponent implements OnInit {
   studyCourse: StudyCourse;
   studyCourseID: UUID;
 
-  constructor(private studyCourseService: StudyCourseService, private route: ActivatedRoute) {
+  constructor(
+    private studyCourseService: StudyCourseService,
+    private route: ActivatedRoute
+  ) {
     this.route.params.subscribe(params => (this.studyCourseID = params.id));
   }
 

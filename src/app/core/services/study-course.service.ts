@@ -1,7 +1,7 @@
 import { Injectable, Injector } from '@angular/core';
 import { RestService } from 'angular4-hal';
 import { StudyCourse } from '../../shared/hal-resources/study-course.resource';
-import { Observable } from 'rxjs';
+import { Observable } from 'angular4-hal/node_modules/rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,9 @@ export class StudyCourseService extends RestService<StudyCourse> {
   }
 
   findByAcademicDegree(academicDegree: string): Observable<StudyCourse[]> {
-    let options: any = { params: [{ key: 'academicDegree', value: academicDegree }] };
+    const options: any = {
+      params: [{ key: 'academicDegree', value: academicDegree }]
+    };
     return this.search('findByAcademicDegree', options);
   }
 }

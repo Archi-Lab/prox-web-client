@@ -1,6 +1,6 @@
 import { UUID } from 'angular2-uuid';
 import { Module } from './module.resource';
-import { Observable } from 'rxjs';
+import { Observable } from 'angular4-hal/node_modules/rxjs';
 import { CustomResource } from './custom-resource';
 
 export class Project extends CustomResource {

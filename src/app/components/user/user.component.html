@@ -1,6 +1,10 @@
 <div class="user">
   <h1>{{ username }}</h1>
 
-  <button (click)="login()" *ngIf="!isLoggedIn" mat-flat-button>Einloggen</button>
-  <button (click)="logout()" *ngIf="isLoggedIn" mat-flat-button>Ausloggen</button>
+  <button (click)="login()" *ngIf="!isLoggedIn" mat-flat-button>
+    Einloggen
+  </button>
+  <button (click)="logout()" *ngIf="isLoggedIn" mat-flat-button>
+    Ausloggen
+  </button>
 </div>

@@ -1,7 +1,7 @@
 import { Injectable, Injector } from '@angular/core';
 import { RestService } from 'angular4-hal';
 import { StudyCourse } from '../../shared/hal-resources/study-course.resource';
-import { Observable } from 'rxjs';
+import { Observable } from 'angular4-hal/node_modules/rxjs';
 import { Module } from '../../shared/hal-resources/module.resource';
 
 @Injectable({
@@ -13,7 +13,10 @@ export class ProjectStudyCourseService extends RestService<StudyCourse> {
   }
 
   getAllSorted(): Observable<StudyCourse[]> {
-    let options: any = { notPaged: true, params: [{ key: 'sort', value: 'name,asc' }] };
+    const options: any = {
+      notPaged: true,
+      params: [{ key: 'sort', value: 'name,asc' }]
+    };
     return this.getAll(options);
   }
 }

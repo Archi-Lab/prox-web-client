@@ -1,5 +1,5 @@
 import { Module } from './module.resource';
-import { Observable } from 'rxjs';
+import { Observable } from 'angular4-hal/node_modules/rxjs';
 import { CustomResource } from './custom-resource';
 import { UUID } from 'angular2-uuid';
 
@@ -25,10 +25,10 @@ export class StudyCourse extends CustomResource {
   getAndSetModuleArray(): Promise<Module[]> {
     return new Promise<Module[]>((resolve, reject) => {
       this.getModules().subscribe(
-        tmp_modules => (this.modules = tmp_modules),
+        tmpModules => (this.modules = tmpModules),
         () => reject(),
         () => {
-          this.modules.sort(function(a, b) {
+          this.modules.sort((a, b) => {
             if (a.name < b.name) {
               return -1;
             }

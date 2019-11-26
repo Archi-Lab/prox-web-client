@@ -7,13 +7,22 @@
         placeholder="Akademischer Grad"
       >
         <mat-option>Alle</mat-option>
-        <mat-option *ngFor="let academicDegree of academicDegrees" [value]="academicDegree">{{
-          academicDegree.charAt(0).toUpperCase() + academicDegree.slice(1).toLowerCase()
-        }}</mat-option>
+        <mat-option
+          *ngFor="let academicDegree of academicDegrees"
+          [value]="academicDegree"
+          >{{
+            academicDegree.charAt(0).toUpperCase() +
+              academicDegree.slice(1).toLowerCase()
+          }}</mat-option
+        >
       </mat-select>
     </mat-form-field>
     <mat-form-field>
-      <input (keyup)="filterStudyCoursesByName($event)" matInput placeholder="Suche" />
+      <input
+        (keyup)="filterStudyCoursesByName($event)"
+        matInput
+        placeholder="Suche"
+      />
     </mat-form-field>
   </div>
   <mat-card *ngFor="let studyCourse of studyCourses">
@@ -27,7 +36,9 @@
       }}</mat-card-title>
     </mat-card-header>
     <mat-card-actions>
-      <button mat-button routerLink="/study-courses/{{ studyCourse.id }}">Module</button>
+      <button mat-button routerLink="/study-courses/{{ studyCourse.id }}">
+        Module
+      </button>
     </mat-card-actions>
   </mat-card>
 </div>

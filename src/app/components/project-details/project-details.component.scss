@@ -113,7 +113,8 @@ li:before {
 
   background-color: white;
   padding: 8px;
-  box-shadow: 0 1px 3px -1px rgba(0, 0, 0, 0.5), inset 0 2px 0 rgba(255, 255, 255, 0.25);
+  box-shadow: 0 1px 3px -1px rgba(0, 0, 0, 0.5),
+    inset 0 2px 0 rgba(255, 255, 255, 0.25);
 }
 
 #project-edit-button {
@@ -127,6 +128,7 @@ li:before {
   background-color: white;
   border-radius: 50%;
   padding: 8px;
-  box-shadow: 0 1px 3px -1px rgba(0, 0, 0, 0.5), inset 0 2px 0 rgba(255, 255, 255, 0.25);
+  box-shadow: 0 1px 3px -1px rgba(0, 0, 0, 0.5),
+    inset 0 2px 0 rgba(255, 255, 255, 0.25);
   color: #696969;
 }

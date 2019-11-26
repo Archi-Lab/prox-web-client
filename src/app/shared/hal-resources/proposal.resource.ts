@@ -1,5 +1,5 @@
 import { UUID } from 'angular2-uuid';
-import { Observable } from 'rxjs';
+import { Observable } from 'angular4-hal/node_modules/rxjs';
 import { CustomResource } from './custom-resource';
 import { ArchivedProposal } from './archived-proposal.resource';
 

@@ -2,7 +2,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ProjectService } from '../../core/services/project.service';
 import { Project } from '../../shared/hal-resources/project.resource';
-import { MatDialog, MatSelectChange } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSelectChange } from '@angular/material/select';
 import { ProjectDialogComponent } from '../project-dialog/project-dialog.component';
 import { KeyCloakUser } from '../../keycloak/KeyCloakUser';
 import { MatConfirmDialogComponent } from '../../shared/mat-confirm-dialog/mat-confirm-dialog.component';
@@ -44,7 +45,11 @@ export class ProjectListComponent implements OnInit {
       if (result) {
         this.projectService
           .delete(project)
-          .subscribe(() => {}, error => console.log(error), () => this.getAllProjects());
+          .subscribe(
+            () => {},
+            error => console.log(error),
+            () => this.getAllProjects()
+          );
       }
     });
   }
@@ -60,7 +65,9 @@ export class ProjectListComponent implements OnInit {
   }
 
   statusFilter(status: string) {
-    this.projectService.findByStatus(status).subscribe(projects => (this.projects = projects));
+    this.projectService
+      .findByStatus(status)
+      .subscribe(projects => (this.projects = projects));
   }
 
   supervisorNameFilter(supervisorName: string) {
@@ -75,7 +82,9 @@ export class ProjectListComponent implements OnInit {
         .findByStatus(this.selectedStatus)
         .subscribe(projects => this.filterProjects(projects, name));
     } else {
-      this.projectService.getAll().subscribe(projects => this.filterProjects(projects, name));
+      this.projectService
+        .getAll()
+        .subscribe(projects => this.filterProjects(projects, name));
     }
   }
 
@@ -148,7 +157,9 @@ export class ProjectListComponent implements OnInit {
 
   private fillStatus(projects: Project[]) {
     projects.forEach(project => this.allStatus.push(project.status));
-    this.allStatus = this.allStatus.filter((value, index, self) => self.indexOf(value) === index);
+    this.allStatus = this.allStatus.filter(
+      (value, index, self) => self.indexOf(value) === index
+    );
   }
 
   private filterProjects(projects: Project[], name?: string) {

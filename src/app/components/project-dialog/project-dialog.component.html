@@ -16,7 +16,9 @@
           placeholder="Bezeichnung"
           required
         />
-        <mat-error *ngIf="projectFormControl.controls['name'].hasError('required')">
+        <mat-error
+          *ngIf="projectFormControl.controls['name'].hasError('required')"
+        >
           Bezeichnung <strong>fehlt</strong>!
         </mat-error>
       </mat-form-field>
@@ -28,7 +30,11 @@
           placeholder="Beschreibung"
           required
         ></textarea>
-        <mat-error *ngIf="projectFormControl.controls['description'].hasError('required')">
+        <mat-error
+          *ngIf="
+            projectFormControl.controls['description'].hasError('required')
+          "
+        >
           Beschreibung <strong>fehlt</strong>!
         </mat-error>
       </mat-form-field>
@@ -51,14 +57,18 @@
           <mat-option value="LAUFEND">Laufend</mat-option>
           <mat-option value="ABGESCHLOSSEN">Abgeschlossen</mat-option>
         </mat-select>
-        <mat-error *ngIf="projectFormControl.controls['status'].hasError('required')">
+        <mat-error
+          *ngIf="projectFormControl.controls['status'].hasError('required')"
+        >
           Status <strong>fehlt</strong>!
         </mat-error>
       </mat-form-field>
       <div>
         <p id="module-caption">Modulauswahl</p>
         <div *ngFor="let studyCourse of studyCourses">
-          <p id="study-course-caption">{{ studyCourse.name }} ({{ studyCourse.academicDegree }})</p>
+          <p id="study-course-caption">
+            {{ studyCourse.name }} ({{ studyCourse.academicDegree }})
+          </p>
           <mat-chip-list>
             <mat-chip
               *ngFor="let module of studyCourse.modules"
@@ -76,7 +86,9 @@
     </div>
     <div mat-dialog-actions>
       <div class="action-buttons">
-        <button (click)="closeDialog()" mat-button type="reset">Abbrechen</button>
+        <button (click)="closeDialog()" mat-button type="reset">
+          Abbrechen
+        </button>
         <button
           [disabled]="
             projectFormControl.controls['name'].hasError('required') ||

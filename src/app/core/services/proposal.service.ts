@@ -1,7 +1,7 @@
 import { Injectable, Injector } from '@angular/core';
 import { RestService } from 'angular4-hal';
-import { Proposal } from '../../shared/hal-resources/proposal-resource';
-import { Observable } from 'rxjs';
+import { Proposal } from '../../shared/hal-resources/proposal.resource';
+import { Observable } from 'angular4-hal/node_modules/rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,7 @@ export class ProposalService extends RestService<Proposal> {
   }
 
   findByProjectId(projectId: string): Observable<Proposal[]> {
-    let options: any = { params: [{ key: 'projectId', value: projectId }] };
+    const options: any = { params: [{ key: 'projectId', value: projectId }] };
     return this.search('findByProjectId', options);
   }
 }
