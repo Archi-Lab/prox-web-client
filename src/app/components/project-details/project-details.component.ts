@@ -21,6 +21,7 @@ export class ProjectDetailsComponent implements OnInit {
   projectID: UUID;
   hasPermission = false;
 
+  showProposalFeatures = true;
   proposals: Proposal[];
   studentProposals: Proposal[];
   publishedProposals: Proposal[];
