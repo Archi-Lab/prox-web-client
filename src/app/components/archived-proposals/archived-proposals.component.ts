@@ -5,14 +5,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { KeyCloakUser } from '../../keycloak/KeyCloakUser';
 import { ProposalService } from '../../core/services/proposal.service';
 import { Proposal } from '../../shared/hal-resources/proposal.resource';
-import { OldProposalContentService } from '../../core/services/old-proposal-content.service';
+import { ArchivedProposalsContentService } from '../../core/services/archived-proposals-content.service';
 
 @Component({
   selector: 'app-old-proposals',
-  templateUrl: './old-proposals.component.html',
-  styleUrls: ['./old-proposals.component.scss']
+  templateUrl: './archived-proposals.component.html',
+  styleUrls: ['./archived-proposals.component.scss']
 })
-export class OldProposalsComponent implements OnInit {
+export class ArchivedProposalsComponent implements OnInit {
   proposalID: UUID;
   archivedProposals: ArchivedProposal[];
   proposal: Proposal;
@@ -22,7 +22,7 @@ export class OldProposalsComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private user: KeyCloakUser,
-    private contentService: OldProposalContentService
+    private contentService: ArchivedProposalsContentService
   ) {
     this.route.params.subscribe(params => (this.proposalID = params.id));
   }

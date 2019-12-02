@@ -70,7 +70,10 @@
               <button mat-button routerLink="/proposal/{{ proposal.id }}">
                 Exposé bearbeiten
               </button>
-              <button mat-button routerLink="/old-proposals/{{ proposal.id }}">
+              <button
+                mat-button
+                routerLink="/archived-proposals/{{ proposal.id }}"
+              >
                 Alte Versionen
               </button>
               <button mat-button (click)="deleteProposal(proposal)">
@@ -88,7 +91,10 @@
             <button mat-button routerLink="/proposal/{{ proposal.id }}">
               Exposé bearbeiten
             </button>
-            <button mat-button routerLink="/old-proposals/{{ proposal.id }}">
+            <button
+              mat-button
+              routerLink="/archived-proposals/{{ proposal.id }}"
+            >
               Alte Versionen
             </button>
             <button mat-button (click)="deleteProposal(proposal)">

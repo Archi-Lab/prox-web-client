@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { OldProposalsComponent } from './old-proposals.component';
+import { ArchivedProposalsComponent } from './archived-proposals.component';
 
-describe('OldProposalsComponent', () => {
-  let component: OldProposalsComponent;
-  let fixture: ComponentFixture<OldProposalsComponent>;
+describe('ArchivedProposalsComponent', () => {
+  let component: ArchivedProposalsComponent;
+  let fixture: ComponentFixture<ArchivedProposalsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [OldProposalsComponent]
+      declarations: [ArchivedProposalsComponent]
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(OldProposalsComponent);
+    fixture = TestBed.createComponent(ArchivedProposalsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

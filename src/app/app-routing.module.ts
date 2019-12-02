@@ -11,7 +11,7 @@ import { ImpressumComponent } from './components/legal-issues/impressum/impressu
 import { DataProtectionComponent } from './components/legal-issues/data-protection/data-protection.component';
 import { LiabilityNoticeComponent } from './components/legal-issues/liability-notice/liability-notice.component';
 import { ProposalEditorComponent } from './components/proposal-editor/proposal-editor.component';
-import { OldProposalsComponent } from './components/old-proposals/old-proposals.component';
+import { ArchivedProposalsComponent } from './components/archived-proposals/archived-proposals.component';
 
 const routes: Routes = [
   {
@@ -55,8 +55,8 @@ const routes: Routes = [
     component: ProposalEditorComponent
   },
   {
-    path: 'old-proposals/:id',
-    component: OldProposalsComponent
+    path: 'archived-proposals/:id',
+    component: ArchivedProposalsComponent
   }
 ];
 

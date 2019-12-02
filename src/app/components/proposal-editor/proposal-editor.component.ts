@@ -7,7 +7,7 @@ import { ProjectService } from '../../core/services/project.service';
 import { ProposalService } from '../../core/services/proposal.service';
 import { KeyCloakUser } from '../../keycloak/KeyCloakUser';
 import { FormControl } from '@angular/forms';
-import { OldProposalContentService } from '../../core/services/old-proposal-content.service';
+import { ArchivedProposalsContentService } from '../../core/services/archived-proposals-content.service';
 
 export type ViewMode = 'editor' | 'preview';
 
@@ -29,7 +29,7 @@ export class ProposalEditorComponent implements OnInit {
     private proposalService: ProposalService,
     private route: ActivatedRoute,
     public user: KeyCloakUser,
-    private contentService: OldProposalContentService
+    private contentService: ArchivedProposalsContentService
   ) {
     this.route.params.subscribe(params => (this.proposalID = params.id));
   }

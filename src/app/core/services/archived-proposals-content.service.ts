@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class OldProposalContentService {
-  description: string = '';
+export class ArchivedProposalsContentService {
+  description = '';
 
   constructor() {}
 
