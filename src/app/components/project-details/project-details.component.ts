@@ -9,7 +9,7 @@ import { ProjectDialogComponent } from '../project-dialog/project-dialog.compone
 import { MatDialog } from '@angular/material/dialog';
 import { Proposal } from '../../shared/hal-resources/proposal.resource';
 import { ProposalService } from '../../core/services/proposal.service';
-import { TemplateResource } from '../../shared/hal-resources/template.resource';
+import { TemplateResource } from '../proposal-editor/template.resource';
 
 @Component({
   selector: 'app-project-details',
@@ -23,7 +23,7 @@ export class ProjectDetailsComponent implements OnInit {
 
   showProposalFeatures = true;
   proposals: Proposal[];
-  studentProposals: Proposal[];
+  // studentProposals: Proposal[];
   publishedProposals: Proposal[];
 
   constructor(
@@ -45,6 +45,7 @@ export class ProjectDetailsComponent implements OnInit {
   ngOnInit() {
     this.getProject();
     this.getProposals();
+    this.getPublishedProposals();
   }
 
   deleteProject(project: Project) {
@@ -79,23 +80,24 @@ export class ProjectDetailsComponent implements OnInit {
       .subscribe(project => (this.project = project));
   }
 
-  getProposals() {
-    this.proposalService
-      .findByProjectId(this.projectID.toString())
-      .subscribe(
-        proposals => (this.proposals = proposals),
-        () => {},
-        () => this.filterProposals()
-      );
+  private getProposals() {
+    if (this.user.hasRole('professor')) {
+      this.proposalService
+        .findByProjectId(this.projectID)
+        .subscribe(proposals => (this.proposals = proposals));
+    } else if (this.user.hasRole('student')) {
+      this.proposalService
+        .findByProjectIdAndStudentId(this.projectID, this.user.getID())
+        .subscribe(proposals => (this.proposals = proposals));
+    }
   }
 
-  filterProposals() {
-    this.studentProposals = this.proposals.filter(
-      proposal => proposal.studentId === this.user.getID()
-    );
-    this.publishedProposals = this.proposals.filter(proposal =>
-      proposal.isPublished()
-    );
+  private getPublishedProposals() {
+    this.proposalService
+      .findPublishedProposals(this.projectID)
+      .subscribe(
+        publishedProposals => (this.publishedProposals = publishedProposals)
+      );
   }
 
   createProposal() {
@@ -115,9 +117,16 @@ export class ProjectDetailsComponent implements OnInit {
         error => console.log(error),
         () => this.router.navigateByUrl('/proposal/' + proposalResource.id)
       );
+  }
 
-    //   this.proposalService
-    //     .create(proposalResource)
-    //     .subscribe(() => console.log('Erfolg'), error1 => console.log(error1));
+  deleteProposal(proposal: Proposal) {
+    this.proposalService.delete(proposal).subscribe(
+      () => {},
+      error => console.log(error),
+      () =>
+        this.router.navigateByUrl('/projects').then(() => {
+          this.router.navigateByUrl('/projects/' + this.projectID);
+        })
+    );
   }
 }
