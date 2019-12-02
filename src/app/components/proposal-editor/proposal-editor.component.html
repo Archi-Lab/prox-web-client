@@ -1,7 +1,9 @@
 <div class="proposal-detail">
-  <h1>{{ project.name }} bearbeiten</h1>
+  <h1 routerLink="/projects/{{ project.id }}">{{ project.name }} bearbeiten</h1>
   <br />
-  <mat-card-subtitle title="{{ project.description }}">Beschreibung</mat-card-subtitle>
+  <mat-card-subtitle title="{{ project.description }}"
+    >Beschreibung</mat-card-subtitle
+  >
   <mat-card>
     <nav>
       <button mat-button (click)="toggleViewMode('editor')">Editor</button>
@@ -17,27 +19,48 @@
     </div>
 
     <div>
-      <button mat-button (click)="patchProposalContent()">Exposé speichern</button>
+      <button mat-button (click)="patchProposalContent()">
+        Exposé speichern
+      </button>
       <span *ngIf="user.hasRole('student')">
-        <button mat-button *ngIf="!proposal.studentPermitsPublish" (click)="permitPublishing()">
+        <button
+          mat-button
+          *ngIf="!proposal.studentPermitsPublish"
+          (click)="permitPublishing()"
+        >
           Veröffentlichung freigeben
         </button>
-        <button mat-button *ngIf="proposal.studentPermitsPublish" (click)="disallowPublishing()">
+        <button
+          mat-button
+          *ngIf="proposal.studentPermitsPublish"
+          (click)="disallowPublishing()"
+        >
           Freigabe entziehen
         </button>
         <span class="freigegeben" *ngIf="proposal.supervisorPermitsPublish">
           Dozent hat die Veröffentlichung freigegeben
         </span>
-        <span class="nichtfreigegeben" *ngIf="!proposal.supervisorPermitsPublish">
+        <span
+          class="nichtfreigegeben"
+          *ngIf="!proposal.supervisorPermitsPublish"
+        >
           Dozent hat die Veröffentlichung nicht freigegeben
         </span>
       </span>
 
       <span *ngIf="user.hasRole('professor')">
-        <button mat-button *ngIf="!proposal.supervisorPermitsPublish" (click)="permitPublishing()">
+        <button
+          mat-button
+          *ngIf="!proposal.supervisorPermitsPublish"
+          (click)="permitPublishing()"
+        >
           Veröffentlichung freigeben
         </button>
-        <button mat-button *ngIf="proposal.supervisorPermitsPublish" (click)="disallowPublishing()">
+        <button
+          mat-button
+          *ngIf="proposal.supervisorPermitsPublish"
+          (click)="disallowPublishing()"
+        >
           Freigabe entziehen
         </button>
         <span class="freigegeben" *ngIf="proposal.studentPermitsPublish">
