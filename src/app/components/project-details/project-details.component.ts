@@ -21,9 +21,10 @@ export class ProjectDetailsComponent implements OnInit {
   projectID: UUID;
   hasPermission = false;
 
-  showProposalFeatures = true;
+  // Set false to hide the proposal-service features
+  useProposalFeatures = true;
+
   proposals: Proposal[];
-  // studentProposals: Proposal[];
   publishedProposals: Proposal[];
 
   constructor(
@@ -44,8 +45,10 @@ export class ProjectDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.getProject();
-    this.getProposals();
-    this.getPublishedProposals();
+    if (this.useProposalFeatures) {
+      this.getProposals();
+      this.getPublishedProposals();
+    }
   }
 
   deleteProject(project: Project) {
