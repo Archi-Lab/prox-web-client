@@ -57,6 +57,7 @@ import { ContactComponent } from './components/legal-issues/contact/contact.comp
 import { ImpressumComponent } from './components/legal-issues/impressum/impressum.component';
 import { DataProtectionComponent } from './components/legal-issues/data-protection/data-protection.component';
 import { LiabilityNoticeComponent } from './components/legal-issues/liability-notice/liability-notice.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +75,8 @@ import { LiabilityNoticeComponent } from './components/legal-issues/liability-no
     ContactComponent,
     ImpressumComponent,
     DataProtectionComponent,
-    LiabilityNoticeComponent
+    LiabilityNoticeComponent,
+    UserProfileComponent
   ],
   imports: [
     AppRoutingModule,

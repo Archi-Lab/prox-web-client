@@ -31,6 +31,19 @@
             (click)="sidenav.toggle()"
             class="sidebar-button"
             mat-button
+            routerLink="user-profile"
+            routerLinkActive="nav-activated"
+          >
+            <mat-icon class="sidebar-icon">layers</mat-icon>
+            Profil
+          </button>
+        </mat-list-item>
+
+        <mat-list-item>
+          <button
+            (click)="sidenav.toggle()"
+            class="sidebar-button"
+            mat-button
             routerLink="projects"
             routerLinkActive="nav-activated"
           >
