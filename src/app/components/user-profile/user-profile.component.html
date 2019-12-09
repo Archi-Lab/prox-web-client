@@ -1,10 +1,10 @@
 <div class="profile">
   <div class="linkeSeite">
     <div class="vorstellfeld">
-      <p>Vorstelfeld</p>
+      <p>Hallo</p>
     </div>
     <div class="FavorisiertesProjekt">
-      <p>Mein Fav Projekt gerade</p>
+      <h3>Mein Fav Projekt gerade</h3>
       <ul>
         <li>Projekt 1</li>
       </ul>
@@ -12,35 +12,23 @@
     <div class="AngeboteneProjekte">
       <nav>
         <ul class="Projektbox">
-          <li class="Projektliste">
-            <p>Meine angebotenen Projekte</p>
-            <ul class="konkreteListe">
+          <li class="Projektlsite" (click)="onSelect1()">
+            <h3>Meine angebotenen Projekte</h3>
+            <ul *ngIf="liste1offen" class="konkreteListe">
               <li>Projekt 1</li>
               <li>Projekt 2</li>
             </ul>
           </li>
-        </ul>
-      </nav>
-    </div>
-    <div class="LaufendeProjekte">
-      <nav>
-        <ul class="Projektbox">
-          <li class="Projektliste">
-            <p>Meine laufenden Projekte</p>
-            <ul class="konkreteListe">
+          <li class="Projektlsite" (click)="onSelect2()">
+            <h3>Meine laufenden Projekte</h3>
+            <ul *ngIf="liste2offen" class="konkreteListe">
               <li>Projekt 3</li>
               <li>Projekt 4</li>
             </ul>
           </li>
-        </ul>
-      </nav>
-    </div>
-    <div class="AbgeschlosseneProjekte">
-      <nav>
-        <ul class="Projektbox">
-          <li class="Projektliste">
-            <p>Meine abgeschlossene Projekte</p>
-            <ul class="konkreteListe">
+          <li class="Projektlsite" (click)="onSelect3()">
+            <h3>Meine abgeschlossene Projekte</h3>
+            <ul *ngIf="liste3offen" class="konkreteListe">
               <li>Projekt 5</li>
               <li>Projekt 6</li>
             </ul>
