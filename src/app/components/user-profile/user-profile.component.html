@@ -1,34 +1,34 @@
 <div class="profile">
-  <div class="linkeSeite">
-    <div class="vorstellfeld">
+  <div class="leftSide">
+    <div class="selfDescription">
       <p>Hallo</p>
     </div>
-    <div class="FavorisiertesProjekt">
+    <div class="favoriteProject">
       <h3>Mein Fav Projekt gerade</h3>
       <ul>
         <li>Projekt 1</li>
       </ul>
     </div>
-    <div class="AngeboteneProjekte">
+    <div class="projects">
       <nav>
-        <ul class="Projektbox">
-          <li class="Projektlsite" (click)="onSelect1()">
+        <ul class="projectbox">
+          <li class="projectList" (click)="onSelect1()">
             <h3>Meine angebotenen Projekte</h3>
-            <ul *ngIf="liste1offen" class="konkreteListe">
+            <ul *ngIf="list1open" class="actualList">
               <li>Projekt 1</li>
               <li>Projekt 2</li>
             </ul>
           </li>
-          <li class="Projektlsite" (click)="onSelect2()">
+          <li class="projectList" (click)="onSelect2()">
             <h3>Meine laufenden Projekte</h3>
-            <ul *ngIf="liste2offen" class="konkreteListe">
+            <ul *ngIf="list2open" class="actualList">
               <li>Projekt 3</li>
               <li>Projekt 4</li>
             </ul>
           </li>
-          <li class="Projektlsite" (click)="onSelect3()">
+          <li class="projectList" (click)="onSelect3()">
             <h3>Meine abgeschlossene Projekte</h3>
-            <ul *ngIf="liste3offen" class="konkreteListe">
+            <ul *ngIf="list3open" class="actualList">
               <li>Projekt 5</li>
               <li>Projekt 6</li>
             </ul>
@@ -37,11 +37,11 @@
       </nav>
     </div>
   </div>
-  <div class="rechteSeite">
+  <div class="rightSide">
     <div class="Profname">
       <p>Prof. Dr. Max Mustermann</p>
     </div>
-    <div class="profilfoto">
+    <div class="profilePic">
       <img src="assets/images/profile/placeholder.jpg" />
     </div>
     <div class="TAGs">
@@ -52,7 +52,7 @@
         <a href="#" rel="tag" class="label">KI</a>
       </p>
     </div>
-    <div class="Kontaktinfo">
+    <div class="contactinfo">
       <p>Kontaktinfo:</p>
       <p>Technische Hochschule Köln</p>
       <p>Steinmüllerallee 6</p>

@@ -7,18 +7,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserProfileComponent implements OnInit {
   constructor() {}
-  liste1offen = false;
-  liste2offen = false;
-  liste3offen = false;
+  list1open = false;
+  list2open = false;
+  list3open = false;
 
   ngOnInit() {}
   onSelect1(): boolean {
-    return (this.liste1offen = !this.liste1offen);
+    return (this.list1open = !this.list1open);
   }
   onSelect2(): boolean {
-    return (this.liste2offen = !this.liste2offen);
+    return (this.list2open = !this.list2open);
   }
   onSelect3(): boolean {
-    return (this.liste3offen = !this.liste3offen);
+    return (this.list3open = !this.list3open);
   }
 }
