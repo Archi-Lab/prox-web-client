@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserProfileComponent implements OnInit {
   constructor() {}
-  list1open = false;
+  list1open = true;
   list2open = false;
   list3open = false;
 

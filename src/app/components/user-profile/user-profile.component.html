@@ -1,36 +1,76 @@
 <div class="profile">
   <div class="leftSide">
     <div class="selfDescription">
-      <p>Hallo</p>
+      <!--      <p>Hey Ho, mein Name ist Max Mustermann und ich bin seit 23 Jahren an der TH Köln. Ich beschäftige mich hauptsächlich mit Informatikprojekten. Hauptsächlich mit dem schwerpunkt in Computergrafik.-->
+      <!--      Bei mir bekommt ihr in der Regel schnelle Antworten und eine gute Betreuung. Im Normalfall wird euch bei einem Projekt auch mindestens ein Betreuer zugeteilt, der sich zusätzlich um euch kümmert.-->
+      <!--      Die Projekte dauern alle in etwa fünf bis sechs Monate. Ihr solltet also auch genug Zeit haben, diese ordentlich bearbeiten zu können.-->
+      <!--        Mit meinem Fachwissen und eurem Engagement werden wir die Kacke richtig zum dampfen bringen, ihr dauerflieger!!!1!!!1!!1!1!!11!!1!11</p>-->
     </div>
-    <div class="favoriteProject">
-      <h3>Mein Fav Projekt gerade</h3>
-      <ul>
-        <li>Projekt 1</li>
-      </ul>
-    </div>
+    <!--    <div class="favoriteProject">-->
+    <!--      <h3>Mein Fav Projekt gerade</h3>-->
+    <!--      <ul>-->
+    <!--        <li>Projekt 1</li>-->
+    <!--      </ul>-->
+    <!--    </div>-->
     <div class="projects">
       <nav>
         <ul class="projectbox">
-          <li class="projectList" (click)="onSelect1()">
-            <h3>Meine angebotenen Projekte</h3>
-            <ul *ngIf="list1open" class="actualList">
-              <li>Projekt 1</li>
-              <li>Projekt 2</li>
+          <li class="projectList">
+            <h3 (click)="onSelect1()">Meine angebotenen Projekte</h3>
+            <ul *ngIf="list1open">
+              <li class="actualList">
+                <a href="#" class="projectname"
+                  >Entwicklung eines innovativen NOx-Sensors für die In-situ
+                  Rauchgasmessung in Zementanlagen</a
+                >
+                <p class="projectdescription">
+                  Charakterisierung der Funktionsschichtmorphologie und -analyse
+                  von NOx-Sensoren in Abhängigkeit von Material,
+                  Fertigungsprozess und Betriebsbedingungen
+                </p>
+              </li>
             </ul>
           </li>
-          <li class="projectList" (click)="onSelect2()">
-            <h3>Meine laufenden Projekte</h3>
-            <ul *ngIf="list2open" class="actualList">
-              <li>Projekt 3</li>
-              <li>Projekt 4</li>
+          <li class="projectList">
+            <h3 (click)="onSelect2()">Meine laufenden Projekte</h3>
+            <ul *ngIf="list2open" class="projectboxlist">
+              <li class="actualList">
+                <a href="#" class="projectname"
+                  >IMProvT — Intelligente Messverfahren zur Prozessoptimierung
+                  von Trinkwasserbereitstellung</a
+                >
+                <p class="projectdescription">
+                  Das Projekt IMProvT behandelt die Gewinnung und Nutzung
+                  mehrdimensionaler Prozessdaten zur energie- und
+                  ressourceneffizienten Optimierung und Prozesssteuerung bei der
+                  Trinkwasseraufbereitung.
+                </p>
+              </li>
+              <li class="actualList">
+                <a href="#" class="projectname"
+                  >SYNERGY — Synergy for Smart Multi-Objective Optimization</a
+                >
+                <p class="projectdescription">
+                  Die TH Köln und die Universität Lille unterstützen das Josef
+                  Stefan Institut in Ljubljana/Slowenien beim Aufbau und der
+                  Weiterentwicklung seiner Forschungsstrukturen.
+                </p>
+              </li>
             </ul>
           </li>
-          <li class="projectList" (click)="onSelect3()">
-            <h3>Meine abgeschlossene Projekte</h3>
-            <ul *ngIf="list3open" class="actualList">
-              <li>Projekt 5</li>
-              <li>Projekt 6</li>
+          <li class="projectList">
+            <h3 (click)="onSelect3()">Meine abgeschlossene Projekte</h3>
+            <ul *ngIf="list3open" class="projectboxlist">
+              <li class="actualList">
+                <a href="#" class="projectname"
+                  >UTOPIAE – UNCERTAINTY TREATMENT AND OPTIMISATION IN AEROSPACE
+                  ENGINEERING</a
+                >
+                <p class="projectdescription">
+                  UTOPIAE is a training and research network funded by the
+                  European Commission hrough the H2020 funding scheme.
+                </p>
+              </li>
             </ul>
           </li>
         </ul>
