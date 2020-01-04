@@ -16,6 +16,23 @@
   padding: 20px;
 }
 
+@media only screen and (max-width: 600px) {
+  .leftSide {
+    width: 100%;
+    padding: 20px;
+  }
+  .rightSide {
+    width: 100%;
+    padding: 20px;
+  }
+
+  .profile {
+    display: block;
+    width: 100%;
+    font-family: sans-serif;
+  }
+}
+
 .projectbox {
   //background-color: #ccc;
   list-style: none;
@@ -68,4 +85,9 @@ nav > ul > li > ul {
 .projectdescription {
   flex: 7;
   padding: 10px;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
 }
