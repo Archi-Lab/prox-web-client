@@ -7,6 +7,7 @@
 .leftSide {
   //background-color: #ddd;
   padding: 20px;
+  width: 82%;
 }
 
 .rightSide {
@@ -15,13 +16,15 @@
   padding: 20px;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 900px) {
   .leftSide {
     width: auto;
     padding: 20px;
   }
   .rightSide {
     width: 100%;
+    float: left;
+    text-align: center;
     padding: 20px;
   }
 
