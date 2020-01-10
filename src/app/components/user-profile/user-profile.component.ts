@@ -22,7 +22,7 @@ export class UserProfileComponent implements OnInit {
   constructor(private projectService: ProjectService) {}
 
   ngOnInit() {
-    this.filterProjectsBySupervisorName('Dozent');
+    this.supervisorNameFilter('Dozent');
   }
 
   getAllProjects() {
