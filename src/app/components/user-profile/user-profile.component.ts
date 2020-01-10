@@ -22,6 +22,7 @@ export class UserProfileComponent implements OnInit {
   constructor(private projectService: ProjectService) {}
 
   ngOnInit() {
+    this.selectedSupervisorName = 'Dozent';
     this.supervisorNameFilter('Dozent');
   }
 
