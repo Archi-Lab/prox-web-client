@@ -4,6 +4,9 @@ import { Project } from '../../shared/hal-resources/project.resource';
 import { MatSelectChange } from '@angular/material/select';
 import { MatConfirmDialogComponent } from '../../shared/mat-confirm-dialog/mat-confirm-dialog.component';
 import { ProjectDialogComponent } from '../project-dialog/project-dialog.component';
+import { KeyCloakUser } from '../../keycloak/KeyCloakUser';
+import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-user-profile',
@@ -17,9 +20,22 @@ export class UserProfileComponent implements OnInit {
   selectedStatus: string;
   selectedName: string;
   selectedSupervisorName: string;
+  parameterName: string;
   hasPermission = false;
 
-  constructor(private projectService: ProjectService) {}
+  constructor(
+    private projectService: ProjectService,
+    private user: KeyCloakUser,
+    public dialog: MatDialog,
+    private route: ActivatedRoute
+  ) {
+    this.user.Load().then(() => {
+      this.hasPermission = user.hasRole('professor');
+    });
+    this.route.params.subscribe(params => {
+      this.parameterName = 'Prof. Dr. Max Mustermann';
+    });
+  }
 
   ngOnInit() {
     this.selectedSupervisorName = 'Dozent';
@@ -113,6 +129,35 @@ export class UserProfileComponent implements OnInit {
         this.getAllProjects();
       }
     }
+  }
+  openProjectDialog(project: Project) {
+    const dialog = this.dialog.open(ProjectDialogComponent, {
+      autoFocus: false,
+      maxHeight: '85vh',
+      data: project
+    });
+
+    dialog.afterClosed().subscribe(() => {
+      this.supervisorNameFilter('Dozent');
+    });
+  }
+
+  deleteProject(project: Project) {
+    const dialogRef = this.dialog.open(MatConfirmDialogComponent, {
+      data: { title: 'Löschen', message: 'Projekt wirklich löschen?' }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.projectService
+          .delete(project)
+          .subscribe(
+            () => {},
+            error => console.log(error),
+            () => this.getAllProjects()
+          );
+      }
+    });
   }
 
   private fillStatus(projects: Project[]) {

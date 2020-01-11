@@ -22,14 +22,14 @@
               placeholder="Suche"
             />
           </mat-form-field>
-          <!--          <button-->
-          <!--            (click)="openProjectDialog(null)"-->
-          <!--            *ngIf="hasPermission"-->
-          <!--            class="no-hover"-->
-          <!--            mat-icon-button-->
-          <!--          >-->
-          <!--            <mat-icon>add</mat-icon>-->
-          <!--          </button>-->
+          <button
+            (click)="openProjectDialog(null)"
+            *ngIf="hasPermission"
+            class="no-hover"
+            mat-icon-button
+          >
+            <mat-icon>add</mat-icon>
+          </button>
         </div>
       </div>
       <mat-card *ngFor="let project of projects">
@@ -54,29 +54,29 @@
             {{ project.supervisorName }}
           </mat-card-title>
         </mat-card-header>
-        <!--        <mat-card-actions>-->
-        <!--          <button mat-button routerLink="/projects/{{ project.id }}">-->
-        <!--            Details-->
-        <!--          </button>-->
-        <!--          <button-->
-        <!--            (click)="deleteProject(project)"-->
-        <!--            *ngIf="hasPermission"-->
-        <!--            class="no-hover"-->
-        <!--            id="project-remove-button"-->
-        <!--            mat-icon-button-->
-        <!--          >-->
-        <!--            <mat-icon>delete_forever</mat-icon>-->
-        <!--          </button>-->
-        <!--          <button-->
-        <!--            (click)="openProjectDialog(project)"-->
-        <!--            *ngIf="hasPermission"-->
-        <!--            class="no-hover"-->
-        <!--            id="project-edit-button"-->
-        <!--            mat-icon-button-->
-        <!--          >-->
-        <!--            <mat-icon>edit</mat-icon>-->
-        <!--          </button>-->
-        <!--        </mat-card-actions>-->
+        <mat-card-actions>
+          <button mat-button routerLink="/projects/{{ project.id }}">
+            Details
+          </button>
+          <button
+            (click)="deleteProject(project)"
+            *ngIf="hasPermission"
+            class="no-hover"
+            id="project-remove-button"
+            mat-icon-button
+          >
+            <mat-icon>delete_forever</mat-icon>
+          </button>
+          <button
+            (click)="openProjectDialog(project)"
+            *ngIf="hasPermission"
+            class="no-hover"
+            id="project-edit-button"
+            mat-icon-button
+          >
+            <mat-icon>edit</mat-icon>
+          </button>
+        </mat-card-actions>
       </mat-card>
     </div>
   </div>
@@ -84,7 +84,7 @@
   <div class="rightSide">
     <div class="leftProfile">
       <div class="Profname">
-        <p>Prof. Dr. Max Mustermann</p>
+        <p>{{ parameterName }}</p>
       </div>
       <div class="profilePic">
         <img src="assets/images/profile/placeholder.jpg" />

@@ -31,12 +31,21 @@ export class ProjectDialogComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.projectFormControl = this.formBuilder.group({
-      name: ['', [Validators.required]],
-      description: ['', [Validators.required]],
-      supervisorName: ['', [Validators.required]],
-      status: ['', [Validators.required]]
-    });
+    if (this.user.isLoggedIn()) {
+      this.projectFormControl = this.formBuilder.group({
+        name: ['', [Validators.required]],
+        description: ['', [Validators.required]],
+        status: ['', [Validators.required]],
+        supervisorName: [this.user.getFullName(), [Validators.required]]
+      });
+    } else {
+      this.projectFormControl = this.formBuilder.group({
+        name: ['', [Validators.required]],
+        description: ['', [Validators.required]],
+        status: ['', [Validators.required]],
+        supervisorName: ['test', [Validators.required]]
+      });
+    }
 
     this.getStudyCourses().then(() => {
       this.fillInProjectValuesIfProjectExists();

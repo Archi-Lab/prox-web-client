@@ -12,6 +12,11 @@
   font-weight: bold;
 }
 
+.profileLink:hover {
+  color: var(--th-purple);
+  text-decoration: underline;
+}
+
 .user button {
   display: block;
   width: 70%;
