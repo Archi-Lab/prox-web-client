@@ -102,20 +102,20 @@
       <div class="TAGs">
         <p class="tags">
           <span class="tags-title">Tags:</span>
-          <a href="#" rel="tag" class="label">ST1</a>
-          <a href="#" rel="tag" class="label">MCI</a>
-          <a href="#" rel="tag" class="label">KI</a>
+          <a *ngFor="let tag of tags" href="#" rel="tag" class="label">{{
+            tag
+          }}</a>
         </p>
       </div>
       <div class="contactinfo">
         <p>Kontaktinfo:</p>
-        <p>Technische Hochschule Köln</p>
-        <p>Steinmüllerallee 6</p>
-        <p>51643 Gummersbach</p>
-        <p>Raum 1506</p>
+        <p>{{ adresse }}</p>
+        <p>{{ strasse }}</p>
+        <p>{{ plz }}</p>
+        <p>{{ raum }}</p>
         <br />
-        <p>Tel:+49 2261-8196-6367</p>
-        <p>Mail:max.mustermann@th-koeln.de</p>
+        <p>Tel:{{ phonenumber }}</p>
+        <p>Mail:{{ mail }}</p>
       </div>
     </div>
   </div>

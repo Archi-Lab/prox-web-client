@@ -22,6 +22,13 @@ export class UserProfileComponent implements OnInit {
   selectedSupervisorName: string;
   parameterName: string;
   hasPermission = false;
+  adresse: String;
+  strasse: String;
+  plz: String;
+  raum: String;
+  phonenumber: String;
+  mail: String;
+  tags: String[] = ['ST1', 'MCI', 'KI'];
 
   constructor(
     private projectService: ProjectService,
@@ -34,6 +41,12 @@ export class UserProfileComponent implements OnInit {
     });
     this.route.params.subscribe(params => {
       this.parameterName = 'Prof. Dr. Max Mustermann';
+      this.adresse = 'Technische Hochschule Köln';
+      this.strasse = 'Steinmüllerallee 6';
+      this.plz = '51643 Gummersbach';
+      this.raum = 'Raum 1506';
+      this.phonenumber = '+49 2261-8196-6367';
+      this.mail = 'max.mustermann@th-koeln.de';
     });
   }
 
