@@ -1,9 +1,19 @@
 @import 'src/app/components/project-list/project-list.component';
 
-.profile {
+.profileDozent {
   display: flex;
   width: 100%;
   font-family: sans-serif;
+}
+.profileStudent {
+  display: flex;
+  width: 100%;
+  font-family: sans-serif;
+}
+
+.profileStudent .headStudent p {
+  display: inline;
+  margin: 0 75px;
 }
 
 .leftSide {
@@ -41,7 +51,7 @@
     width: auto;
   }
 
-  .profile {
+  .profileDozent {
     display: block;
     width: 100%;
     font-family: sans-serif;
@@ -120,4 +130,8 @@ img {
 .aboutMe {
   padding-top: 15px;
   padding-left: 30px;
+}
+
+.project-list {
+  margin-top: 0;
 }

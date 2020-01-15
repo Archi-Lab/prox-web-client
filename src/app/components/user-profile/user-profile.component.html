@@ -1,4 +1,4 @@
-<div class="profile">
+<div class="profileDozent" *ngIf="isDozent">
   <div class="leftSide">
     <div class="project-list">
       <h1>Über mich</h1>
@@ -92,7 +92,7 @@
   <div class="rightSide">
     <button
       (click)="openProfileDialog(profil)"
-      *ngIf="hasPermission"
+      *ngIf="isDozent"
       class="no-hover"
       mat-icon-button
     >
@@ -122,6 +122,86 @@
         <p>{{ profil.plz }}</p>
         <p>{{ profil.raum }}</p>
         <br />
+        <p>Tel:{{ profil.phonenumber }}</p>
+        <p>Mail:{{ profil.mail }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="profileStudent" *ngIf="isStudent">
+  <div class="leftSide">
+    <div class="headStudent">
+      <p>Studiengang: AI</p>
+      <p>Schwerpunkt:</p>
+      <p>Semester: 5</p>
+      <p>Status: Suchend</p>
+    </div>
+    <div class="project-list">
+      <h1>Über mich</h1>
+      <p class="aboutMe" style="width: 80%">
+        In den letzten Jahren konnte ich bereits erste praktische Erfahrungen im
+        Bereich des Handelsmarketings sammeln. Bei der Firma ABC GmbH habe ich
+        ein neues Analysetool zur Verbesserung der Konditionsstruktur
+        mitentwickeln und durfte nach dem Praktikum diese Kenntnisse im Rahmen
+        einer Werksstudententätigkeit vertiefen und bei der Implementierung des
+        Tools mitwirken. In meinem zweiten Praktikum bei der DEF KG konnte ich
+        auf diese Erfahrung aufbauen, und habe dort im Verkauf direkt einen
+        ersten eigenen Kunden betreut.
+      </p>
+    </div>
+    <div class="project-list">
+      <h1>Qulifikation</h1>
+      <p class="aboutMe">
+        Hier findeen sie eine Lister meiner Qualifikationen:
+      </p>
+      <p class="aboutMe">
+        Abgeschlossene Module: ST1, ST2, EBR, AP1, BPI, ALGO, MA1, BWL2
+      </p>
+      <p class="aboutMe">
+        Berufserfahrung: Drei monatiges Prakitkum in der Firma MustermannIT.
+      </p>
+    </div>
+    <div class="project-list">
+      <h1>Abgeschlossene Projekte</h1>
+      <p class="aboutMe">
+        Das sind Projekte, welche ich bereits abgeschlossen habe:
+      </p>
+      <mat-card>
+        <mat-card-header>
+          <mat-card-subtitle>Bezeichnung</mat-card-subtitle>
+          <mat-card-title>QQ1</mat-card-title>
+          <mat-card-subtitle>Status</mat-card-subtitle>
+          <mat-card-title>
+            <div class="status">ABGESCHLOSSEN</div>
+          </mat-card-title>
+          <mat-card-subtitle>Betreuungsperson</mat-card-subtitle>
+          <mat-card-title>
+            Prof. Dozent
+          </mat-card-title>
+        </mat-card-header>
+      </mat-card>
+    </div>
+  </div>
+  <div class="rightSide">
+    <div class="leftProfile">
+      <div class="Profname">
+        <p>Muster Student</p>
+      </div>
+      <div class="profilePic">
+        <img src="assets/images/profile/placeholder.jpg" />
+      </div>
+    </div>
+    <div class="rigthProfile">
+      <div class="TAGs">
+        <p class="tags">
+          <span class="tags-title">Tags:</span>
+          <a *ngFor="let tag of profil.tags" href="#" rel="tag" class="label">{{
+            tag
+          }}</a>
+        </p>
+      </div>
+      <div class="contactinfo">
+        <p>Kontaktinfo:</p>
         <p>Tel:{{ profil.phonenumber }}</p>
         <p>Mail:{{ profil.mail }}</p>
       </div>

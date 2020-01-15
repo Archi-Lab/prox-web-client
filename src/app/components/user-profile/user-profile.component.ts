@@ -32,6 +32,8 @@ export class UserProfileComponent implements OnInit {
   phonenumber: String;
   mail: String;
   tags: String[] = ['ST1', 'MCI', 'KI'];
+  isDozent: boolean;
+  isStudent: boolean;
 
   constructor(
     private projectService: ProjectService,
@@ -49,6 +51,8 @@ export class UserProfileComponent implements OnInit {
     this.profil.tags = ['ST1', 'MCI', 'KI'];
     this.user.Load().then(() => {
       this.hasPermission = user.hasRole('professor');
+      this.isDozent = user.hasRole('professor');
+      this.isStudent = user.hasRole('student');
     });
     this.route.params.subscribe(params => {});
   }
