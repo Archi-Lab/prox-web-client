@@ -1,0 +1,111 @@
+<div class="project-dialog">
+  <h1 mat-dialog-title>Profildaten</h1>
+  <form
+    (ngSubmit)="onSubmit(profileFormControl.value)"
+    *ngIf="profileFormControl"
+    [formGroup]="profileFormControl"
+    class="row"
+    novalidate
+  >
+    <div class="project-dialog-form">
+      <mat-form-field>
+        <input
+          [formControl]="profileFormControl.controls['name']"
+          matInput
+          placeholder="Name"
+          required
+        />
+        <mat-error
+          *ngIf="profileFormControl.controls['name'].hasError('required')"
+        >
+          Name <strong>fehlt</strong>!
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          [formControl]="profileFormControl.controls['adresse']"
+          matInput
+          placeholder="Adresse"
+          required
+        />
+        <mat-error
+          *ngIf="profileFormControl.controls['adresse'].hasError('required')"
+        >
+          Adresse <strong>fehlt</strong>!
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          [formControl]="profileFormControl.controls['strasse']"
+          matInput
+          placeholder="Straße"
+          required
+        />
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          [formControl]="profileFormControl.controls['plz']"
+          matInput
+          placeholder="Postleitzahl"
+          required
+        />
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          [formControl]="profileFormControl.controls['raum']"
+          matInput
+          placeholder="Raum"
+          required
+        />
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          [formControl]="profileFormControl.controls['phonenumber']"
+          matInput
+          placeholder="Telefonnummer"
+          required
+        />
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          [formControl]="profileFormControl.controls['mail']"
+          matInput
+          placeholder="E-Mailadresse"
+          required
+        />
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          [formControl]="profileFormControl.controls['tags']"
+          matInput
+          placeholder="Tags"
+          required
+        />
+      </mat-form-field>
+    </div>
+    <div mat-dialog-actions>
+      <div class="action-buttons">
+        <button (click)="closeDialog()" mat-button type="reset">
+          Abbrechen
+        </button>
+        <button
+          [disabled]="
+            profileFormControl.controls['name'].hasError('required') ||
+            profileFormControl.controls['adresse'].hasError('required') ||
+            profileFormControl.controls['strasse'].hasError('required') ||
+            profileFormControl.controls['plz'].hasError('required') ||
+            profileFormControl.controls['raum'].hasError('required') ||
+            profileFormControl.controls['phonenumber'].hasError('required') ||
+            profileFormControl.controls['mail'].hasError('required') ||
+            profileFormControl.controls['tags'].hasError('required') ||
+            hasSubmitted
+          "
+          mat-button
+          type="submit"
+        >
+          Änderungen speichern
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

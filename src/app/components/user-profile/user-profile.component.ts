@@ -7,6 +7,8 @@ import { ProjectDialogComponent } from '../project-dialog/project-dialog.compone
 import { KeyCloakUser } from '../../keycloak/KeyCloakUser';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
+import { Profil } from '../../shared/hal-resources/profile.resource';
+import { ProfileDialogComponent } from '../user-profile-dialog/user-profile-dialog.component';
 
 @Component({
   selector: 'app-user-profile',
@@ -22,6 +24,7 @@ export class UserProfileComponent implements OnInit {
   selectedSupervisorName: string;
   parameterName: string;
   hasPermission = false;
+  profil: Profil = new Profil();
   adresse: String;
   strasse: String;
   plz: String;
@@ -36,18 +39,18 @@ export class UserProfileComponent implements OnInit {
     public dialog: MatDialog,
     private route: ActivatedRoute
   ) {
+    this.profil.name = 'Prof. Dr. Max Mustermann';
+    this.profil.adresse = 'Technische Hochschule Köln';
+    this.profil.strasse = 'Steinmüllerallee 6';
+    this.profil.plz = '51643 Gummersbach';
+    this.profil.raum = 'Raum 1506';
+    this.profil.phonenumber = '+49 2261-8196-6367';
+    this.profil.mail = 'max.mustermann@th-koeln.de';
+    this.profil.tags = ['ST1', 'MCI', 'KI'];
     this.user.Load().then(() => {
       this.hasPermission = user.hasRole('professor');
     });
-    this.route.params.subscribe(params => {
-      this.parameterName = 'Prof. Dr. Max Mustermann';
-      this.adresse = 'Technische Hochschule Köln';
-      this.strasse = 'Steinmüllerallee 6';
-      this.plz = '51643 Gummersbach';
-      this.raum = 'Raum 1506';
-      this.phonenumber = '+49 2261-8196-6367';
-      this.mail = 'max.mustermann@th-koeln.de';
-    });
+    this.route.params.subscribe(params => {});
   }
 
   ngOnInit() {
@@ -148,6 +151,18 @@ export class UserProfileComponent implements OnInit {
       autoFocus: false,
       maxHeight: '85vh',
       data: project
+    });
+
+    dialog.afterClosed().subscribe(() => {
+      this.supervisorNameFilter('Dozent');
+    });
+  }
+
+  openProfileDialog(profile: Profil) {
+    const dialog = this.dialog.open(ProfileDialogComponent, {
+      autoFocus: false,
+      maxHeight: '85vh',
+      data: profile
     });
 
     dialog.afterClosed().subscribe(() => {

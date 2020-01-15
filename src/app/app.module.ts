@@ -58,6 +58,7 @@ import { ImpressumComponent } from './components/legal-issues/impressum/impressu
 import { DataProtectionComponent } from './components/legal-issues/data-protection/data-protection.component';
 import { LiabilityNoticeComponent } from './components/legal-issues/liability-notice/liability-notice.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { ProfileDialogComponent } from './components/user-profile-dialog/user-profile-dialog.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
     ProjectListComponent,
     ProjectDetailsComponent,
     ProjectDialogComponent,
+    ProfileDialogComponent,
     UserComponent,
     MatConfirmDialogComponent,
     ContactComponent,
@@ -118,7 +120,11 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
     MatPaginatorModule,
     KeycloakAngularModule
   ],
-  entryComponents: [ProjectDialogComponent, MatConfirmDialogComponent],
+  entryComponents: [
+    ProjectDialogComponent,
+    ProfileDialogComponent,
+    MatConfirmDialogComponent
+  ],
   providers: [
     {
       provide: 'ExternalConfigurationService',

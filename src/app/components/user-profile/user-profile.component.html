@@ -3,7 +3,7 @@
     <div class="project-list">
       <h1>Über mich</h1>
       <p class="aboutMe">
-        Hallo mein Name ist {{ parameterName }} und ich unterrichte seit 2018 an
+        Hallo mein Name ist {{ profil.name }} und ich unterrichte seit 2018 an
         der TH-Köln. Schwerpunkte meiner Veranstaltungen liegen im Bereich der
         Softwareentwicklung und IT-Consulting.
       </p>
@@ -90,9 +90,17 @@
   </div>
 
   <div class="rightSide">
+    <button
+      (click)="openProfileDialog(profil)"
+      *ngIf="hasPermission"
+      class="no-hover"
+      mat-icon-button
+    >
+      <mat-icon>add</mat-icon>
+    </button>
     <div class="leftProfile">
       <div class="Profname">
-        <p>{{ parameterName }}</p>
+        <p>{{ profil.name }}</p>
       </div>
       <div class="profilePic">
         <img src="assets/images/profile/placeholder.jpg" />
@@ -102,20 +110,20 @@
       <div class="TAGs">
         <p class="tags">
           <span class="tags-title">Tags:</span>
-          <a *ngFor="let tag of tags" href="#" rel="tag" class="label">{{
+          <a *ngFor="let tag of profil.tags" href="#" rel="tag" class="label">{{
             tag
           }}</a>
         </p>
       </div>
       <div class="contactinfo">
         <p>Kontaktinfo:</p>
-        <p>{{ adresse }}</p>
-        <p>{{ strasse }}</p>
-        <p>{{ plz }}</p>
-        <p>{{ raum }}</p>
+        <p>{{ profil.adresse }}</p>
+        <p>{{ profil.strasse }}</p>
+        <p>{{ profil.plz }}</p>
+        <p>{{ profil.raum }}</p>
         <br />
-        <p>Tel:{{ phonenumber }}</p>
-        <p>Mail:{{ mail }}</p>
+        <p>Tel:{{ profil.phonenumber }}</p>
+        <p>Mail:{{ profil.mail }}</p>
       </div>
     </div>
   </div>

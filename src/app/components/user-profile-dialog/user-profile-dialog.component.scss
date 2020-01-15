@@ -1,0 +1,85 @@
+.project-dialog-form {
+  display: flex;
+  flex-direction: column;
+  min-width: 600px;
+}
+
+.mat-dialog-title {
+  color: var(--th-red);
+}
+
+.mat-button {
+  color: var(--th-purple);
+  font-size: 1em;
+}
+
+.project-dialog-form > * {
+  width: 100%;
+}
+
+.mat-dialog-actions {
+  justify-content: center;
+}
+
+@media (max-width: 600px) {
+  .project-dialog-form > * {
+    width: 100%;
+  }
+}
+
+@media (max-width: 325px) {
+  .mat-dialog-actions {
+    display: inline;
+  }
+
+  .mat-button {
+    padding: 0 10px 0 10px;
+    font-size: 0.8em;
+  }
+}
+
+.mat-error {
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
+
+.mat-form-field {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.form-textarea {
+  font-size: 0.8em;
+  height: 100px;
+}
+
+.selected {
+  background-color: var(--th-red);
+  color: white;
+}
+
+.mat-chip-list {
+  padding: 0 0 0 0;
+  margin: 0 0 0 0;
+  width: inherit;
+}
+
+.mat-chip-item {
+  font-size: 0.8em;
+}
+
+#module-caption {
+  font-size: 1em;
+  font-weight: normal;
+  color: var(--th-red);
+  padding: 0 0 0 0;
+  width: 100%;
+}
+
+#study-course-caption {
+  font-size: 0.8em;
+  font-weight: normal;
+  color: var(--th-purple);
+  padding: 0 0 0 0;
+  width: 100%;
+}
