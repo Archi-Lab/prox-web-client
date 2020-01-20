@@ -41,7 +41,7 @@ export class UserProjectComponent implements OnInit {
     public dialog: MatDialog,
     private route: ActivatedRoute
   ) {
-    this.profil.name = 'Prof. Dr. Max Mustermann';
+    this.profil.name = 'Max Mustermann';
     this.profil.adresse = 'Technische Hochschule Köln';
     this.profil.strasse = 'Steinmüllerallee 6';
     this.profil.plz = '51643 Gummersbach';
