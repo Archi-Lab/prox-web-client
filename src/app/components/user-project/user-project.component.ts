@@ -11,11 +11,11 @@ import { Profil } from '../../shared/hal-resources/profile.resource';
 import { ProfileDialogComponent } from '../user-profile-dialog/user-profile-dialog.component';
 
 @Component({
-  selector: 'app-user-profile',
-  templateUrl: './user-profile.component.html',
-  styleUrls: ['./user-profile.component.scss']
+  selector: 'app-user-project',
+  templateUrl: './user-project.component.html',
+  styleUrls: ['./user-project.component.scss']
 })
-export class UserProfileComponent implements OnInit {
+export class UserProjectComponent implements OnInit {
   projects: Project[] = [];
   filteredProjects: Project[] = [];
   allStatus: string[] = [];

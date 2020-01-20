@@ -58,6 +58,7 @@ import { ImpressumComponent } from './components/legal-issues/impressum/impressu
 import { DataProtectionComponent } from './components/legal-issues/data-protection/data-protection.component';
 import { LiabilityNoticeComponent } from './components/legal-issues/liability-notice/liability-notice.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { UserProjectComponent } from './components/user-project/user-project.component';
 import { ProfileDialogComponent } from './components/user-profile-dialog/user-profile-dialog.component';
 
 @NgModule({
@@ -78,7 +79,8 @@ import { ProfileDialogComponent } from './components/user-profile-dialog/user-pr
     ImpressumComponent,
     DataProtectionComponent,
     LiabilityNoticeComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    UserProjectComponent
   ],
   imports: [
     AppRoutingModule,

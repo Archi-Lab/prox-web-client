@@ -1,0 +1,140 @@
+.profileStudent {
+  font-family: sans-serif;
+}
+
+h3 {
+  //background-color: #aaa;
+  display: block;
+  white-space: nowrap;
+  padding: 10px;
+  color: var(--th-red);
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.1), 0 2px 2px 0 rgba(0, 0, 0, 0.1),
+    0 1px 5px 0 rgba(0, 0, 0, 0.09);
+}
+
+nav > ul > li > ul {
+  display: block;
+}
+
+.projectTitle {
+  display: inline;
+}
+
+.project1 {
+  width: auto;
+  //background: #a5ff90;
+  border: 1px solid #ccc !important;
+  border-radius: 16px;
+  margin: 0px 20px;
+  padding: 20px;
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.1), 0 2px 2px 0 rgba(0, 0, 0, 0.1),
+    0 1px 5px 0 rgba(0, 0, 0, 0.09);
+}
+
+.project2 {
+  width: auto;
+  //background: #a5ff90;
+  border: 1px solid #ccc !important;
+  border-radius: 16px;
+  margin: 40px 20px;
+  padding: 20px;
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.1), 0 2px 2px 0 rgba(0, 0, 0, 0.1),
+    0 1px 5px 0 rgba(0, 0, 0, 0.09);
+}
+.TAGs {
+  display: inline;
+  padding-left: 20px;
+}
+
+.TAGs p {
+  display: inline;
+}
+
+.tags a {
+  display: inline;
+  padding: 0.2em 0.6em 0.3em;
+  font-size: 75%;
+  font-weight: bold;
+  line-height: 1;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.25em;
+  background-color: #777;
+  background-color: #b43092;
+  margin: 2px;
+  text-decoration: none;
+}
+
+.head {
+  width: 100%;
+  text-align: center;
+}
+
+li {
+  padding-top: 10px;
+}
+
+.projectBodyLeft {
+  //background: #75beff;
+  margin: 10px;
+  width: 60%;
+  display: inline-block;
+}
+
+.projectBodyRight {
+  //background: #c60c0f;
+  margin: 10px;
+  width: 34%;
+  float: right;
+}
+
+.checked {
+  text-decoration: line-through;
+}
+
+img {
+  width: auto;
+  height: 80px;
+  display: inline-block;
+}
+
+.contactinfo {
+  margin-left: 5px;
+  font-size: 11px;
+  display: inline-block;
+}
+
+.mat-card {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.1), 0 2px 2px 0 rgba(0, 0, 0, 0.1),
+    0 1px 5px 0 rgba(0, 0, 0, 0.09);
+  width: auto;
+  display: block;
+}
+
+.mat-card-subtitle {
+  margin-bottom: 5px;
+  color: var(--th-red);
+}
+
+.mat-card-title {
+  padding-bottom: 10px;
+}
+
+.status {
+  background-color: #ff9081;
+  font-size: 1em;
+  padding: 5px 7px 5px 7px;
+  margin-top: 5px;
+  border-radius: 5px;
+  box-shadow: 0 2px 1px -1px #505050, inset 0 2px 0 rgba(255, 255, 255, 0.25);
+  display: inline-block;
+}
+.project-list {
+  margin-left: 20px;
+  margin-right: 20px;
+  padding-bottom: 20px;
+}
