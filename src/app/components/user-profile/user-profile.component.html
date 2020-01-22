@@ -3,9 +3,7 @@
     <div class="project-list">
       <h1>Über mich</h1>
       <p class="aboutMe">
-        Hallo mein Name ist {{ profil.name }} und ich unterrichte seit 2018 an
-        der TH-Köln. Schwerpunkte meiner Veranstaltungen liegen im Bereich der
-        Softwareentwicklung und IT-Consulting.
+        {{ profil.aboutMe }}
       </p>
     </div>
     <div class="project-list">
@@ -131,35 +129,24 @@
 <div class="profileStudent" *ngIf="isStudent">
   <div class="leftSide">
     <div class="headStudent">
-      <p>Studiengang: AI</p>
+      <p>Studiengang: {{ student.studiengang }}</p>
       <p>Schwerpunkt:</p>
-      <p>Semester: 5</p>
-      <p>Status: Suchend</p>
+      <p>Semester: {{ student.semester }}</p>
+      <p>Status: {{ student.status }}</p>
     </div>
     <div class="project-list">
       <h1>Über mich</h1>
       <p class="aboutMe" style="width: 80%">
-        In den letzten Jahren konnte ich bereits erste praktische Erfahrungen im
-        Bereich des Handelsmarketings sammeln. Bei der Firma ABC GmbH habe ich
-        ein neues Analysetool zur Verbesserung der Konditionsstruktur
-        mitentwickeln und durfte nach dem Praktikum diese Kenntnisse im Rahmen
-        einer Werksstudententätigkeit vertiefen und bei der Implementierung des
-        Tools mitwirken. In meinem zweiten Praktikum bei der DEF KG konnte ich
-        auf diese Erfahrung aufbauen, und habe dort im Verkauf direkt einen
-        ersten eigenen Kunden betreut.
+        {{ student.aboutMe }}
       </p>
     </div>
     <div class="project-list">
       <h1>Qulifikation</h1>
       <p class="aboutMe">
-        Hier findeen sie eine Lister meiner Qualifikationen:
+        Hier finden sie eine Lister meiner Qualifikationen:
       </p>
-      <p class="aboutMe">
-        Abgeschlossene Module: ST1, ST2, EBR, AP1, BPI, ALGO, MA1, BWL2
-      </p>
-      <p class="aboutMe">
-        Berufserfahrung: Drei monatiges Prakitkum in der Firma MustermannIT.
-      </p>
+      <p class="aboutMe">Abgeschlossene Module: {{ student.doneModules }}</p>
+      <p class="aboutMe">Berufserfahrung: {{ student.doneJobs }}</p>
     </div>
     <div class="project-list">
       <h1>Abgeschlossene Projekte</h1>
@@ -183,9 +170,17 @@
     </div>
   </div>
   <div class="rightSide">
+    <button
+      (click)="openProfileStudentDialog(student)"
+      *ngIf="isStudent"
+      class="no-hover"
+      mat-icon-button
+    >
+      <mat-icon>add</mat-icon>
+    </button>
     <div class="leftProfile">
       <div class="Profname">
-        <p>Muster Student</p>
+        <p>{{ student.name }}</p>
       </div>
       <div class="profilePic">
         <img src="assets/images/profile/placeholder.jpg" />
@@ -195,15 +190,19 @@
       <div class="TAGs">
         <p class="tags">
           <span class="tags-title">Tags:</span>
-          <a *ngFor="let tag of profil.tags" href="#" rel="tag" class="label">{{
-            tag
-          }}</a>
+          <a
+            *ngFor="let tag of student.tags"
+            href="#"
+            rel="tag"
+            class="label"
+            >{{ tag }}</a
+          >
         </p>
       </div>
       <div class="contactinfo">
         <p>Kontaktinfo:</p>
-        <p>Tel:{{ profil.phonenumber }}</p>
-        <p>Mail:{{ profil.mail }}</p>
+        <p>Tel:{{ student.phonenumber }}</p>
+        <p>Mail:{{ student.mail }}</p>
       </div>
     </div>
   </div>

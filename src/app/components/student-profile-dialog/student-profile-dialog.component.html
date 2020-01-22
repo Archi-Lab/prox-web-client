@@ -1,0 +1,138 @@
+<div class="project-dialog">
+  <h1 mat-dialog-title>Profildaten</h1>
+  <form
+    (ngSubmit)="onSubmit(profileFormControl.value)"
+    *ngIf="profileFormControl"
+    [formGroup]="profileFormControl"
+    class="row"
+    novalidate
+  >
+    <div class="project-dialog-form">
+      <mat-form-field>
+        <input
+          [formControl]="profileFormControl.controls['name']"
+          matInput
+          placeholder="Name"
+          required
+        />
+        <mat-error
+          *ngIf="profileFormControl.controls['name'].hasError('required')"
+        >
+          Name <strong>fehlt</strong>!
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          [formControl]="profileFormControl.controls['phonenumber']"
+          matInput
+          placeholder="Telefonnummer"
+          required
+        />
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          [formControl]="profileFormControl.controls['mail']"
+          matInput
+          placeholder="E-Mailadresse"
+          required
+        />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select
+          [formControl]="profileFormControl.controls['studiengang']"
+          placeholder="Studeingang"
+          required
+        >
+          <!-- The following options should be implemented either as enums or imported from backend -->
+          <mat-option value="AI">AI</mat-option>
+          <mat-option value="WI">WI</mat-option>
+          <mat-option value="MI">MI</mat-option>
+          <mat-option value="ING">ING</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select
+          [formControl]="profileFormControl.controls['semester']"
+          placeholder="Semester"
+          required
+        >
+          <!-- The following options should be implemented either as enums or imported from backend -->
+          <mat-option value="1">1</mat-option>
+          <mat-option value="2">2</mat-option>
+          <mat-option value="3">3</mat-option>
+          <mat-option value="4">4</mat-option>
+          <mat-option value="5">5</mat-option>
+          <mat-option value="6">6</mat-option>
+          <mat-option value="7">7</mat-option>
+          <mat-option value="8+">8 und höher</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select
+          [formControl]="profileFormControl.controls['status']"
+          placeholder="Status"
+          required
+        >
+          <!-- The following options should be implemented either as enums or imported from backend -->
+          <mat-option value="Suchend">Suchend</mat-option>
+          <mat-option value="Nicht Suchend">Nicht Suchend</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          [formControl]="profileFormControl.controls['tags']"
+          matInput
+          placeholder="Tags"
+          required
+        />
+      </mat-form-field>
+      <mat-form-field>
+        <textarea
+          [formControl]="profileFormControl.controls['aboutMe']"
+          class="form-textarea"
+          matInput
+          placeholder="Über Mich"
+          required
+        ></textarea>
+      </mat-form-field>
+      <mat-form-field>
+        <textarea
+          [formControl]="profileFormControl.controls['doneModules']"
+          class="form-textarea"
+          matInput
+          placeholder="Abgeschlossene Module"
+          required
+        ></textarea>
+      </mat-form-field>
+      <mat-form-field>
+        <textarea
+          [formControl]="profileFormControl.controls['doneJobs']"
+          class="form-textarea"
+          matInput
+          placeholder="Berufserfahrung"
+          required
+        ></textarea>
+      </mat-form-field>
+    </div>
+    <div mat-dialog-actions>
+      <div class="action-buttons">
+        <button (click)="closeDialog()" mat-button type="reset">
+          Abbrechen
+        </button>
+        <button
+          [disabled]="
+            profileFormControl.controls['name'].hasError('required') ||
+            profileFormControl.controls['phonenumber'].hasError('required') ||
+            profileFormControl.controls['mail'].hasError('required') ||
+            profileFormControl.controls['tags'].hasError('required') ||
+            hasSubmitted
+          "
+          mat-button
+          type="submit"
+        >
+          Änderungen speichern
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

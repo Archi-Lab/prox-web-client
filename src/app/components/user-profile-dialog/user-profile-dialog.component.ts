@@ -41,7 +41,8 @@ export class ProfileDialogComponent implements OnInit {
       raum: ['', [Validators.required]],
       phonenumber: ['', [Validators.required]],
       mail: ['', [Validators.required]],
-      tags: ['', [Validators.required]]
+      tags: ['', [Validators.required]],
+      aboutMe: ['']
     });
 
     this.fillInProjectValuesIfProjectExists();
@@ -58,6 +59,7 @@ export class ProfileDialogComponent implements OnInit {
       this.profileFormControl.controls.strasse.setValue(this.profile.strasse);
       this.profileFormControl.controls.plz.setValue(this.profile.plz);
       this.profileFormControl.controls.raum.setValue(this.profile.raum);
+      this.profileFormControl.controls.aboutMe.setValue(this.profile.aboutMe);
       this.profileFormControl.controls.phonenumber.setValue(
         this.profile.phonenumber
       );
@@ -65,6 +67,7 @@ export class ProfileDialogComponent implements OnInit {
       this.profile.tags.forEach(function(value) {
         tagsString += value + ';';
       });
+      tagsString = tagsString.substr(0, tagsString.length - 1);
       this.profileFormControl.controls.mail.setValue(this.profile.mail);
       this.profileFormControl.controls.tags.setValue(tagsString);
     } else {
@@ -221,6 +224,8 @@ export class ProfileDialogComponent implements OnInit {
     this.profile.raum = profil.raum;
     this.profile.phonenumber = profil.phonenumber;
     this.profile.mail = profil.mail;
+    this.profile.aboutMe = profil.aboutMe;
+    this.profile.tags = profil.tags.toString().split(';');
     // this.profileService.update(this.profile);
     this.closeDialog();
   }

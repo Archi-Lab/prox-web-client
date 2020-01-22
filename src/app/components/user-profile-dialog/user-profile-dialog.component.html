@@ -82,6 +82,22 @@
           required
         />
       </mat-form-field>
+      <mat-form-field>
+        <textarea
+          [formControl]="profileFormControl.controls['aboutMe']"
+          class="form-textarea"
+          matInput
+          placeholder="Über Mich"
+          required
+        ></textarea>
+        <!--<mat-error
+        *ngIf="
+        profileFormControl.controls['description'].hasError('required')
+        "
+        >
+        Über Mich <strong>fehlt</strong>!
+        </mat-error>-->
+      </mat-form-field>
     </div>
     <div mat-dialog-actions>
       <div class="action-buttons">

@@ -9,6 +9,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { Profil } from '../../shared/hal-resources/profile.resource';
 import { ProfileDialogComponent } from '../user-profile-dialog/user-profile-dialog.component';
+import { Student } from '../../shared/hal-resources/student.resource';
+import { StudentProfileDialogComponent } from '../student-profile-dialog/student-profile-dialog.component';
 
 @Component({
   selector: 'app-user-profile',
@@ -25,6 +27,7 @@ export class UserProfileComponent implements OnInit {
   parameterName: string;
   hasPermission = false;
   profil: Profil = new Profil();
+  student: Student = new Student();
   adresse: String;
   strasse: String;
   plz: String;
@@ -41,6 +44,21 @@ export class UserProfileComponent implements OnInit {
     public dialog: MatDialog,
     private route: ActivatedRoute
   ) {
+    this.user.Load().then(() => {
+      this.hasPermission = user.hasRole('professor');
+      this.isDozent = user.hasRole('professor');
+      this.isStudent = user.hasRole('student');
+      if (this.isStudent) {
+        this.initStudent();
+      }
+      if (this.isDozent) {
+        this.initProfessor();
+      }
+    });
+    this.route.params.subscribe(params => {});
+  }
+
+  initProfessor() {
     this.profil.name = 'Prof. Dr. Max Mustermann';
     this.profil.adresse = 'Technische Hochschule Köln';
     this.profil.strasse = 'Steinmüllerallee 6';
@@ -49,12 +67,35 @@ export class UserProfileComponent implements OnInit {
     this.profil.phonenumber = '+49 1234-8196-6367';
     this.profil.mail = 'max.mustermann@th-koeln.de';
     this.profil.tags = ['ST1', 'MCI', 'KI'];
-    this.user.Load().then(() => {
-      this.hasPermission = user.hasRole('professor');
-      this.isDozent = user.hasRole('professor');
-      this.isStudent = user.hasRole('student');
-    });
-    this.route.params.subscribe(params => {});
+    this.profil.aboutMe =
+      'Hallo mein Name ist Prof. Dr. Max Mustermann und ich unterrichte seit 2018 an  ' +
+      '  der TH-Köln. Schwerpunkte meiner Veranstaltungen liegen im Bereich den' +
+      '    Softwareentwicklung und IT-Consulting.';
+  }
+
+  initStudent() {
+    this.student.name = 'Muster Student';
+    this.student.phonenumber = '+49 1234-8196-6367';
+    this.student.mail = 'student.mustermann@th-koeln.de';
+    this.student.tags = ['ST1', 'MCI', 'KI'];
+    this.student.aboutMe =
+      'In den letzten Jahren konnte ich bereits erste praktische Erfahrungen im\n' +
+      '        Bereich des Handelsmarketings sammeln. Bei der Firma ABC GmbH habe ich\n' +
+      '        ein neues Analysetool zur Verbesserung der Konditionsstruktur\n' +
+      '        mitentwickeln und durfte nach dem Praktikum diese Kenntnisse im Rahmen\n' +
+      '        einer Werksstudententätigkeit vertiefen und bei der Implementierung des\n' +
+      '        Tools mitwirken. In meinem zweiten Praktikum bei der DEF KG konnte ich\n' +
+      '        auf diese Erfahrung aufbauen, und habe dort im Verkauf direkt einen\n' +
+      '        ersten eigenen Kunden betreut.';
+    this.student.studiengang = 'AI';
+    this.student.schwerpunkt = '';
+    this.student.semester = '5';
+    this.student.status = 'Nicht Suchend';
+    this.student.qualifikation = '';
+    this.student.doneProjects = '';
+    this.student.doneJobs =
+      'Drei monatiges Prakitkum in der Firma MustermannIT.';
+    this.student.doneModules = 'ST1, ST2, EBR, AP1, BPI, ALGO, MA1, BWL2';
   }
 
   ngOnInit() {
@@ -155,6 +196,18 @@ export class UserProfileComponent implements OnInit {
       autoFocus: false,
       maxHeight: '85vh',
       data: project
+    });
+
+    dialog.afterClosed().subscribe(() => {
+      this.supervisorNameFilter('Dozent');
+    });
+  }
+
+  openProfileStudentDialog(student: Student) {
+    const dialog = this.dialog.open(StudentProfileDialogComponent, {
+      autoFocus: false,
+      maxHeight: '85vh',
+      data: student
     });
 
     dialog.afterClosed().subscribe(() => {

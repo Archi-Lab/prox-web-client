@@ -9,4 +9,5 @@ export class Profil extends CustomResource {
   phonenumber: String;
   mail: String;
   tags: String[];
+  aboutMe: String;
 }
