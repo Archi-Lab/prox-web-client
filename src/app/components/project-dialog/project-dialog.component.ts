@@ -43,7 +43,7 @@ export class ProjectDialogComponent implements OnInit {
         name: ['', [Validators.required]],
         description: ['', [Validators.required]],
         status: ['', [Validators.required]],
-        supervisorName: ['test', [Validators.required]]
+        supervisorName: ['', [Validators.required]]
       });
     }
 
