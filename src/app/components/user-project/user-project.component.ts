@@ -41,20 +41,15 @@ export class UserProjectComponent implements OnInit {
     public dialog: MatDialog,
     private route: ActivatedRoute
   ) {
-    this.profil.name = 'Max Mustermann';
-    this.profil.adresse = 'Technische Hochschule Köln';
-    this.profil.strasse = 'Steinmüllerallee 6';
-    this.profil.plz = '51643 Gummersbach';
-    this.profil.raum = 'Raum 1506';
-    this.profil.phonenumber = '+49 1234-8196-6367';
-    this.profil.mail = 'max.mustermann@th-koeln.de';
-    this.profil.tags = ['ST1', 'MCI', 'KI'];
     this.user.Load().then(() => {
       this.hasPermission = user.hasRole('professor');
       this.isDozent = user.hasRole('professor');
       this.isStudent = user.hasRole('student');
     });
     this.route.params.subscribe(params => {});
+    this.profil.phonenumber = '+49 1234-8196-6367';
+    this.profil.mail = 'max.mustermann@th-koeln.de';
+    this.profil.tags = ['ST1', 'MCI', 'KI'];
   }
 
   ngOnInit() {
