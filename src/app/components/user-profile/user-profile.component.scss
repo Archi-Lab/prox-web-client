@@ -1,83 +1,42 @@
 @import 'src/app/components/project-list/project-list.component';
 
-.profileDozent {
+//START OVERWRITE CSS
+.project-list {
+  margin-top: 0;
+}
+
+.mat-card {
+  width: auto;
+  display: block;
+}
+//END
+
+.dozentLayout {
   display: flex;
   width: 100%;
   font-family: sans-serif;
 }
-.profileStudent {
+.studentLayout {
   display: flex;
   width: 100%;
   font-family: sans-serif;
 }
 
-.profileStudent .headStudent p {
+.studentLayout .headStudent p {
   display: inline-flex;
   margin: 0 75px;
 }
 
-.leftSide {
+.mainDiv {
   //background-color: #ddd;
   padding: 20px;
   width: 82%;
 }
 
-.rightSide {
+.contactDetailsDiv {
   //background-color: #eee;
   width: auto;
   padding: 20px;
-}
-
-@media only screen and (max-width: 900px) {
-  .leftSide {
-    width: auto;
-    padding: 20px;
-  }
-  .rightSide {
-    width: 100%;
-    float: left;
-    text-align: center;
-    padding: 20px;
-  }
-
-  .leftProfile {
-    float: left;
-    width: 35%;
-  }
-
-  .rigthProfile {
-    margin-left: 10px;
-    float: left;
-    width: auto;
-  }
-
-  .profileDozent {
-    display: block;
-    width: 100%;
-    font-family: sans-serif;
-    font-size: 13px;
-  }
-}
-
-.projectbox {
-  //background-color: #ccc;
-  list-style: none;
-  padding: 0;
-  float: bottom;
-}
-
-h3 {
-  //background-color: #aaa;
-  display: block;
-  white-space: nowrap;
-  padding: 10px;
-  color: var(--th-red);
-  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.1), 0 2px 2px 0 rgba(0, 0, 0, 0.1),
-    0 1px 5px 0 rgba(0, 0, 0, 0.09);
-}
-
-nav > ul > li > ul {
-  display: block;
 }
 
 .tags a {
@@ -97,41 +56,19 @@ nav > ul > li > ul {
   text-decoration: none;
 }
 
-.actualList {
-  display: flex;
-  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.1), 0 2px 2px 0 rgba(0, 0, 0, 0.1),
-    0 1px 5px 0 rgba(0, 0, 0, 0.09);
-}
-
-.projectname {
-  flex: 2;
-  padding: 10px;
-}
-
-.projectdescription {
-  flex: 7;
-  padding: 10px;
-}
-
 img {
   max-width: 100%;
   height: auto;
 }
 
-.mat-card {
-  margin-top: 15px;
-  margin-bottom: 15px;
-  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.1), 0 2px 2px 0 rgba(0, 0, 0, 0.1),
-    0 1px 5px 0 rgba(0, 0, 0, 0.09);
-  width: auto;
-  display: block;
-}
-
-.aboutMe {
+.paddingStyle {
   padding-top: 15px;
   padding-left: 30px;
 }
 
-.project-list {
-  margin-top: 0;
+.aboutMeDiv,
+.doneProjectsDiv,
+.qualityDiv {
+  margin-left: 20px;
+  padding-bottom: 20px;
 }

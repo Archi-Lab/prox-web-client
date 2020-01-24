@@ -28,13 +28,6 @@ export class UserProfileComponent implements OnInit {
   hasPermission = false;
   profil: Profil = new Profil();
   student: Student = new Student();
-  adresse: String;
-  strasse: String;
-  plz: String;
-  raum: String;
-  phonenumber: String;
-  mail: String;
-  tags: String[] = ['ST1', 'MCI', 'KI'];
   isDozent: boolean;
   isStudent: boolean;
 
@@ -175,22 +168,6 @@ export class UserProfileComponent implements OnInit {
     }
   }
 
-  filterProjectsBySupervisorName(event: any) {
-    const supervisorName = event.target.value;
-    if (supervisorName) {
-      this.selectedSupervisorName = supervisorName;
-      this.supervisorNameFilter(this.selectedSupervisorName);
-    } else {
-      this.selectedSupervisorName = null;
-      if (this.selectedStatus) {
-        this.statusFilter(this.selectedStatus);
-      } else if (this.selectedName) {
-        this.nameFilter(this.selectedName);
-      } else {
-        this.getAllProjects();
-      }
-    }
-  }
   openProjectDialog(project: Project) {
     const dialog = this.dialog.open(ProjectDialogComponent, {
       autoFocus: false,
