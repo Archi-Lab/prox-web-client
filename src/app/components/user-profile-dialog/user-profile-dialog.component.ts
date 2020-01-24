@@ -19,15 +19,12 @@ import { ProfileService } from '../../core/services/profile.service';
 export class ProfileDialogComponent implements OnInit {
   profileFormControl: FormGroup;
   studyCourses: StudyCourse[] = [];
-  selectedModules: Module[] = [];
   hasSubmitted = false;
 
   constructor(
-    public projectDialogRef: MatDialogRef<ProfileDialogComponent>,
+    public profileDialogRef: MatDialogRef<ProfileDialogComponent>,
     private profileService: ProfileService,
-    private projectStudyCourseService: ProjectStudyCourseService,
     private formBuilder: FormBuilder,
-    private snack: MatSnackBar,
     private user: KeyCloakUser,
     @Inject(MAT_DIALOG_DATA) public profile: any
   ) {}
@@ -49,7 +46,7 @@ export class ProfileDialogComponent implements OnInit {
   }
 
   closeDialog() {
-    this.projectDialogRef.close();
+    this.profileDialogRef.close();
   }
 
   fillInProjectValuesIfProjectExists() {
@@ -74,139 +71,6 @@ export class ProfileDialogComponent implements OnInit {
       this.profileFormControl.controls.name.setValue('test');
     }
   }
-
-  setSelectedModules(modules: Module[]) {
-    this.selectedModules = [];
-    for (const module of modules) {
-      const tmpModule: Module = this.getModuleBySelfLink(
-        module._links.self.href
-      );
-      if (tmpModule) {
-        this.selectedModules.push(tmpModule);
-      }
-    }
-  }
-
-  getModuleBySelfLink(selfLink: string): Module {
-    for (const studyCourse of this.studyCourses) {
-      for (const tmpModule of studyCourse.modules) {
-        if (tmpModule._links.self.href === selfLink) {
-          return tmpModule;
-        }
-      }
-    }
-    return null;
-  }
-
-  onSelectModule(module: Module) {
-    if (this.selectedModules.includes(module)) {
-      const index = this.selectedModules.indexOf(module, 0);
-      if (index > -1) {
-        this.selectedModules.splice(index, 1);
-      }
-    } else {
-      this.selectedModules.push(module);
-    }
-  }
-
-  // getStudyCourses(): Promise<StudyCourse[]> {
-  //   return new Promise<StudyCourse[]>((resolve, reject) => {
-  //     this.projectStudyCourseService.getAllSorted().subscribe(
-  //       tmpStudyCourses => (this.studyCourses = tmpStudyCourses),
-  //       error => reject(error),
-  //       () => {
-  //         const modulePromises: Promise<Module[]>[] = [];
-  //
-  //         for (const studyCourse of this.studyCourses) {
-  //           modulePromises.push(studyCourse.getAndSetModuleArray());
-  //         }
-  //
-  //         Promise.all(modulePromises).then(() => resolve(this.studyCourses));
-  //       }
-  //     );
-  //   });
-  // }
-
-  // createProjectResource(project: Project): Project {
-  //   let projectResource: Project;
-  //   if (this.project) {
-  //     projectResource = this.project;
-  //   } else {
-  //     projectResource = new Project();
-  //   }
-  //
-  //   projectResource.creatorID = this.user.getID();
-  //   projectResource.creatorName = this.user.getFullName();
-  //   projectResource.description = project.description;
-  //   projectResource.name = project.name;
-  //   projectResource.status = project.status;
-  //
-  //   if (project.supervisorName.length === 0) {
-  //     projectResource.supervisorName = projectResource.creatorName;
-  //   } else {
-  //     projectResource.supervisorName = project.supervisorName;
-  //   }
-  //
-  //   return projectResource;
-  // }
-
-  private showSubmitInfo(message: string) {
-    this.snack.open(message, null, {
-      duration: 2000
-    });
-  }
-
-  // createProject(project: Project) {
-  //   const newProject = this.createProjectResource(project);
-  //
-  //   // Create Project
-  //   this.projectService.create(newProject).subscribe(
-  //     () => {
-  //       newProject.setModules(this.selectedModules).then(
-  //         () => {
-  //           this.showSubmitInfo('Projekt wurde erfolgreich erstellt');
-  //           this.closeDialog();
-  //         },
-  //         error => {
-  //           this.showSubmitInfo('Fehler beim Verknüpfen der Module');
-  //           this.closeDialog();
-  //           console.log(error);
-  //         }
-  //       );
-  //     },
-  //     error => {
-  //       this.showSubmitInfo('Fehler beim Bearbeiten der Anfrage');
-  //       this.hasSubmitted = false;
-  //       console.log(error);
-  //     }
-  //   );
-  // }
-
-  // updateProject(project: Project) {
-  //   this.project = this.createProjectResource(project);
-  //
-  //   // Update Project
-  //   this.projectService.update(this.project).subscribe(
-  //     () => {
-  //       this.project.setModules(this.selectedModules).then(
-  //         () => {
-  //           this.showSubmitInfo('Projekt wurde erfolgreich bearbeitet');
-  //           this.closeDialog();
-  //         },
-  //         error => {
-  //           this.showSubmitInfo('Fehler beim Verknüpfen der Module');
-  //           this.closeDialog();
-  //           console.log(error);
-  //         }
-  //       );
-  //     },
-  //     error => {
-  //       this.showSubmitInfo('Fehler beim Bearbeiten der Anfrage');
-  //       this.hasSubmitted = false;
-  //       console.log(error);
-  //     }
-  //   );
-  // }
 
   onSubmit(profil: Profil) {
     this.hasSubmitted = true;
