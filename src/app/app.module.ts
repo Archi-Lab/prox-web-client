@@ -59,7 +59,7 @@ import { DataProtectionComponent } from './components/legal-issues/data-protecti
 import { LiabilityNoticeComponent } from './components/legal-issues/liability-notice/liability-notice.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { UserProjectComponent } from './components/user-project/user-project.component';
-import { ProfileDialogComponent } from './components/user-profile-dialog/user-profile-dialog.component';
+import { ProfessorDialogComponent } from './components/user-profile-dialog/user-profile-dialog.component';
 import { StudentProfileDialogComponent } from './components/student-profile-dialog/student-profile-dialog.component';
 
 @NgModule({
@@ -73,7 +73,7 @@ import { StudentProfileDialogComponent } from './components/student-profile-dial
     ProjectListComponent,
     ProjectDetailsComponent,
     ProjectDialogComponent,
-    ProfileDialogComponent,
+    ProfessorDialogComponent,
     StudentProfileDialogComponent,
     UserComponent,
     MatConfirmDialogComponent,
@@ -126,7 +126,7 @@ import { StudentProfileDialogComponent } from './components/student-profile-dial
   ],
   entryComponents: [
     ProjectDialogComponent,
-    ProfileDialogComponent,
+    ProfessorDialogComponent,
     StudentProfileDialogComponent,
     MatConfirmDialogComponent
   ],

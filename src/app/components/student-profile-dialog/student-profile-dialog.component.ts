@@ -2,15 +2,12 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ProjectService } from '../../core/services/project.service';
-import { Project } from '../../shared/hal-resources/project.resource';
 import { Module } from '../../shared/hal-resources/module.resource';
 import { StudyCourse } from '../../shared/hal-resources/study-course.resource';
 import { KeyCloakUser } from '../../keycloak/KeyCloakUser';
 import { ProjectStudyCourseService } from '../../core/services/project-study-course.service';
-import { Profil } from '../../shared/hal-resources/profile.resource';
-import { ProfileService } from '../../core/services/profile.service';
 import { Student } from '../../shared/hal-resources/student.resource';
+import { StudentService } from '../../core/services/student.service';
 
 @Component({
   selector: 'app-profile-dialog',
@@ -25,7 +22,7 @@ export class StudentProfileDialogComponent implements OnInit {
 
   constructor(
     public projectDialogRef: MatDialogRef<StudentProfileDialogComponent>,
-    private profileService: ProfileService,
+    private studentService: StudentService,
     private projectStudyCourseService: ProjectStudyCourseService,
     private formBuilder: FormBuilder,
     private snack: MatSnackBar,
@@ -142,7 +139,28 @@ export class StudentProfileDialogComponent implements OnInit {
     this.student.doneModules = student.doneModules;
     this.student.doneJobs = student.doneJobs;
     this.student.tags = student.tags.toString().split(';');
-    // this.profileService.update(this.profile);
+    this.studentService.create(this.student).subscribe(
+      updateStudent => {
+        this.student = updateStudent;
+        console.log(updateStudent);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+    this.closeDialog();
+  }
+
+  deleteProfile() {
+    this.studentService.delete(this.student).subscribe(
+      deleteStudent => {
+        this.student = deleteStudent;
+        console.log(deleteStudent);
+      },
+      error => {
+        console.log(error);
+      }
+    );
     this.closeDialog();
   }
 }

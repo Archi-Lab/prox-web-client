@@ -1,8 +1,5 @@
-.profileStudent {
-  font-family: sans-serif;
-}
-
-.profileDozent {
+.studentLayout,
+.dozentLayout {
   font-family: sans-serif;
 }
 
@@ -16,35 +13,22 @@ h3 {
     0 1px 5px 0 rgba(0, 0, 0, 0.09);
 }
 
-nav > ul > li > ul {
-  display: block;
-}
-
 .projectTitle {
   display: inline;
 }
 
-.project1 {
-  width: auto;
-  //background: #a5ff90;
-  border: 1px solid #ccc !important;
-  border-radius: 16px;
-  margin: 0px 20px;
-  padding: 20px;
-  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.1), 0 2px 2px 0 rgba(0, 0, 0, 0.1),
-    0 1px 5px 0 rgba(0, 0, 0, 0.09);
-}
-
+.project1,
 .project2 {
   width: auto;
   //background: #a5ff90;
   border: 1px solid #ccc !important;
   border-radius: 16px;
-  margin: 40px 20px;
+  margin: 10px 20px;
   padding: 20px;
   box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.1), 0 2px 2px 0 rgba(0, 0, 0, 0.1),
     0 1px 5px 0 rgba(0, 0, 0, 0.09);
 }
+
 .TAGs {
   display: inline;
   padding-left: 20px;

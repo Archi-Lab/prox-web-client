@@ -1,4 +1,4 @@
-<div class="profileDozent" *ngIf="isDozent">
+<div class="dozentLayout" *ngIf="isDozent">
   <div class="head">
     <h2>Hallo {{ user.getFullName() }}</h2>
     <p>Deine laufenden Projekte sind:</p>
@@ -105,7 +105,7 @@
     </div>
   </div>
   <div class="project-list">
-    <p class="aboutMe">
+    <p>
       Absgeschlossene Projekte:
     </p>
     <mat-card>
@@ -124,7 +124,7 @@
     </mat-card>
   </div>
 </div>
-<div class="profileStudent" *ngIf="isStudent">
+<div class="studentLayout" *ngIf="isStudent">
   <div class="head">
     <h2>Hallo {{ user.getFullName() }}</h2>
     <p>Deine laufenden Projekte sind:</p>
@@ -231,7 +231,7 @@
     </div>
   </div>
   <div class="project-list">
-    <p class="aboutMe">
+    <p>
       Absgeschlossene Projekte:
     </p>
     <mat-card>

@@ -1,7 +1,8 @@
 import { CustomResource } from './custom-resource';
 import { UUID } from 'angular2-uuid';
 
-export class Profil extends CustomResource {
+export class Professor extends CustomResource {
+  id: UUID;
   name: string;
   adresse: string;
   strasse: string;
@@ -13,5 +14,5 @@ export class Profil extends CustomResource {
   sprechzeiten: string;
   bildSrc: string;
   aboutMe: string;
-  keyCloakId: UUID;
+  keycloakId: string;
 }

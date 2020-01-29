@@ -2,8 +2,9 @@
   <div class="mainDiv">
     <div class="aboutMeDiv">
       <h1>Über mich</h1>
-      <p class="paddingStyle">
-        {{ profil.aboutMe }}
+      <p class="paddingStyle" *ngIf="professor">
+        {{ professor.aboutMe }}
+        <!--{{ professor.sprechzeiten}}{{user.getID()}}<br>{{jsonString}}-->
       </p>
     </div>
     <div class="project-list">
@@ -89,7 +90,7 @@
 
   <div class="contactDetailsDiv">
     <button
-      (click)="openProfileDialog(profil)"
+      (click)="openProfileDialog(professor)"
       *ngIf="isDozent"
       class="no-hover"
       mat-icon-button
@@ -97,28 +98,32 @@
       <mat-icon>edit</mat-icon>
     </button>
     <div>
-      <p>{{ profil.name }}</p>
+      <p *ngIf="professor">{{ professor.name }}</p>
     </div>
     <div>
       <img src="assets/images/profile/placeholder.jpg" />
     </div>
     <div class="TAGs">
-      <p class="tags">
+      <p class="tags" *ngIf="professor">
         <span class="tags-title">Tags:</span>
-        <a *ngFor="let tag of profil.tags" href="#" rel="tag" class="label">{{
-          tag
-        }}</a>
+        <a
+          *ngFor="let tag of professor.tags"
+          href="#"
+          rel="tag"
+          class="label"
+          >{{ tag }}</a
+        >
       </p>
     </div>
-    <div class="contactinfo">
+    <div class="contactinfo" *ngIf="professor">
       <p>Kontaktinfo:</p>
-      <p>{{ profil.adresse }}</p>
-      <p>{{ profil.strasse }}</p>
-      <p>{{ profil.plz }}</p>
-      <p>{{ profil.raum }}</p>
+      <p>{{ professor.adresse }}</p>
+      <p>{{ professor.strasse }}</p>
+      <p>{{ professor.plz }}</p>
+      <p>{{ professor.raum }}</p>
       <br />
-      <p>Tel:{{ profil.phonenumber }}</p>
-      <p>Mail:{{ profil.mail }}</p>
+      <p>Tel:{{ professor.phonenumber }}</p>
+      <p>Mail:{{ professor.mail }}</p>
     </div>
   </div>
 </div>
@@ -133,7 +138,7 @@
     <div class="aboutMeDiv">
       <h1>Über mich</h1>
       <p class="paddingStyle" style="width: 80%">
-        {{ student.aboutMe }}
+        {{ student.aboutMe }}{{ jsonString }}
       </p>
     </div>
     <div class="qualityDiv">
