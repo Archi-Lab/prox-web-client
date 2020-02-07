@@ -58,7 +58,6 @@ import { ImpressumComponent } from './components/legal-issues/impressum/impressu
 import { DataProtectionComponent } from './components/legal-issues/data-protection/data-protection.component';
 import { LiabilityNoticeComponent } from './components/legal-issues/liability-notice/liability-notice.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
-import { UserProjectComponent } from './components/user-project/user-project.component';
 import { ProfessorDialogComponent } from './components/user-profile-dialog/user-profile-dialog.component';
 import { StudentProfileDialogComponent } from './components/student-profile-dialog/student-profile-dialog.component';
 
@@ -81,8 +80,7 @@ import { StudentProfileDialogComponent } from './components/student-profile-dial
     ImpressumComponent,
     DataProtectionComponent,
     LiabilityNoticeComponent,
-    UserProfileComponent,
-    UserProjectComponent
+    UserProfileComponent
   ],
   imports: [
     AppRoutingModule,

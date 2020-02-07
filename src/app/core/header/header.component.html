@@ -52,19 +52,6 @@
           </button>
         </mat-list-item>
 
-        <mat-list-item *ngIf="isLoggedIn">
-          <button
-            (click)="sidenav.toggle()"
-            class="sidebar-button"
-            mat-button
-            routerLink="user-project"
-            routerLinkActive="nav-activated"
-          >
-            <mat-icon class="sidebar-icon">folder_special</mat-icon>
-            Meine Projekte
-          </button>
-        </mat-list-item>
-
         <mat-list-item>
           <button
             (click)="sidenav.toggle()"
