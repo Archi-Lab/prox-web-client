@@ -11,6 +11,7 @@ import { ImpressumComponent } from './components/legal-issues/impressum/impressu
 import { DataProtectionComponent } from './components/legal-issues/data-protection/data-protection.component';
 import { LiabilityNoticeComponent } from './components/legal-issues/liability-notice/liability-notice.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { ProfessorListComponent } from './components/professor-list/professor-list.component';
 
 const routes: Routes = [
   {
@@ -51,6 +52,14 @@ const routes: Routes = [
   },
   {
     path: 'user-profile',
+    component: UserProfileComponent
+  },
+  {
+    path: 'professors',
+    component: ProfessorListComponent
+  },
+  {
+    path: 'professors/:id',
     component: UserProfileComponent
   }
 ];

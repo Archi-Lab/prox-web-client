@@ -60,6 +60,7 @@ import { LiabilityNoticeComponent } from './components/legal-issues/liability-no
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { ProfessorDialogComponent } from './components/user-profile-dialog/user-profile-dialog.component';
 import { StudentProfileDialogComponent } from './components/student-profile-dialog/student-profile-dialog.component';
+import { ProfessorListComponent } from './components/professor-list/professor-list.component';
 
 @NgModule({
   declarations: [
@@ -73,6 +74,7 @@ import { StudentProfileDialogComponent } from './components/student-profile-dial
     ProjectDetailsComponent,
     ProjectDialogComponent,
     ProfessorDialogComponent,
+    ProfessorListComponent,
     StudentProfileDialogComponent,
     UserComponent,
     MatConfirmDialogComponent,

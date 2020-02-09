@@ -17,4 +17,11 @@ export class ProfessorService extends RestService<Professor> {
     };
     return this.search('findByKeycloakId', options);
   }
+
+  findByName(name: string): Observable<Professor[]> {
+    const options: any = {
+      params: [{ key: 'name', value: name }]
+    };
+    return this.search('findByNameNameContains', options);
+  }
 }

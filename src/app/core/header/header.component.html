@@ -51,6 +51,18 @@
             Projekte
           </button>
         </mat-list-item>
+        <mat-list-item>
+          <button
+            (click)="sidenav.toggle()"
+            class="sidebar-button"
+            mat-button
+            routerLink="professors"
+            routerLinkActive="nav-activated"
+          >
+            <mat-icon class="sidebar-icon">perm_identity</mat-icon>
+            Professoren
+          </button>
+        </mat-list-item>
 
         <mat-list-item>
           <button

@@ -1,0 +1,25 @@
+<div class="project-list">
+  <div class="project-list-header">
+    <h1>Professoren</h1>
+    <div class="project-options">
+      <mat-form-field>
+        <input
+          (keyup)="filterProfessorsByName($event)"
+          matInput
+          placeholder="Suche"
+        />
+      </mat-form-field>
+    </div>
+  </div>
+  <mat-card *ngFor="let professor of professors">
+    <mat-card-header>
+      <mat-card-subtitle>Name</mat-card-subtitle>
+      <mat-card-title>{{ professor.name }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-actions>
+      <button mat-button routerLink="/professors/{{ professor.id }}">
+        Details
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>
