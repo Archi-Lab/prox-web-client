@@ -22,24 +22,27 @@
         </mat-error>
       </mat-form-field>
       <mat-form-field>
+        <mat-select
+          [formControl]="profileFormControl.controls['title']"
+          placeholder="Titel"
+        >
+          <mat-option value="Dr.">Dr.</mat-option>
+          <mat-option value="Prof.">Prof.</mat-option>
+          <mat-option value=" ">Kein Titel</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
         <input
           [formControl]="profileFormControl.controls['adresse']"
           matInput
           placeholder="Adresse"
-          required
         />
-        <mat-error
-          *ngIf="profileFormControl.controls['adresse'].hasError('required')"
-        >
-          Adresse <strong>fehlt</strong>!
-        </mat-error>
       </mat-form-field>
       <mat-form-field>
         <input
           [formControl]="profileFormControl.controls['strasse']"
           matInput
           placeholder="Straße"
-          required
         />
       </mat-form-field>
       <mat-form-field>
@@ -47,7 +50,6 @@
           [formControl]="profileFormControl.controls['plz']"
           matInput
           placeholder="Postleitzahl"
-          required
         />
       </mat-form-field>
       <mat-form-field>
@@ -55,7 +57,6 @@
           [formControl]="profileFormControl.controls['raum']"
           matInput
           placeholder="Raum"
-          required
         />
       </mat-form-field>
       <mat-form-field>
@@ -63,7 +64,6 @@
           [formControl]="profileFormControl.controls['phonenumber']"
           matInput
           placeholder="Telefonnummer"
-          required
         />
       </mat-form-field>
       <mat-form-field>
@@ -71,7 +71,6 @@
           [formControl]="profileFormControl.controls['mail']"
           matInput
           placeholder="E-Mailadresse"
-          required
         />
       </mat-form-field>
       <mat-form-field>
@@ -79,7 +78,6 @@
           [formControl]="profileFormControl.controls['tags']"
           matInput
           placeholder="Tags"
-          required
         />
       </mat-form-field>
       <mat-form-field>
@@ -88,7 +86,6 @@
           class="form-textarea"
           matInput
           placeholder="Über Mich"
-          required
         ></textarea>
       </mat-form-field>
     </div>
@@ -103,13 +100,6 @@
         <button
           [disabled]="
             profileFormControl.controls['name'].hasError('required') ||
-            profileFormControl.controls['adresse'].hasError('required') ||
-            profileFormControl.controls['strasse'].hasError('required') ||
-            profileFormControl.controls['plz'].hasError('required') ||
-            profileFormControl.controls['raum'].hasError('required') ||
-            profileFormControl.controls['phonenumber'].hasError('required') ||
-            profileFormControl.controls['mail'].hasError('required') ||
-            profileFormControl.controls['tags'].hasError('required') ||
             hasSubmitted
           "
           mat-button
