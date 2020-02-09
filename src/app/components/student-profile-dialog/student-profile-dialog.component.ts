@@ -128,6 +128,10 @@ export class StudentProfileDialogComponent implements OnInit {
       deleteStudent => {
         this.student = deleteStudent;
         console.log(deleteStudent);
+        this.router.navigateByUrl('/');
+        alert(
+          'Ihr Profil wurde erfolgreich gelöscht. Sie werden nun zur Startseite weitergeleitet.'
+        );
       },
       error => {
         console.log(error);

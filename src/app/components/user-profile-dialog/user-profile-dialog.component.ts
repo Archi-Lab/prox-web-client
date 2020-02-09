@@ -112,6 +112,10 @@ export class ProfessorDialogComponent implements OnInit {
       deleteProf => {
         this.professor = deleteProf;
         console.log(deleteProf);
+        this.router.navigateByUrl('/');
+        alert(
+          'Ihr Profil wurde erfolgreich gelöscht. Sie werden nun zur Startseite weitergeleitet.'
+        );
       },
       error => {
         console.log(error);
