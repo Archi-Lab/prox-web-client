@@ -9,7 +9,6 @@ export class Student extends CustomResource {
   aboutMe: string;
   studiengang: string;
   schwerpunkt: string;
-  semester: string;
   status: string;
   qualifikation: string;
   doneProjects: string;

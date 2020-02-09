@@ -11,6 +11,7 @@ export class Professor extends CustomResource {
   phonenumber: number;
   mail: string;
   tags: string[];
+  title: string;
   sprechzeiten: string;
   bildSrc: string;
   aboutMe: string;
