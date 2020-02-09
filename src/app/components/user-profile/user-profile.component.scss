@@ -35,7 +35,7 @@
 
 .contactDetailsDiv {
   //background-color: #eee;
-  width: auto;
+  width: 25%;
   padding: 20px;
 }
 
@@ -53,6 +53,7 @@
   background-color: #777;
   background-color: #b43092;
   margin: 2px;
+  text-transform: uppercase;
   text-decoration: none;
 }
 
@@ -70,5 +71,5 @@ img {
 .doneProjectsDiv,
 .qualityDiv {
   margin-left: 20px;
-  padding-bottom: 20px;
+  white-space: pre-wrap;
 }

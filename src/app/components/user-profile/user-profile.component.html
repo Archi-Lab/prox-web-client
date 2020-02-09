@@ -1,11 +1,8 @@
-<div class="dozentLayout" *ngIf="isDozent">
+<div class="dozentLayout" *ngIf="isDozent || isID">
   <div class="mainDiv">
     <div class="aboutMeDiv">
       <h1>Über mich</h1>
-      <p class="paddingStyle" *ngIf="professor">
-        {{ professor.aboutMe }}
-        <!--{{ professor.sprechzeiten}}{{user.getID()}}<br>{{jsonString}}-->
-      </p>
+      <p class="paddingStyle" *ngIf="professor">{{ professor.aboutMe }}</p>
     </div>
     <div class="project-list">
       <div class="project-list-header">
@@ -98,7 +95,7 @@
       <mat-icon>edit</mat-icon>
     </button>
     <div>
-      <p *ngIf="professor">{{ professor.name }}</p>
+      <p *ngIf="professor">{{ professor.title }} {{ professor.name }}</p>
     </div>
     <div>
       <img src="assets/images/profile/placeholder.jpg" />
@@ -106,13 +103,9 @@
     <div class="TAGs">
       <p class="tags" *ngIf="professor">
         <span class="tags-title">Tags:</span>
-        <a
-          *ngFor="let tag of professor.tags"
-          href="#"
-          rel="tag"
-          class="label"
-          >{{ tag }}</a
-        >
+        <a *ngFor="let tag of professor.tags" rel="tag" class="label">{{
+          tag
+        }}</a>
       </p>
     </div>
     <div class="contactinfo" *ngIf="professor">
@@ -127,19 +120,15 @@
     </div>
   </div>
 </div>
-<div class="studentLayout" *ngIf="isStudent">
+<div class="studentLayout" *ngIf="isStudent && !isID">
   <div class="mainDiv">
     <div class="headStudent">
       <p>Studiengang: {{ student.studiengang }}</p>
-      <p>Schwerpunkt:</p>
-      <p>Semester: {{ student.semester }}</p>
       <p>Status: {{ student.status }}</p>
     </div>
     <div class="aboutMeDiv">
       <h1>Über mich</h1>
-      <p class="paddingStyle" style="width: 80%">
-        {{ student.aboutMe }}{{ jsonString }}
-      </p>
+      <p class="paddingStyle" style="width: 80%">{{ student.aboutMe }}</p>
     </div>
     <div class="qualityDiv">
       <h1>Qualifikation</h1>
@@ -190,7 +179,7 @@
     <div class="TAGs">
       <p class="tags">
         <span class="tags-title">Tags:</span>
-        <a *ngFor="let tag of student.tags" href="#" rel="tag" class="label">{{
+        <a *ngFor="let tag of student.tags" rel="tag" class="label">{{
           tag
         }}</a>
       </p>

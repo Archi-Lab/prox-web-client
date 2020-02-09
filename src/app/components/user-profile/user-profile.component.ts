@@ -7,16 +7,14 @@ import { ProjectDialogComponent } from '../project-dialog/project-dialog.compone
 import { KeyCloakUser } from '../../keycloak/KeyCloakUser';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
-import { Profil } from '../../shared/hal-resources/profile.resource';
 import { ProfessorDialogComponent } from '../user-profile-dialog/user-profile-dialog.component';
 import { Student } from '../../shared/hal-resources/student.resource';
 import { StudentProfileDialogComponent } from '../student-profile-dialog/student-profile-dialog.component';
 import { Professor } from '../../shared/hal-resources/professor.resource';
 import { ProfessorService } from '../../core/services/professor.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable } from 'angular4-hal/node_modules/rxjs';
 import { StudentService } from '../../core/services/student.service';
-import { error, log } from 'util';
+import { UUID } from 'angular2-uuid';
 
 @Component({
   selector: 'app-user-profile',
@@ -25,19 +23,19 @@ import { error, log } from 'util';
 })
 export class UserProfileComponent implements OnInit {
   projects: Project[] = [];
-  profArray: Professor[] = [];
   filteredProjects: Project[] = [];
   allStatus: string[] = [];
   selectedStatus: string;
   selectedName: string;
   selectedSupervisorName: string;
   hasPermission = false;
-  profil: Profil = new Profil();
   professor: Professor;
   student: Student = new Student();
   isDozent: boolean;
   isStudent: boolean;
   private jsonString: string;
+  professorId: UUID;
+  private isID: boolean;
 
   constructor(
     private projectService: ProjectService,
@@ -49,17 +47,34 @@ export class UserProfileComponent implements OnInit {
     private route: ActivatedRoute
   ) {
     this.user.Load().then(() => {
-      this.hasPermission = user.hasRole('professor');
-      this.isDozent = user.hasRole('professor');
-      this.isStudent = user.hasRole('student');
-      if (this.isStudent) {
-        this.loadStudent(this.user.getID(), this.student);
-      }
-      if (this.isDozent) {
-        this.loadProfessor(this.user.getID(), this.professor);
+      if (!this.professorId) {
+        this.hasPermission = user.hasRole('professor');
+        this.isDozent = user.hasRole('professor');
+        this.isStudent = user.hasRole('student');
+        if (this.isStudent) {
+          this.loadStudent(
+            this.user.getID(),
+            this.user.getFullName(),
+            this.student
+          );
+        }
+        if (this.isDozent) {
+          this.loadProfessor(
+            this.user.getID(),
+            this.user.getFullName(),
+            this.professor
+          );
+        }
+      } else {
+        this.loadProfessorByID(this.professorId);
       }
     });
-    this.route.params.subscribe(params => {});
+    this.route.params.subscribe(
+      params => {
+        this.professorId = params.id;
+      },
+      error => console.log(error)
+    );
   }
   private fillProfessor(professor: Professor) {
     this.professor = professor;
@@ -70,31 +85,24 @@ export class UserProfileComponent implements OnInit {
     this.student = student1;
     this.showSubmitInfo('Student wurde Geladen');
   }
-  private createFirstProfessor(create: Boolean, id: string) {
+  private createFirstProfessor(create: Boolean, id: string, name: string) {
     this.professor = new Professor();
     this.professor.keycloakId = id;
-    this.professor.name = 'Prof. Dr. Max Mustermann';
-    this.professor.adresse = 'Technische Hochschule Köln';
-    this.professor.strasse = 'Steinmüllerallee 6';
-    this.professor.plz = '51643 Gummersbach';
-    this.professor.raum = 'Raum 1506';
-    this.professor.phonenumber = 22969992365;
-    this.professor.mail = 'max.mustermann@th-koeln.de';
-    this.professor.tags = ['ST1', 'MCI', 'KI'];
-    this.professor.sprechzeiten = 'Montag - Freitag 10:00-11:30';
-    this.professor.bildSrc = '';
-    this.professor.aboutMe =
-      'Hallo mein Name ist Prof. Dr. Max Mustermann und ich unterrichte seit 2018 an  ' +
-      '  der TH-Köln. Schwerpunkte meiner Veranstaltungen liegen im Bereich den' +
-      '    Softwareentwicklung und IT-Consulting.';
-    this.jsonString = JSON.stringify(this.professor);
-
+    this.professor.name = name;
+    this.professor.title = ' ';
     if (create) {
       this.professorService.create(this.professor).subscribe(
         newProfessor => {
           if (newProfessor instanceof Professor) {
             this.professor = newProfessor;
             this.showSubmitInfo('Professor wurde erfolgreich erstellt');
+            if (
+              confirm(
+                'Sie sind zum ersten mal auf Ihrem Profil. Möchten Sie Daten über sich eintragen?'
+              )
+            ) {
+              this.openProfileDialog(this.professor);
+            }
           }
         },
         error => {
@@ -107,33 +115,23 @@ export class UserProfileComponent implements OnInit {
     }
   }
 
-  private createFirstStudent(create: Boolean, id: string) {
+  private createFirstStudent(create: Boolean, id: string, name: string) {
     this.student = new Student();
-    this.student.name = 'Muster Student';
-    this.student.phonenumber = 22969992365;
-    this.student.mail = 'student.mustermann@th-koeln.de';
-    this.student.tags = ['ST1', 'MCI', 'KI'];
-    this.student.aboutMe =
-      'In den letzten Jahren konnte ich bereits erste praktische Erfahrungen im\n' +
-      '        Bereich des Handelsmarketings sammeln. ';
-    this.student.studiengang = 'AI';
-    this.student.schwerpunkt = '';
-    this.student.semester = '5';
-    this.student.status = 'Nicht Suchend';
-    this.student.qualifikation = '';
-    this.student.doneProjects = '';
-    this.student.doneJobs =
-      'Drei monatiges Prakitkum in der Firma MustermannIT.';
-    this.student.doneModules = 'ST1, ST2, EBR, AP1, BPI, ALGO, MA1, BWL2';
+    this.student.name = name;
     this.student.keycloakId = id;
-    this.jsonString = JSON.stringify(this.student);
-
     if (create) {
       this.studentService.create(this.student).subscribe(
         newStudent => {
           if (newStudent instanceof Student) {
             this.student = newStudent;
             this.showSubmitInfo('Student wurde erfolgreich erstellt');
+            if (
+              confirm(
+                'Sie sind zum ersten mal auf Ihrem Profil. Möchten Sie Daten über sich eintragen?'
+              )
+            ) {
+              this.openProfileStudentDialog(this.student);
+            }
           }
         },
         error => {
@@ -144,39 +142,9 @@ export class UserProfileComponent implements OnInit {
       this.showSubmitInfo('Student wurde aus dem cach geladen');
     }
   }
-  initProfessor() {
-    this.profil.tags = ['ST1', 'MCI', 'KI'];
-  }
-
-  initStudent() {
-    this.student.name = 'Muster Student';
-    this.student.phonenumber = 22969992365;
-    this.student.mail = 'student.mustermann@th-koeln.de';
-    this.student.tags = ['ST1', 'MCI', 'KI'];
-    this.student.aboutMe =
-      'In den letzten Jahren konnte ich bereits erste praktische Erfahrungen im\n' +
-      '        Bereich des Handelsmarketings sammeln. Bei der Firma ABC GmbH habe ich\n' +
-      '        ein neues Analysetool zur Verbesserung der Konditionsstruktur\n' +
-      '        mitentwickeln und durfte nach dem Praktikum diese Kenntnisse im Rahmen\n' +
-      '        einer Werksstudententätigkeit vertiefen und bei der Implementierung des\n' +
-      '        Tools mitwirken. In meinem zweiten Praktikum bei der DEF KG konnte ich\n' +
-      '        auf diese Erfahrung aufbauen, und habe dort im Verkauf direkt einen\n' +
-      '        ersten eigenen Kunden betreut.';
-    this.student.studiengang = 'AI';
-    this.student.schwerpunkt = '';
-    this.student.semester = '5';
-    this.student.status = 'Nicht Suchend';
-    this.student.qualifikation = '';
-    this.student.doneProjects = '';
-    this.student.doneJobs =
-      'Drei monatiges Prakitkum in der Firma MustermannIT.';
-    this.student.doneModules = 'ST1, ST2, EBR, AP1, BPI, ALGO, MA1, BWL2';
-    this.student.keycloakId = this.user.getID();
-  }
-
   ngOnInit() {
-    this.selectedSupervisorName = 'Dozent';
-    this.supervisorNameFilter('Dozent');
+    this.selectedSupervisorName = this.user.getFullName();
+    this.supervisorNameFilter(this.user.getFullName());
   }
 
   getAllProjects() {
@@ -208,7 +176,7 @@ export class UserProfileComponent implements OnInit {
         .subscribe(projects => this.filterProjects(projects, name));
     } else {
       this.projectService
-        .getAll()
+        .findBySupervisorName(this.selectedSupervisorName)
         .subscribe(projects => this.filterProjects(projects, name));
     }
   }
@@ -327,7 +295,7 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
-  private loadProfessor(uuid: string, professor: Professor) {
+  private loadProfessor(uuid: string, name: string, professor: Professor) {
     if (this.user.getID()) {
       this.professorService.findByKeycloakId(uuid).subscribe(
         prof => {
@@ -338,42 +306,54 @@ export class UserProfileComponent implements OnInit {
               }
             });
             if (!professor) {
-              this.createFirstProfessor(true, uuid);
+              this.createFirstProfessor(true, uuid, name);
             } else {
               this.fillProfessor(professor);
             }
           } else {
-            this.createFirstProfessor(true, uuid);
+            this.createFirstProfessor(true, uuid, name);
           }
         },
         error => {
-          this.createFirstProfessor(true, uuid);
+          this.showSubmitInfo('Es ist ein Fehler aufgetreten.');
         }
       );
     }
   }
 
-  private loadStudent(uuid: string, student: Student) {
+  private loadProfessorByID(uuid: UUID) {
+    this.professorService.get(uuid).subscribe(
+      prof => {
+        this.professor = prof;
+        this.isID = true;
+        this.selectedSupervisorName = prof.name;
+        this.supervisorNameFilter(prof.name);
+      },
+      error => {}
+    );
+  }
+
+  private loadStudent(uuid: string, name: string, student: Student) {
     if (this.user.getID()) {
-      this.studentService.getAll().subscribe(
-        prof => {
-          if (prof.length > 0) {
-            prof.forEach(function(value) {
+      this.studentService.findByKeycloakId(uuid).subscribe(
+        stud => {
+          if (stud.length > 0) {
+            stud.forEach(function(value) {
               if (value.keycloakId == uuid) {
                 student = value;
               }
             });
             if (!student) {
-              this.createFirstStudent(true, uuid);
+              this.createFirstStudent(true, uuid, name);
             } else {
               this.fillStudent(student);
             }
           } else {
-            this.createFirstStudent(true, uuid);
+            this.createFirstStudent(true, uuid, name);
           }
         },
         error => {
-          this.createFirstStudent(true, uuid);
+          this.showSubmitInfo('Es ist ein Fehler aufgetreten.');
         }
       );
     }
