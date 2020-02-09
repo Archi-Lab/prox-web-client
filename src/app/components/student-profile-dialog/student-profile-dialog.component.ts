@@ -8,6 +8,9 @@ import { KeyCloakUser } from '../../keycloak/KeyCloakUser';
 import { ProjectStudyCourseService } from '../../core/services/project-study-course.service';
 import { Student } from '../../shared/hal-resources/student.resource';
 import { StudentService } from '../../core/services/student.service';
+import { HalOptions } from 'angular4-hal';
+import { StudyCourseService } from '../../core/services/study-course.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile-dialog',
@@ -17,34 +20,35 @@ import { StudentService } from '../../core/services/student.service';
 export class StudentProfileDialogComponent implements OnInit {
   profileFormControl: FormGroup;
   studyCourses: StudyCourse[] = [];
-  selectedModules: Module[] = [];
   hasSubmitted = false;
 
   constructor(
     public projectDialogRef: MatDialogRef<StudentProfileDialogComponent>,
     private studentService: StudentService,
     private projectStudyCourseService: ProjectStudyCourseService,
+    private studyCourseService: StudyCourseService,
     private formBuilder: FormBuilder,
     private snack: MatSnackBar,
     private user: KeyCloakUser,
+    private router: Router,
     @Inject(MAT_DIALOG_DATA) public student: any
   ) {}
 
   ngOnInit() {
     this.profileFormControl = this.formBuilder.group({
-      name: ['', [Validators.required]],
-      phonenumber: ['', [Validators.required]],
-      mail: ['', [Validators.required]],
-      tags: ['', [Validators.required]],
+      name: [{ value: '', disabled: true }],
+      phonenumber: [''],
+      mail: [''],
+      tags: [''],
       aboutMe: [''],
       studiengang: [''],
-      semester: [''],
       status: [''],
       doneModules: [''],
       doneJobs: ['']
     });
 
     this.fillInProjectValuesIfProjectExists();
+    this.getAllStudyCourses();
   }
 
   closeDialog() {
@@ -59,10 +63,13 @@ export class StudentProfileDialogComponent implements OnInit {
         this.student.phonenumber
       );
       var tagsString: String = '';
-      this.student.tags.forEach(function(value) {
-        tagsString += value + ';';
-      });
-      tagsString = tagsString.substr(0, tagsString.length - 1);
+
+      if (this.student.tags) {
+        this.student.tags.forEach(function(value) {
+          tagsString += value + ';';
+        });
+        tagsString = tagsString.substr(0, tagsString.length - 1);
+      }
       this.profileFormControl.controls.mail.setValue(this.student.mail);
       this.profileFormControl.controls.doneModules.setValue(
         this.student.doneModules
@@ -72,51 +79,18 @@ export class StudentProfileDialogComponent implements OnInit {
       this.profileFormControl.controls.studiengang.setValue(
         this.student.studiengang
       );
-      this.profileFormControl.controls.semester.setValue(this.student.semester);
       this.profileFormControl.controls.tags.setValue(tagsString);
-    } else {
-      this.profileFormControl.controls.name.setValue('test');
     }
   }
 
-  setSelectedModules(modules: Module[]) {
-    this.selectedModules = [];
-    for (const module of modules) {
-      const tmpModule: Module = this.getModuleBySelfLink(
-        module._links.self.href
-      );
-      if (tmpModule) {
-        this.selectedModules.push(tmpModule);
-      }
-    }
-  }
-
-  getModuleBySelfLink(selfLink: string): Module {
-    for (const studyCourse of this.studyCourses) {
-      for (const tmpModule of studyCourse.modules) {
-        if (tmpModule._links.self.href === selfLink) {
-          return tmpModule;
-        }
-      }
-    }
-    return null;
-  }
-
-  onSelectModule(module: Module) {
-    if (this.selectedModules.includes(module)) {
-      const index = this.selectedModules.indexOf(module, 0);
-      if (index > -1) {
-        this.selectedModules.splice(index, 1);
-      }
-    } else {
-      this.selectedModules.push(module);
-    }
-  }
-
-  private showSubmitInfo(message: string) {
-    this.snack.open(message, null, {
-      duration: 2000
-    });
+  getAllStudyCourses() {
+    const options: HalOptions = { sort: [{ path: 'name', order: 'ASC' }] };
+    this.studyCourseService.getAll(options).subscribe(
+      (studyCourses: StudyCourse[]) => {
+        this.studyCourses = studyCourses;
+      },
+      error => console.log(error)
+    );
   }
 
   onSubmit(student: Student) {
@@ -128,13 +102,11 @@ export class StudentProfileDialogComponent implements OnInit {
   }
 
   private updateProfil(student: Student) {
-    this.student.name = student.name;
     this.student.phonenumber = student.phonenumber;
     this.student.mail = student.mail;
     this.student.aboutMe = student.aboutMe;
     this.student.studiengang = student.studiengang;
     this.student.schwerpunkt = student.schwerpunkt;
-    this.student.semester = student.semester;
     this.student.status = student.status;
     this.student.doneModules = student.doneModules;
     this.student.doneJobs = student.doneJobs;
