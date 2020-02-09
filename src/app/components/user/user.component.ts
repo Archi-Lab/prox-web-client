@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { KeyCloakUser } from '../../keycloak/KeyCloakUser';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user',
@@ -10,7 +11,7 @@ export class UserComponent implements OnInit {
   username = '';
   isLoggedIn = false;
 
-  constructor(protected user: KeyCloakUser) {
+  constructor(protected user: KeyCloakUser, private router: Router) {
     user.onUserChanged.subscribe(() => {
       this.onUserChanged();
     });
@@ -35,5 +36,9 @@ export class UserComponent implements OnInit {
 
   async logout() {
     await this.user.logout();
+  }
+
+  goToProfile() {
+    this.router.navigateByUrl('/user-profile');
   }
 }
