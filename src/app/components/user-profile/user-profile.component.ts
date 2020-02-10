@@ -35,7 +35,7 @@ export class UserProfileComponent implements OnInit {
   isStudent: boolean;
   private jsonString: string;
   professorId: UUID;
-  private isID: boolean;
+  isID: boolean;
 
   constructor(
     private projectService: ProjectService,
