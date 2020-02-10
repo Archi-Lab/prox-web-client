@@ -148,13 +148,11 @@ export class UserProfileComponent implements OnInit {
   }
 
   getAllProjects() {
-    this.projectService
-      .getAll()
-      .subscribe(
-        projects => (this.projects = projects),
-        error => console.log(error),
-        () => this.fillStatus(this.projects)
-      );
+    this.projectService.getAll().subscribe(
+      projects => (this.projects = projects),
+      error => console.log(error),
+      () => this.fillStatus(this.projects)
+    );
   }
 
   statusFilter(status: string) {
@@ -164,9 +162,11 @@ export class UserProfileComponent implements OnInit {
   }
 
   supervisorNameFilter(supervisorName: string) {
-    this.projectService
-      .findBySupervisorName(supervisorName)
-      .subscribe(projects => (this.projects = projects));
+    this.projectService.findBySupervisorName(supervisorName).subscribe(
+      projects => (this.projects = projects),
+      error => console.log(error),
+      () => this.fillStatus(this.projects)
+    );
   }
 
   nameFilter(name: string) {
@@ -261,13 +261,11 @@ export class UserProfileComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.projectService
-          .delete(project)
-          .subscribe(
-            () => {},
-            error => console.log(error),
-            () => this.getAllProjects()
-          );
+        this.projectService.delete(project).subscribe(
+          () => {},
+          error => console.log(error),
+          () => this.getAllProjects()
+        );
       }
     });
   }
