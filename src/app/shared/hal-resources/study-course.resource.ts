@@ -1,5 +1,5 @@
 import { Module } from './module.resource';
-import { Observable } from 'angular4-hal/node_modules/rxjs';
+import { Observable } from 'rxjs';
 import { CustomResource } from './custom-resource';
 import { UUID } from 'angular2-uuid';
 

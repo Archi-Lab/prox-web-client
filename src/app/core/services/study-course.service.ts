@@ -1,7 +1,7 @@
 import { Injectable, Injector } from '@angular/core';
 import { RestService } from 'angular4-hal';
 import { StudyCourse } from '../../shared/hal-resources/study-course.resource';
-import { Observable } from 'angular4-hal/node_modules/rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
