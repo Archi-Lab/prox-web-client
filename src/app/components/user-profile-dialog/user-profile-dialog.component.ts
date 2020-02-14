@@ -108,19 +108,21 @@ export class ProfessorDialogComponent implements OnInit {
   }
 
   deleteProfile() {
-    this.professorService.delete(this.professor).subscribe(
-      deleteProf => {
-        this.professor = deleteProf;
-        console.log(deleteProf);
-        this.router.navigateByUrl('/');
-        alert(
-          'Ihr Profil wurde erfolgreich gelöscht. Sie werden nun zur Startseite weitergeleitet.'
-        );
-      },
-      error => {
-        console.log(error);
-      }
-    );
+    if (confirm('Möchten Sie ihr Profil wirklich löschen?')) {
+      this.professorService.delete(this.professor).subscribe(
+        deleteProf => {
+          this.professor = deleteProf;
+          console.log(deleteProf);
+          this.router.navigateByUrl('/');
+          alert(
+            'Ihr Profil wurde erfolgreich gelöscht. Sie werden nun zur Startseite weitergeleitet.'
+          );
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    }
     this.closeDialog();
   }
 }
