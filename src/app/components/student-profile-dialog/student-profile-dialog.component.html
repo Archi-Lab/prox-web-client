@@ -1,4 +1,4 @@
-<div class="project-dialog">
+<div class="profile-dialog">
   <h1 mat-dialog-title>Profildaten</h1>
   <form
     (ngSubmit)="onSubmit(profileFormControl.value)"
@@ -7,7 +7,7 @@
     class="row"
     novalidate
   >
-    <div class="project-dialog-form">
+    <div class="profile-dialog-form">
       <mat-form-field>
         <input
           [formControl]="profileFormControl.controls['name']"
