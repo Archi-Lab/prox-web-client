@@ -3,7 +3,7 @@
 #########################
 
 # base image
-FROM node:10.15.1 as builder
+FROM node:12.13.1 as builder
 
 # install chrome for protractor tests
 #RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
@@ -21,7 +21,7 @@ ENV PATH /usr/src/app/node_modules/.bin:$PATH
 COPY package.json /usr/src/app/package.json
 COPY package-lock.json /usr/src/app/package-lock.json
 RUN npm install
-RUN npm install -g @angular/cli@7.1.4 --unsafe
+RUN npm install -g @angular/cli@8.3.20 --unsafe
 
 # add app
 COPY . /usr/src/app
@@ -38,7 +38,7 @@ RUN ng build ${APP_ENV}
 ##################
 
 # base image
-FROM nginx:1.14.2-alpine
+FROM nginx:1.17.6-alpine
 
 # copy artifact build from the 'build environment'
 COPY --from=builder /usr/src/app/dist/prox-web-client /usr/share/nginx/html

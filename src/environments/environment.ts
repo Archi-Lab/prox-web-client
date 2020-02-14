@@ -13,5 +13,5 @@ const keycloakConfig: KeycloakConfig = {
 export const environment = {
   production: false,
   keycloak: keycloakConfig,
-  url: 'http://localhost:8081/'
+  url: 'http://127.0.0.1:8081/'
 };
