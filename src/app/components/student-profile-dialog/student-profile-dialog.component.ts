@@ -111,6 +111,11 @@ export class StudentProfileDialogComponent implements OnInit {
     this.student.doneModules = student.doneModules;
     this.student.doneJobs = student.doneJobs;
     this.student.tags = student.tags.toString().split(';');
+    if (student.tags.toString().trim().length == 0) {
+      this.student.tags = [];
+    } else {
+      this.student.tags = student.tags.toString().split(';');
+    }
     this.studentService.create(this.student).subscribe(
       updateStudent => {
         this.student = updateStudent;
