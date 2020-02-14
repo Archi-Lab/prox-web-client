@@ -124,19 +124,21 @@ export class StudentProfileDialogComponent implements OnInit {
   }
 
   deleteProfile() {
-    this.studentService.delete(this.student).subscribe(
-      deleteStudent => {
-        this.student = deleteStudent;
-        console.log(deleteStudent);
-        this.router.navigateByUrl('/');
-        alert(
-          'Ihr Profil wurde erfolgreich gelöscht. Sie werden nun zur Startseite weitergeleitet.'
-        );
-      },
-      error => {
-        console.log(error);
-      }
-    );
-    this.closeDialog();
+    if (confirm('Möchten Sie ihr Profil wirklich löschen?')) {
+      this.studentService.delete(this.student).subscribe(
+        deleteStudent => {
+          this.student = deleteStudent;
+          console.log(deleteStudent);
+          this.router.navigateByUrl('/');
+          alert(
+            'Ihr Profil wurde erfolgreich gelöscht. Sie werden nun zur Startseite weitergeleitet.'
+          );
+        },
+        error => {
+          console.log(error);
+        }
+      );
+      this.closeDialog();
+    }
   }
 }
