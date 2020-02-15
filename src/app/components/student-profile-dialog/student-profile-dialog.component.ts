@@ -10,6 +10,7 @@ import { StudentService } from '../../core/services/student.service';
 import { HalOptions } from 'angular4-hal';
 import { StudyCourseService } from '../../core/services/study-course.service';
 import { Router } from '@angular/router';
+import { ModuleService } from '../../core/services/module.service';
 
 @Component({
   selector: 'app-profile-dialog',
@@ -20,10 +21,12 @@ export class StudentProfileDialogComponent implements OnInit {
   profileFormControl: FormGroup;
   studyCourses: StudyCourse[] = [];
   hasSubmitted = false;
+  modules: Module[] = [];
 
   constructor(
     public StudentDialogRef: MatDialogRef<StudentProfileDialogComponent>,
     private studentService: StudentService,
+    private moduleService: ModuleService,
     private studyCourseService: StudyCourseService,
     private formBuilder: FormBuilder,
     private snack: MatSnackBar,
@@ -47,6 +50,7 @@ export class StudentProfileDialogComponent implements OnInit {
 
     this.fillInStudentValuesIfStudentExists();
     this.getAllStudyCourses();
+    this.getAllModules();
   }
 
   closeDialog() {
@@ -86,6 +90,16 @@ export class StudentProfileDialogComponent implements OnInit {
     this.studyCourseService.getAll(options).subscribe(
       (studyCourses: StudyCourse[]) => {
         this.studyCourses = studyCourses;
+      },
+      error => console.log(error)
+    );
+  }
+
+  getAllModules() {
+    const options: HalOptions = { sort: [{ path: 'modules', order: 'ASC' }] };
+    this.moduleService.getAll(options).subscribe(
+      (modules: Module[]) => {
+        this.modules = modules;
       },
       error => console.log(error)
     );

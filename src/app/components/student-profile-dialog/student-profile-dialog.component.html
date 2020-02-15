@@ -72,12 +72,15 @@
         ></textarea>
       </mat-form-field>
       <mat-form-field>
-        <textarea
+        <mat-select
           [formControl]="profileFormControl.controls['doneModules']"
-          class="form-textarea"
-          matInput
           placeholder="Abgeschlossene Module"
-        ></textarea>
+          multiple
+        >
+          <mat-option *ngFor="let modules of modules" value="{{ modules.name }}"
+            >{{ modules.name }}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
       <mat-form-field>
         <textarea
