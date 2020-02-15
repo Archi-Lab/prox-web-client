@@ -5,7 +5,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Module } from '../../shared/hal-resources/module.resource';
 import { StudyCourse } from '../../shared/hal-resources/study-course.resource';
 import { KeyCloakUser } from '../../keycloak/KeyCloakUser';
-import { ProjectStudyCourseService } from '../../core/services/project-study-course.service';
 import { Student } from '../../shared/hal-resources/student.resource';
 import { StudentService } from '../../core/services/student.service';
 import { HalOptions } from 'angular4-hal';
@@ -23,9 +22,8 @@ export class StudentProfileDialogComponent implements OnInit {
   hasSubmitted = false;
 
   constructor(
-    public projectDialogRef: MatDialogRef<StudentProfileDialogComponent>,
+    public StudentDialogRef: MatDialogRef<StudentProfileDialogComponent>,
     private studentService: StudentService,
-    private projectStudyCourseService: ProjectStudyCourseService,
     private studyCourseService: StudyCourseService,
     private formBuilder: FormBuilder,
     private snack: MatSnackBar,
@@ -47,15 +45,15 @@ export class StudentProfileDialogComponent implements OnInit {
       doneJobs: ['']
     });
 
-    this.fillInProjectValuesIfProjectExists();
+    this.fillInStudentValuesIfStudentExists();
     this.getAllStudyCourses();
   }
 
   closeDialog() {
-    this.projectDialogRef.close();
+    this.StudentDialogRef.close();
   }
 
-  fillInProjectValuesIfProjectExists() {
+  fillInStudentValuesIfStudentExists() {
     if (this.student) {
       this.profileFormControl.controls.name.setValue(this.student.name);
       this.profileFormControl.controls.aboutMe.setValue(this.student.aboutMe);
@@ -97,11 +95,11 @@ export class StudentProfileDialogComponent implements OnInit {
     this.hasSubmitted = true;
 
     if (this.student) {
-      this.updateProfil(student);
+      this.updateStudent(student);
     }
   }
 
-  private updateProfil(student: Student) {
+  private updateStudent(student: Student) {
     this.student.phonenumber = student.phonenumber;
     this.student.mail = student.mail;
     this.student.aboutMe = student.aboutMe;
@@ -128,7 +126,7 @@ export class StudentProfileDialogComponent implements OnInit {
     this.closeDialog();
   }
 
-  deleteProfile() {
+  deleteStudent() {
     if (confirm('Möchten Sie ihr Profil wirklich löschen?')) {
       this.studentService.delete(this.student).subscribe(
         deleteStudent => {

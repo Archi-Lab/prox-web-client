@@ -40,14 +40,14 @@ export class ProfessorDialogComponent implements OnInit {
       aboutMe: ['']
     });
 
-    this.fillInProjectValuesIfProjectExists();
+    this.fillInProfessorValuesIfProfessorExists();
   }
 
   closeDialog() {
     this.profileDialogRef.close();
   }
 
-  fillInProjectValuesIfProjectExists() {
+  fillInProfessorValuesIfProfessorExists() {
     if (this.professor) {
       this.profileFormControl.controls.name.setValue(this.professor.name);
       this.profileFormControl.controls.adresse.setValue(this.professor.adresse);
@@ -77,11 +77,11 @@ export class ProfessorDialogComponent implements OnInit {
     this.hasSubmitted = true;
 
     if (this.professor) {
-      this.updateProfil(profil);
+      this.updateProfessor(profil);
     }
   }
 
-  private updateProfil(professor1: Professor) {
+  private updateProfessor(professor1: Professor) {
     this.professor.adresse = professor1.adresse;
     this.professor.strasse = professor1.strasse;
     this.professor.title = professor1.title;
@@ -107,7 +107,7 @@ export class ProfessorDialogComponent implements OnInit {
     this.closeDialog();
   }
 
-  deleteProfile() {
+  deleteProfessor() {
     if (confirm('Möchten Sie ihr Profil wirklich löschen?')) {
       this.professorService.delete(this.professor).subscribe(
         deleteProf => {
