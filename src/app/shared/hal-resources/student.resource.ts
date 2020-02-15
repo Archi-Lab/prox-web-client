@@ -12,7 +12,7 @@ export class Student extends CustomResource {
   status: string;
   qualifikation: string;
   doneProjects: string;
-  doneModules: string;
+  doneModules: string[];
   doneJobs: string;
   keycloakId: UUID;
 }

@@ -37,6 +37,7 @@
         <mat-select
           [formControl]="profileFormControl.controls['studiengang']"
           placeholder="Studiengang"
+          (selectionChange)="setModules($event)"
         >
           <mat-option
             *ngFor="let studyCourse of studyCourses"

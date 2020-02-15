@@ -11,6 +11,7 @@ import { HalOptions } from 'angular4-hal';
 import { StudyCourseService } from '../../core/services/study-course.service';
 import { Router } from '@angular/router';
 import { ModuleService } from '../../core/services/module.service';
+import { MatSelectChange } from '@angular/material/select';
 
 @Component({
   selector: 'app-profile-dialog',
@@ -90,19 +91,33 @@ export class StudentProfileDialogComponent implements OnInit {
     this.studyCourseService.getAll(options).subscribe(
       (studyCourses: StudyCourse[]) => {
         this.studyCourses = studyCourses;
+        this.getAllModules();
       },
       error => console.log(error)
     );
   }
 
   getAllModules() {
-    const options: HalOptions = { sort: [{ path: 'modules', order: 'ASC' }] };
-    this.moduleService.getAll(options).subscribe(
-      (modules: Module[]) => {
-        this.modules = modules;
-      },
-      error => console.log(error)
-    );
+    if (this.student.studiengang && this.student.studiengang.length > 0) {
+      this.studyCourses.forEach(studyCourse => {
+        if (
+          studyCourse.name + ' (' + studyCourse.academicDegree + ')' ==
+          this.student.studiengang
+        ) {
+          studyCourse.getAndSetModuleArray().then(() => {
+            this.modules = studyCourse.modules;
+          });
+        }
+      });
+    } else {
+      const options: HalOptions = { sort: [{ path: 'modules', order: 'ASC' }] };
+      this.moduleService.getAll(options).subscribe(
+        (modules: Module[]) => {
+          this.modules = modules;
+        },
+        error => console.log(error)
+      );
+    }
   }
 
   onSubmit(student: Student) {
@@ -157,5 +172,18 @@ export class StudentProfileDialogComponent implements OnInit {
       );
       this.closeDialog();
     }
+  }
+
+  setModules($event: MatSelectChange) {
+    this.studyCourses.forEach(studyCourse => {
+      if (
+        studyCourse.name + ' (' + studyCourse.academicDegree + ')' ==
+        $event.value
+      ) {
+        studyCourse.getAndSetModuleArray().then(() => {
+          this.modules = studyCourse.modules;
+        });
+      }
+    });
   }
 }
