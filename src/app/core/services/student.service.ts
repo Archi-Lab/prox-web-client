@@ -18,4 +18,11 @@ export class StudentService extends RestService<Student> {
     };
     return this.search('findByKeycloakId', options);
   }
+
+  findByName(name: string): Observable<Student[]> {
+    const options: any = {
+      params: [{ key: 'name', value: name }]
+    };
+    return this.search('findByNameNameContains', options);
+  }
 }
