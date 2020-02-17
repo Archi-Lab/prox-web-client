@@ -33,7 +33,6 @@ export class UserProfileComponent implements OnInit {
   student: Student = new Student();
   isDozent: boolean;
   isStudent: boolean;
-  private jsonString: string;
   professorId: UUID;
   isID: boolean;
 
@@ -78,12 +77,10 @@ export class UserProfileComponent implements OnInit {
   }
   private fillProfessor(professor: Professor) {
     this.professor = professor;
-    this.showSubmitInfo('Professor wurde Geladen');
   }
 
   private fillStudent(student1: Student) {
     this.student = student1;
-    this.showSubmitInfo('Student wurde Geladen');
   }
   private createFirstProfessor(create: Boolean, id: string, name: string) {
     this.professor = new Professor();
@@ -95,7 +92,6 @@ export class UserProfileComponent implements OnInit {
         newProfessor => {
           if (newProfessor instanceof Professor) {
             this.professor = newProfessor;
-            this.showSubmitInfo('Professor wurde erfolgreich erstellt');
             if (
               confirm(
                 'Sie sind zum ersten mal auf Ihrem Profil. Möchten Sie Daten über sich eintragen?'
@@ -110,8 +106,6 @@ export class UserProfileComponent implements OnInit {
           this.professor = new Professor();
         }
       );
-    } else {
-      this.showSubmitInfo('Professor wurde aus dem cach geladen');
     }
   }
 
@@ -124,7 +118,6 @@ export class UserProfileComponent implements OnInit {
         newStudent => {
           if (newStudent instanceof Student) {
             this.student = newStudent;
-            this.showSubmitInfo('Student wurde erfolgreich erstellt');
             if (
               confirm(
                 'Sie sind zum ersten mal auf Ihrem Profil. Möchten Sie Daten über sich eintragen?'
@@ -138,8 +131,6 @@ export class UserProfileComponent implements OnInit {
           this.showSubmitInfo('Fehler beim Bearbeitener Anfrage');
         }
       );
-    } else {
-      this.showSubmitInfo('Student wurde aus dem cach geladen');
     }
   }
   ngOnInit() {
@@ -224,10 +215,6 @@ export class UserProfileComponent implements OnInit {
       maxHeight: '85vh',
       data: project
     });
-
-    dialog.afterClosed().subscribe(() => {
-      this.supervisorNameFilter('Dozent');
-    });
   }
 
   openProfileStudentDialog(student: Student) {
@@ -236,10 +223,6 @@ export class UserProfileComponent implements OnInit {
       maxHeight: '85vh',
       data: student
     });
-
-    dialog.afterClosed().subscribe(() => {
-      this.supervisorNameFilter('Dozent');
-    });
   }
 
   openProfileDialog(professor: Professor) {
@@ -247,10 +230,6 @@ export class UserProfileComponent implements OnInit {
       autoFocus: false,
       maxHeight: '85vh',
       data: professor
-    });
-
-    dialog.afterClosed().subscribe(() => {
-      this.supervisorNameFilter('Dozent');
     });
   }
 

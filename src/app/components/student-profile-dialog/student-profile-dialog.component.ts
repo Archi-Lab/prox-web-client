@@ -146,9 +146,11 @@ export class StudentProfileDialogComponent implements OnInit {
     this.studentService.create(this.student).subscribe(
       updateStudent => {
         this.student = updateStudent;
+        this.showSubmitInfo('Die Daten wurden aktualisiert');
         console.log(updateStudent);
       },
       error => {
+        this.showSubmitInfo('Fehler bei der Aktualisierung');
         console.log(error);
       }
     );
@@ -167,13 +169,13 @@ export class StudentProfileDialogComponent implements OnInit {
           );
         },
         error => {
+          this.showSubmitInfo('Fehler beim Löschen Ihres Profils');
           console.log(error);
         }
       );
       this.closeDialog();
     }
   }
-
   setModules($event: MatSelectChange) {
     this.studyCourses.forEach(studyCourse => {
       if (
@@ -184,6 +186,12 @@ export class StudentProfileDialogComponent implements OnInit {
           this.modules = studyCourse.modules;
         });
       }
+    });
+  }
+
+  private showSubmitInfo(message: string) {
+    this.snack.open(message, null, {
+      duration: 2000
     });
   }
 }

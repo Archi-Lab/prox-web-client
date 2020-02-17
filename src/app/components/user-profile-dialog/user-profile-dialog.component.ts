@@ -6,6 +6,7 @@ import { KeyCloakUser } from '../../keycloak/KeyCloakUser';
 import { Professor } from '../../shared/hal-resources/professor.resource';
 import { ProfessorService } from '../../core/services/professor.service';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-profile-dialog',
@@ -23,6 +24,7 @@ export class ProfessorDialogComponent implements OnInit {
     private formBuilder: FormBuilder,
     private user: KeyCloakUser,
     private router: Router,
+    private snack: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public professor: any
   ) {}
 
@@ -98,9 +100,11 @@ export class ProfessorDialogComponent implements OnInit {
     this.professorService.create(this.professor).subscribe(
       updateProf => {
         this.professor = updateProf;
+        this.showSubmitInfo('Die Daten wurden aktualisiert');
         console.log(updateProf);
       },
       error => {
+        this.showSubmitInfo('Fehler bei der Aktualisierung');
         console.log(error);
       }
     );
@@ -119,10 +123,17 @@ export class ProfessorDialogComponent implements OnInit {
           );
         },
         error => {
+          this.showSubmitInfo('Fehler beim Löschen Ihres Profils');
           console.log(error);
         }
       );
     }
     this.closeDialog();
+  }
+
+  private showSubmitInfo(message: string) {
+    this.snack.open(message, null, {
+      duration: 2000
+    });
   }
 }
