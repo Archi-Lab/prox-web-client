@@ -22,6 +22,6 @@ export class ProfessorService extends RestService<Professor> {
     const options: any = {
       params: [{ key: 'name', value: name }]
     };
-    return this.search('findByNameNameContains', options);
+    return this.search('findByNameNameContainsIgnoreCase', options);
   }
 }
