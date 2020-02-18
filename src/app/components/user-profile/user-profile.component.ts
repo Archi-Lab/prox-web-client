@@ -98,13 +98,19 @@ export class UserProfileComponent implements OnInit {
         newProfessor => {
           if (newProfessor instanceof Professor) {
             this.professor = newProfessor;
-            if (
-              confirm(
-                'Sie sind zum ersten mal auf Ihrem Profil. Möchten Sie Daten über sich eintragen?'
-              )
-            ) {
-              this.openProfileDialog(this.professor);
-            }
+            const dialogRef = this.dialog.open(MatConfirmDialogComponent, {
+              data: {
+                title: 'Willkommen',
+                message:
+                  'Sie sind zum ersten mal auf Ihrem Profil. Möchten Sie Daten über sich eintragen?'
+              }
+            });
+
+            dialogRef.afterClosed().subscribe(result => {
+              if (result) {
+                this.openProfileDialog(this.professor);
+              }
+            });
           }
         },
         error => {
@@ -125,13 +131,19 @@ export class UserProfileComponent implements OnInit {
         newStudent => {
           if (newStudent instanceof Student) {
             this.student = newStudent;
-            if (
-              confirm(
-                'Sie sind zum ersten mal auf Ihrem Profil. Möchten Sie Daten über sich eintragen?'
-              )
-            ) {
-              this.openProfileStudentDialog(this.student);
-            }
+            const dialogRef = this.dialog.open(MatConfirmDialogComponent, {
+              data: {
+                title: 'Willkommen',
+                message:
+                  'Sie sind zum ersten mal auf Ihrem Profil. Möchten Sie Daten über sich eintragen?'
+              }
+            });
+
+            dialogRef.afterClosed().subscribe(result => {
+              if (result) {
+                this.openProfileStudentDialog(this.student);
+              }
+            });
           }
         },
         error => {
