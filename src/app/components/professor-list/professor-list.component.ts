@@ -17,6 +17,7 @@ import { Professor } from '../../shared/hal-resources/professor.resource';
 })
 export class ProfessorListComponent implements OnInit {
   professors: Professor[] = [];
+  private filteredProjects: Professor[];
 
   constructor(private professorService: ProfessorService) {}
 
@@ -25,18 +26,17 @@ export class ProfessorListComponent implements OnInit {
   }
 
   getAllProfessors() {
-    this.professorService
-      .getAll()
-      .subscribe(
-        professos => (this.professors = professos),
-        error => console.log(error)
-      );
+    this.professorService.getAll().subscribe(
+      professos => (this.professors = professos),
+      error => console.log(error)
+    );
   }
 
   nameFilter(name: string) {
-    this.professorService
-      .findByName(name)
-      .subscribe(professors => (this.professors = professors));
+    this.professorService.getAll().subscribe(
+      professors => this.filterProfessors(professors, name),
+      error => console.log(error)
+    );
   }
 
   filterProfessorsByName(event: any) {
@@ -46,5 +46,15 @@ export class ProfessorListComponent implements OnInit {
     } else {
       this.getAllProfessors();
     }
+  }
+
+  private filterProfessors(professors: Professor[], name?: string) {
+    for (const professor of professors as Professor[]) {
+      if (professor.name.toLowerCase().includes(name.toLowerCase())) {
+        this.filteredProjects.push(professor);
+      }
+    }
+    this.professors = this.filteredProjects;
+    this.filteredProjects = [];
   }
 }
