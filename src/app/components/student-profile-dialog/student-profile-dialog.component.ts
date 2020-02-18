@@ -40,8 +40,7 @@ export class StudentProfileDialogComponent implements OnInit {
     this.profileFormControl = this.formBuilder.group({
       name: [{ value: '', disabled: true }],
       phonenumber: [''],
-      mail: [''],
-      tags: [''],
+      mail: [{ value: '', disabled: true }],
       aboutMe: [''],
       studiengang: [''],
       status: [''],
@@ -65,14 +64,6 @@ export class StudentProfileDialogComponent implements OnInit {
       this.profileFormControl.controls.phonenumber.setValue(
         this.student.phonenumber
       );
-      var tagsString: String = '';
-
-      if (this.student.tags) {
-        this.student.tags.forEach(function(value) {
-          tagsString += value + ';';
-        });
-        tagsString = tagsString.substr(0, tagsString.length - 1);
-      }
       this.profileFormControl.controls.mail.setValue(this.student.mail);
       this.profileFormControl.controls.doneModules.setValue(
         this.student.doneModules
@@ -82,7 +73,6 @@ export class StudentProfileDialogComponent implements OnInit {
       this.profileFormControl.controls.studiengang.setValue(
         this.student.studiengang
       );
-      this.profileFormControl.controls.tags.setValue(tagsString);
     }
   }
 
@@ -130,19 +120,12 @@ export class StudentProfileDialogComponent implements OnInit {
 
   private updateStudent(student: Student) {
     this.student.phonenumber = student.phonenumber;
-    this.student.mail = student.mail;
     this.student.aboutMe = student.aboutMe;
     this.student.studiengang = student.studiengang;
     this.student.schwerpunkt = student.schwerpunkt;
     this.student.status = student.status;
     this.student.doneModules = student.doneModules;
     this.student.doneJobs = student.doneJobs;
-    this.student.tags = student.tags.toString().split(';');
-    if (student.tags.toString().trim().length == 0) {
-      this.student.tags = [];
-    } else {
-      this.student.tags = student.tags.toString().split(';');
-    }
     this.studentService.create(this.student).subscribe(
       updateStudent => {
         this.student = updateStudent;

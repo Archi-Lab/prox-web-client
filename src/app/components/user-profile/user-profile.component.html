@@ -1,4 +1,4 @@
-<div class="dozentLayout" *ngIf="isDozent || isID">
+<div class="dozentLayout" *ngIf="isDozent || isProfessorID">
   <div class="mainDiv">
     <div class="aboutMeDiv">
       <h1>Über mich</h1>
@@ -100,14 +100,6 @@
     <div>
       <img src="assets/images/profile/placeholder.jpg" />
     </div>
-    <div class="TAGs">
-      <p class="tags" *ngIf="professor">
-        <span class="tags-title">Tags:</span>
-        <a *ngFor="let tag of professor.tags" rel="tag" class="label">{{
-          tag
-        }}</a>
-      </p>
-    </div>
     <div class="contactinfo" *ngIf="professor">
       <p>Kontaktinfo:</p>
       <p>{{ professor.adresse }}</p>
@@ -120,7 +112,7 @@
     </div>
   </div>
 </div>
-<div class="studentLayout" *ngIf="isStudent && !isID">
+<div class="studentLayout" *ngIf="isStudent || isStudentID">
   <div class="mainDiv">
     <div class="headStudent">
       <p>Studiengang: {{ student.studiengang }}</p>
@@ -175,14 +167,6 @@
     </div>
     <div>
       <img src="assets/images/profile/placeholder.jpg" />
-    </div>
-    <div class="TAGs">
-      <p class="tags">
-        <span class="tags-title">Tags:</span>
-        <a *ngFor="let tag of student.tags" rel="tag" class="label">{{
-          tag
-        }}</a>
-      </p>
     </div>
     <div class="contactinfo">
       <p>Kontaktinfo:</p>

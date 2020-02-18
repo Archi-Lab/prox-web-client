@@ -61,6 +61,7 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
 import { ProfessorDialogComponent } from './components/user-profile-dialog/user-profile-dialog.component';
 import { StudentProfileDialogComponent } from './components/student-profile-dialog/student-profile-dialog.component';
 import { ProfessorListComponent } from './components/professor-list/professor-list.component';
+import { StudentListComponent } from './components/student-list/student-list.component';
 
 @NgModule({
   declarations: [
@@ -76,6 +77,7 @@ import { ProfessorListComponent } from './components/professor-list/professor-li
     ProfessorDialogComponent,
     ProfessorListComponent,
     StudentProfileDialogComponent,
+    StudentListComponent,
     UserComponent,
     MatConfirmDialogComponent,
     ContactComponent,

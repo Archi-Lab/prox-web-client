@@ -12,6 +12,7 @@ import { DataProtectionComponent } from './components/legal-issues/data-protecti
 import { LiabilityNoticeComponent } from './components/legal-issues/liability-notice/liability-notice.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { ProfessorListComponent } from './components/professor-list/professor-list.component';
+import { StudentListComponent } from './components/student-list/student-list.component';
 
 const routes: Routes = [
   {
@@ -52,6 +53,14 @@ const routes: Routes = [
   },
   {
     path: 'user-profile',
+    component: UserProfileComponent
+  },
+  {
+    path: 'students',
+    component: StudentListComponent
+  },
+  {
+    path: 'students/:id',
     component: UserProfileComponent
   },
   {
