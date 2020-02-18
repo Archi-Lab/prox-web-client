@@ -78,7 +78,7 @@ export class ProfessorDialogComponent implements OnInit {
     this.professor.title = professor1.title;
     this.professor.plz = professor1.plz;
     this.professor.raum = professor1.raum;
-    this.professor.phoneNumber = professor1.phonenumber;
+    this.professor.phonenumber = professor1.phonenumber;
     this.professor.aboutMe = professor1.aboutMe;
     this.professorService.create(this.professor).subscribe(
       updateProf => {
