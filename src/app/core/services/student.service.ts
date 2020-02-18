@@ -25,4 +25,9 @@ export class StudentService extends RestService<Student> {
     };
     return this.search('findByNameNameContains', options);
   }
+
+  findByStatus(status: string): Observable<Student[]> {
+    const options: any = { params: [{ key: 'status', value: status }] };
+    return this.search('findByStatus', options);
+  }
 }

@@ -17,7 +17,7 @@ import { Professor } from '../../shared/hal-resources/professor.resource';
 })
 export class ProfessorListComponent implements OnInit {
   professors: Professor[] = [];
-  private filteredProjects: Professor[];
+  private filteredProjects: Professor[] = [];
 
   constructor(private professorService: ProfessorService) {}
 

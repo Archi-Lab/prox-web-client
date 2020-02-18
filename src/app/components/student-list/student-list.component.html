@@ -9,6 +9,17 @@
           placeholder="Suche"
         />
       </mat-form-field>
+      <mat-form-field>
+        <mat-select
+          (selectionChange)="filterStudentsByStatus($event)"
+          placeholder="Status"
+        >
+          <mat-option>Alle</mat-option>
+          <mat-option *ngFor="let status of allStatus" [value]="status">{{
+            status.charAt(0).toUpperCase() + status.slice(1).toLowerCase()
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
   </div>
   <mat-card *ngFor="let student of students">
