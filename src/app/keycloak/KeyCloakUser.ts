@@ -9,6 +9,7 @@ export class KeyCloakUser {
   private loggedIn = false;
   private username = '';
   private fullname = '';
+  private email = '';
   private roles: string[] = [];
 
   constructor(protected keycloakAngular: KeycloakService) {
@@ -29,6 +30,7 @@ export class KeyCloakUser {
           this.id = userInfo['sub'];
           this.username = userInfo['preferred_username'];
           this.fullname = userInfo['name'];
+          this.email = userInfo['email'];
 
           this.onUserChanged.emit();
         })
@@ -60,6 +62,10 @@ export class KeyCloakUser {
 
   public getFullName(): string {
     return this.fullname;
+  }
+
+  public getEmail(): string {
+    return this.email;
   }
 
   public getID(): string {
