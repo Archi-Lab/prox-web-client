@@ -8,9 +8,8 @@ export class Professor extends CustomResource {
   strasse: string;
   plz: string;
   raum: string;
-  phonenumber: number;
+  phonenumber: string;
   mail: string;
-  tags: string[];
   title: string;
   sprechzeiten: string;
   bildSrc: string;

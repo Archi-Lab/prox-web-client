@@ -34,7 +34,9 @@ export class UserProfileComponent implements OnInit {
   isDozent: boolean;
   isStudent: boolean;
   professorId: UUID;
-  isID: boolean;
+  studentId: UUID;
+  isProfessorID: boolean;
+  isStudentID: boolean;
 
   constructor(
     private projectService: ProjectService,
@@ -58,6 +60,8 @@ export class UserProfileComponent implements OnInit {
           );
         }
         if (this.isDozent) {
+          this.selectedSupervisorName = this.user.getFullName();
+          this.supervisorNameFilter(this.user.getFullName());
           this.loadProfessor(
             this.user.getID(),
             this.user.getFullName(),
@@ -71,6 +75,7 @@ export class UserProfileComponent implements OnInit {
     this.route.params.subscribe(
       params => {
         this.professorId = params.id;
+        this.studentId = params.id;
       },
       error => console.log(error)
     );
@@ -87,6 +92,7 @@ export class UserProfileComponent implements OnInit {
     this.professor.keycloakId = id;
     this.professor.name = name;
     this.professor.title = ' ';
+    this.professor.mail = this.user.getEmail();
     if (create) {
       this.professorService.create(this.professor).subscribe(
         newProfessor => {
@@ -113,6 +119,7 @@ export class UserProfileComponent implements OnInit {
     this.student = new Student();
     this.student.name = name;
     this.student.keycloakId = id;
+    this.student.mail = this.user.getEmail();
     if (create) {
       this.studentService.create(this.student).subscribe(
         newStudent => {
@@ -133,10 +140,7 @@ export class UserProfileComponent implements OnInit {
       );
     }
   }
-  ngOnInit() {
-    this.selectedSupervisorName = this.user.getFullName();
-    this.supervisorNameFilter(this.user.getFullName());
-  }
+  ngOnInit() {}
 
   getAllProjects() {
     this.projectService.getAll().subscribe(
@@ -242,8 +246,7 @@ export class UserProfileComponent implements OnInit {
       if (result) {
         this.projectService.delete(project).subscribe(
           () => {},
-          error => console.log(error),
-          () => this.getAllProjects()
+          error => console.log(error)
         );
       }
     });
@@ -302,17 +305,31 @@ export class UserProfileComponent implements OnInit {
     this.professorService.get(uuid).subscribe(
       prof => {
         this.professor = prof;
-        this.isID = true;
+        this.isProfessorID = true;
         this.selectedSupervisorName = prof.name;
         this.supervisorNameFilter(prof.name);
       },
-      error => {}
+      error => {
+        //zu der id wurde kein Professor gefunden. Somit ist es vllt. ein Student.
+        this.loadStudentByID(this.studentId);
+      }
+    );
+  }
+  private loadStudentByID(uuid: UUID) {
+    this.studentService.get(uuid).subscribe(
+      student => {
+        this.student = student;
+        this.isStudentID = true;
+      },
+      error => {
+        console.log(error);
+      }
     );
   }
 
   private loadStudent(uuid: string, name: string, student: Student) {
     if (this.user.getID()) {
-      this.studentService.findByKeycloakId(uuid).subscribe(
+      this.studentService.getAll().subscribe(
         stud => {
           if (stud.length > 0) {
             stud.forEach(function(value) {

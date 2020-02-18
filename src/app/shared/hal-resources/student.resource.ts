@@ -2,10 +2,10 @@ import { CustomResource } from './custom-resource';
 import { UUID } from 'angular2-uuid';
 
 export class Student extends CustomResource {
+  id: UUID;
   name: string;
   phonenumber: number;
   mail: string;
-  tags: string[];
   aboutMe: string;
   studiengang: string;
   schwerpunkt: string;

@@ -37,8 +37,7 @@ export class ProfessorDialogComponent implements OnInit {
       plz: [''],
       raum: [''],
       phonenumber: [''],
-      mail: [''],
-      tags: [''],
+      mail: [{ value: '', disabled: true }],
       aboutMe: ['']
     });
 
@@ -61,17 +60,7 @@ export class ProfessorDialogComponent implements OnInit {
       this.profileFormControl.controls.phonenumber.setValue(
         this.professor.phonenumber
       );
-      var tagsString: String = '';
-      if (this.professor.tags) {
-        this.professor.tags.forEach(function(value) {
-          tagsString += value + ';';
-        });
-        tagsString = tagsString.substr(0, tagsString.length - 1);
-      }
       this.profileFormControl.controls.mail.setValue(this.professor.mail);
-      this.profileFormControl.controls.tags.setValue(tagsString);
-    } else {
-      this.profileFormControl.controls.name.setValue('test');
     }
   }
 
@@ -90,13 +79,7 @@ export class ProfessorDialogComponent implements OnInit {
     this.professor.plz = professor1.plz;
     this.professor.raum = professor1.raum;
     this.professor.phoneNumber = professor1.phonenumber;
-    this.professor.mail = professor1.mail;
     this.professor.aboutMe = professor1.aboutMe;
-    if (professor1.tags.toString().trim().length == 0) {
-      this.professor.tags = [];
-    } else {
-      this.professor.tags = professor1.tags.toString().split(';');
-    }
     this.professorService.create(this.professor).subscribe(
       updateProf => {
         this.professor = updateProf;

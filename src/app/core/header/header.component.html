@@ -63,7 +63,18 @@
             Professoren
           </button>
         </mat-list-item>
-
+        <mat-list-item>
+          <button
+            (click)="sidenav.toggle()"
+            class="sidebar-button"
+            mat-button
+            routerLink="students"
+            routerLinkActive="nav-activated"
+          >
+            <mat-icon class="sidebar-icon">face</mat-icon>
+            Studenten
+          </button>
+        </mat-list-item>
         <mat-list-item>
           <button
             (click)="sidenav.toggle()"
