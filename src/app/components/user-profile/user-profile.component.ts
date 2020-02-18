@@ -255,7 +255,8 @@ export class UserProfileComponent implements OnInit {
       if (result) {
         this.projectService.delete(project).subscribe(
           () => {},
-          error => console.log(error)
+          error => console.log(error),
+          () => this.supervisorNameFilter(this.selectedSupervisorName)
         );
       }
     });
