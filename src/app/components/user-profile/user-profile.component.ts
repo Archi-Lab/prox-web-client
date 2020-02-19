@@ -15,6 +15,8 @@ import { ProfessorService } from '../../core/services/professor.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { StudentService } from '../../core/services/student.service';
 import { UUID } from 'angular2-uuid';
+import { Module } from '../../shared/hal-resources/module.resource';
+import { error } from 'util';
 
 @Component({
   selector: 'app-user-profile',
@@ -37,6 +39,8 @@ export class UserProfileComponent implements OnInit {
   studentId: UUID;
   isProfessorID: boolean;
   isStudentID: boolean;
+  selectedModules: Module[] = [];
+  modulesAsString: string = '';
 
   constructor(
     private projectService: ProjectService,
@@ -56,7 +60,8 @@ export class UserProfileComponent implements OnInit {
           this.loadStudent(
             this.user.getID(),
             this.user.getFullName(),
-            this.student
+            this.student,
+            this.selectedModules
           );
         }
         if (this.isDozent) {
@@ -328,15 +333,24 @@ export class UserProfileComponent implements OnInit {
       },
       error => {
         //zu der id wurde kein Professor gefunden. Somit ist es vllt. ein Student.
-        this.loadStudentByID(this.studentId);
+        this.loadStudentByID(this.studentId, this.modulesAsString);
       }
     );
   }
-  private loadStudentByID(uuid: UUID) {
+  private loadStudentByID(uuid: UUID, string: String) {
     this.studentService.get(uuid).subscribe(
       student => {
         this.student = student;
+        //this.selectedModules = this.student.getModules();
         this.isStudentID = true;
+        this.student.getModules().subscribe(
+          modules => {
+            this.selectedModules = modules;
+          },
+          error => {
+            console.log(error);
+          }
+        );
       },
       error => {
         console.log(error);
@@ -344,14 +358,28 @@ export class UserProfileComponent implements OnInit {
     );
   }
 
-  private loadStudent(uuid: string, name: string, student: Student) {
+  private loadStudent(
+    uuid: string,
+    name: string,
+    student: Student,
+    selectedModules: Module[]
+  ) {
     if (this.user.getID()) {
-      this.studentService.getAll().subscribe(
+      this.studentService.findByKeycloakId(uuid).subscribe(
         stud => {
           if (stud.length > 0) {
             stud.forEach(function(value) {
               if (value.keycloakId == uuid) {
                 student = value;
+                student.getModules().subscribe(
+                  modules => {
+                    selectedModules = modules;
+                    console.log(selectedModules);
+                  },
+                  error => {
+                    console.log(error);
+                  }
+                );
               }
             });
             if (!student) {
@@ -368,5 +396,9 @@ export class UserProfileComponent implements OnInit {
         }
       );
     }
+  }
+
+  public fillSelectedModules(modules: Module[]) {
+    this.selectedModules = modules;
   }
 }

@@ -1,5 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogRef
+} from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { StudyCourse } from '../../shared/hal-resources/study-course.resource';
 import { KeyCloakUser } from '../../keycloak/KeyCloakUser';
@@ -7,6 +11,7 @@ import { Professor } from '../../shared/hal-resources/professor.resource';
 import { ProfessorService } from '../../core/services/professor.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatConfirmDialogComponent } from '../../shared/mat-confirm-dialog/mat-confirm-dialog.component';
 
 @Component({
   selector: 'app-profile-dialog',
@@ -25,6 +30,7 @@ export class ProfessorDialogComponent implements OnInit {
     private user: KeyCloakUser,
     private router: Router,
     private snack: MatSnackBar,
+    public dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public professor: any
   ) {}
 
@@ -95,23 +101,35 @@ export class ProfessorDialogComponent implements OnInit {
   }
 
   deleteProfessor() {
-    if (confirm('Möchten Sie ihr Profil wirklich löschen?')) {
-      this.professorService.delete(this.professor).subscribe(
-        deleteProf => {
-          this.professor = deleteProf;
-          console.log(deleteProf);
-          this.router.navigateByUrl('/');
-          alert(
-            'Ihr Profil wurde erfolgreich gelöscht. Sie werden nun zur Startseite weitergeleitet.'
-          );
-        },
-        error => {
-          this.showSubmitInfo('Fehler beim Löschen Ihres Profils');
-          console.log(error);
-        }
-      );
-    }
-    this.closeDialog();
+    const dialogRef = this.dialog.open(MatConfirmDialogComponent, {
+      data: {
+        title: 'Profil Löschen',
+        message: 'Möchten Sie ihr Profil wirklich löschen?'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.professorService.delete(this.professor).subscribe(
+          deleteProf => {
+            this.professor = deleteProf;
+            console.log(deleteProf);
+            this.router.navigateByUrl('/');
+            alert(
+              'Ihr Profil wurde erfolgreich gelöscht. Sie werden nun zur Startseite weitergeleitet.'
+            );
+            this.closeDialog();
+          },
+          error => {
+            this.showSubmitInfo('Fehler beim Löschen Ihres Profils');
+            console.log(error);
+            this.closeDialog();
+          }
+        );
+      } else {
+        this.fillInProfessorValuesIfProfessorExists();
+      }
+    });
   }
 
   private showSubmitInfo(message: string) {

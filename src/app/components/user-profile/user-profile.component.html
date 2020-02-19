@@ -124,12 +124,15 @@
     </div>
     <div class="qualityDiv">
       <h1>Qualifikation</h1>
-      <p class="paddingStyle">
+      <div class="paddingStyle">
         Hier finden Sie eine Liste meiner Qualifikationen:
-      </p>
-      <p class="paddingStyle">
-        Abgeschlossene Module: {{ student.doneModules }}
-      </p>
+      </div>
+      <div class="paddingStyle">
+        Abgeschlossene Module:<br /><br />
+        <p class="module" *ngFor="let module of selectedModules">
+          {{ module.name }},
+        </p>
+      </div>
       <p class="paddingStyle">Berufserfahrung: {{ student.doneJobs }}</p>
     </div>
     <div class="doneProjectsDiv">
