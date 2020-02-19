@@ -128,6 +128,8 @@ export class UserProfileComponent implements OnInit {
     this.student.name = name;
     this.student.keycloakId = id;
     this.student.mail = this.user.getEmail();
+    this.student.bildSrc =
+      'https://cdn.pixabay.com/photo/2017/06/22/02/16/computer-icon-2429310_960_720.png';
     if (create) {
       this.studentService.create(this.student).subscribe(
         newStudent => {
