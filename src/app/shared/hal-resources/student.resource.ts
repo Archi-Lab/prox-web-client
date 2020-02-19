@@ -15,4 +15,5 @@ export class Student extends CustomResource {
   doneModules: string[];
   doneJobs: string;
   keycloakId: UUID;
+  bildSrc: string;
 }

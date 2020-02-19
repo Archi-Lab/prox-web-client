@@ -93,6 +93,8 @@ export class UserProfileComponent implements OnInit {
     this.professor.name = name;
     this.professor.title = ' ';
     this.professor.mail = this.user.getEmail();
+    this.professor.bildSrc =
+      'https://cdn.pixabay.com/photo/2017/06/22/02/16/computer-icon-2429310_960_720.png';
     if (create) {
       this.professorService.create(this.professor).subscribe(
         newProfessor => {

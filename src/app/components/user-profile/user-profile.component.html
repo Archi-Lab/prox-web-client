@@ -98,11 +98,7 @@
       <p *ngIf="professor">{{ professor.title }} {{ professor.name }}</p>
     </div>
     <div>
-      <img
-        src="https://cdn.pixabay.com/photo/2017/06/22/02/16/computer-icon-2429310_960_720.png"
-        width="225"
-        height="225"
-      />
+      <img src="{{ professor.bildSrc }}" class="profilepic" />
     </div>
     <div class="contactinfo" *ngIf="professor">
       <p>Kontaktinfo:</p>
@@ -170,11 +166,7 @@
       <p>{{ student.name }}</p>
     </div>
     <div>
-      <img
-        src="https://cdn.pixabay.com/photo/2017/06/22/02/16/computer-icon-2429310_960_720.png"
-        width="225"
-        height="225"
-      />
+      <img src="{{ student.bildSrc }}" class="profilepic" />
     </div>
     <div class="contactinfo">
       <p>Kontaktinfo:</p>
